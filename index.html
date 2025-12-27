@@ -1,80 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MarioFit Pro</title>
+    <title>MarioFit Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-:root { --primary: #3b82f6; --bg: #0f172a; }
-    body { background-color: var(--bg); color: #f1f5f9; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-    
-    .card { background: #1e293b; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    
-    .day-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-    .day-btn.active { background-color: var(--primary); color: white; transform: scale(1.05); box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3); }
-
-    .exercise-done { border-color: #10b981 !important; background: rgba(16, 185, 129, 0.05) !important; opacity: 0.7; }
-    .exercise-done h3 { text-decoration: line-through; color: #10b981; }
-
-    input[type="number"] { background: #0f172a; border: 1px solid #334155; border-radius: 12px; color: white; text-align: center; height: 44px; font-weight: 600; font-size: 14px; }
-    input[type="number"]:focus { border-color: var(--primary); outline: none; background: #1e293b; }
-
-    #modalProgreso.active { display: flex; animation: slideUp 0.3s ease-out; }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-</style>
+    <link href="estilos.css" rel="stylesheet">
 </head>
+
 <body class="pb-20">
 
-<header class="p-5 flex justify-between items-center sticky top-0 z-40 bg-[#0f172a]/95 backdrop-blur shadow-xl">
-        <div>
-            <h1 class="text-2xl font-black text-white tracking-tighter">MARIO<span class="text-blue-500">FIT</span></h1>
-            <p id="sub-meta" class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Cargando meta...</p>
+    <div id="loading-screen"
+        class="fixed inset-0 z-[100] bg-[#0f172a] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative">
+            <div class="w-20 h-20 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-bolt text-blue-500 text-xl animate-pulse"></i>
+            </div>
         </div>
-        <button onclick="abrirModal()" class="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-2xl border border-blue-500/30 flex items-center justify-center transition-transform active:scale-90">
-            <i class="fas fa-chart-line text-xl"></i>
+        <h1 class="mt-6 text-2xl font-black text-white italic tracking-tighter">MARIO<span
+                class="text-blue-500">FIT</span></h1>
+        <div class="mt-2 flex items-center gap-2">
+            <span class="inline-block w-1 h-1 bg-blue-500 rounded-full animate-bounce"></span>
+            <span class="inline-block w-1 h-1 bg-blue-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span class="inline-block w-1 h-1 bg-blue-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+        </div>
+        <p class="mt-4 text-[10px] text-gray-500 uppercase font-bold tracking-[0.3em]">Sincronizando datos...</p>
+    </div>
+
+    <header
+        class="p-5 flex justify-between items-center sticky top-0 z-40 bg-[#0f172a]/95 backdrop-blur shadow-lg border-b border-white/5">
+        <div>
+            <h1 class="text-2xl font-black text-white tracking-tighter italic">MARIO<span
+                    class="text-blue-500 underline">FIT</span></h1>
+            <p id="sub-meta" class="text-[10px] text-gray-500 uppercase font-bold tracking-widest"></p>
+        </div>
+        <button onclick="abrirModal()"
+            class="w-12 h-12 bg-blue-600/10 text-blue-400 rounded-2xl border border-blue-500/20 flex items-center justify-center active:scale-90 transition-transform">
+            <i class="fas fa-history text-xl"></i>
         </button>
     </header>
 
-    <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[72px] z-30 bg-[#0f172a]"></nav>
+    <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#0f172a]"></nav>
 
-    <main id="mainContent" class="px-4 space-y-6 pb-24">
-        </main>
+    <main id="mainContent" class="px-4 space-y-6 pt-2"></main>
 
-    <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent z-40">
-        <button onclick="enviarDatos()" id="saveBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl shadow-2xl shadow-blue-900/20 flex items-center justify-center gap-3 transition-all active:scale-95">
-            <i class="fas fa-save"></i> FINALIZAR ENTRENAMIENTO
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#0f172a] to-transparent z-40">
+        <button onclick="enviarDatos()" id="saveBtn"
+            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all">
+            <i class="fas fa-check-circle"></i> GUARDAR DÍA
         </button>
     </div>
 
-    <div id="modalProgreso" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="cerrarModal()"></div>
-        <div class="relative w-full max-w-lg bg-slate-900 rounded-t-[32px] sm:rounded-[32px] p-6 shadow-2xl border-t border-white/10 overflow-y-auto max-h-[90vh]">
+    <div id="modalProgreso" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 hidden">
+        <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onclick="cerrarModal()"></div>
+        <div
+            class="relative w-full max-w-2xl bg-slate-900 rounded-t-[40px] p-6 border-t border-white/10 shadow-2xl overflow-hidden flex flex-col h-[90vh]">
+
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-xl font-bold text-white">Tu Progreso</h2>
-                <button onclick="cerrarModal()" class="text-gray-400 hover:text-white p-2"><i class="fas fa-times text-xl"></i></button>
-            </div>
-            
-            <div class="bg-slate-800/50 p-4 rounded-2xl border border-white/5 mb-6">
-                <canvas id="chartProgreso" height="200"></canvas>
+                <h2 class="text-xl font-bold text-white">Historial y Progreso</h2>
+                <button onclick="cerrarModal()" class="text-gray-500 hover:text-white"><i
+                        class="fas fa-times-circle text-2xl"></i></button>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <button onclick="registrarPeso()" class="bg-slate-800 p-4 rounded-2xl border border-white/5 text-center active:bg-slate-700 transition-colors">
-                    <i class="fas fa-weight text-blue-400 mb-2"></i>
-                    <p class="text-xs text-gray-400 uppercase">Anotar Peso</p>
+            <div class="bg-slate-800/30 p-4 rounded-3xl border border-white/5 mb-6">
+                <canvas id="chartProgreso" height="120"></canvas>
+            </div>
+
+            <div class="flex-1 overflow-y-auto no-scrollbar">
+                <h3 class="text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-3">Registros Recientes</h3>
+                <div id="tablaHistorial" class="space-y-3">
+                    <p class="text-gray-500 text-center text-xs py-10">Cargando registros...</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <button onclick="registrarPeso()"
+                    class="bg-blue-600 text-white p-4 rounded-2xl font-bold text-xs uppercase shadow-lg shadow-blue-900/40">
+                    <i class="fas fa-weight mr-2"></i> Peso
                 </button>
-                <div class="bg-slate-800 p-4 rounded-2xl border border-white/5 text-center">
-                    <i class="fas fa-fire text-orange-400 mb-2"></i>
-                    <p class="text-xs text-gray-400 uppercase">Consistencia</p>
-                    <p class="text-white font-bold font-mono">92%</p>
+                <div
+                    class="bg-slate-800 p-4 rounded-2xl border border-white/5 text-center flex flex-col justify-center">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold">Hoy</p>
+                    <p id="label-hoy" class="text-white text-xs font-bold"></p>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="app.js"></script>
 </body>
+
 </html>
