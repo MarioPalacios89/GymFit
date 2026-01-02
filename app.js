@@ -7,20 +7,22 @@ let miGrafico = null;
 
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
+let historialCompleto = []; // Variable global para guardar los datos sin filtrar
+
 async function init() {
-const loader = document.getElementById('loading-screen');
+    const loader = document.getElementById('loading-screen');
     try {
         // Iniciamos la carga de la rutina
         const res = await fetch(API_URL + "?getRoutine=true");
         db = await res.json();
-        
+
         // Configuramos la interfaz
         const hoyNombre = diasSemana[new Date().getDay()];
         document.getElementById('label-hoy').innerText = hoyNombre;
         document.getElementById('sub-meta').innerText = db.perfil.objetivo.replace(/_/g, ' ');
 
         diaActualIdx = db.semana.findIndex(d => d.dia === hoyNombre);
-        if(diaActualIdx === -1) diaActualIdx = 0; 
+        if (diaActualIdx === -1) diaActualIdx = 0;
 
         renderNav();
         renderDia(diaActualIdx);
@@ -40,77 +42,91 @@ const loader = document.getElementById('loading-screen');
 // --- NUEVA FUNCIÓN DE HISTORIAL ---
 async function cargarHistorial() {
     const container = document.getElementById('tablaHistorial');
-    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-blue-500"></i></div>`;
-    
+    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-blue-500 text-2xl"></i></div>`;
+
     try {
         const res = await fetch(API_URL + "?getHistory=true&t=" + new Date().getTime());
-        const data = await res.json();
-        
-        if (!data || data.length === 0) {
-            container.innerHTML = `<p class="text-gray-500 text-center py-10 text-[10px] font-bold uppercase tracking-widest">Sin registros</p>`;
-            return;
-        }
+        historialCompleto = await res.json();
 
-        // 1. Agrupar por Sesión (Fecha/Día)
-        const sesiones = data.reduce((acc, reg) => {
-            const sesionKey = `${reg.fecha} - ${reg.dia}`;
-            if (!acc[sesionKey]) acc[sesionKey] = {};
-            
-            // 2. Agrupar por Ejercicio dentro de la sesión
-            if (!acc[sesionKey][reg.ejercicio]) acc[sesionKey][reg.ejercicio] = [];
-            acc[sesionKey][reg.ejercicio].push(reg);
-            
-            return acc;
-        }, {});
-
-        container.innerHTML = Object.keys(sesiones).map((sesion, sIdx) => {
-            const ejercicios = sesiones[sesion];
-            
-            return `
-                <div class="history-accordion" id="acc-${sIdx}">
-                    <div class="accordion-header" onclick="toggleAccordion(${sIdx})">
-                        <div>
-                            <p class="text-[9px] text-blue-500 font-black uppercase tracking-[0.15em]">${sesion.split(' - ')[1]}</p>
-                            <p class="text-white font-bold text-sm">${sesion.split(' - ')[0]}</p>
-                        </div>
-                        <i class="fas fa-chevron-down chevron text-xs"></i>
-                    </div>
-                    
-                    <div class="accordion-content" id="content-${sIdx}">
-                        ${Object.keys(ejercicios).map(nombreEx => {
-                            // ORDENAR LAS SERIES: S1, S2, S3...
-                            const seriesOrdenadas = ejercicios[nombreEx].sort((a, b) => a.serie - b.serie);
-                            
-                            return `
-                                <div class="exercise-group">
-                                    <p class="text-white text-[11px] font-bold mb-1">${nombreEx}</p>
-                                    <div class="tag-container">
-                                        ${seriesOrdenadas.map(s => `
-                                            <div class="data-tag">
-                                                <span class="tag-label">S${s.serie}:</span>
-                                                <span class="tag-weight">${s.peso}k</span>
-                                                <span>×</span>
-                                                <span>${s.reps}</span>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-            `;
-        }).join('');
+        renderizarHistorial("TODOS"); // Carga inicial
     } catch (e) {
         container.innerHTML = `<p class="text-red-400 text-center py-10 text-xs">Error de datos</p>`;
     }
+}
+
+function renderizarHistorial(filtroDia) {
+    const container = document.getElementById('tablaHistorial');
+
+    // Crear la barra de filtros
+    const diasFiltro = ["TODOS", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    let htmlFiltros = `<div class="filter-scroll">`;
+    diasFiltro.forEach(d => {
+        htmlFiltros += `<button onclick="renderizarHistorial('${d}')" class="filter-chip ${filtroDia === d ? 'active' : ''}">${d}</button>`;
+    });
+    htmlFiltros += `</div>`;
+
+    // Filtrar datos
+    const datosFiltrados = filtroDia === "TODOS"
+        ? historialCompleto
+        : historialCompleto.filter(r => r.dia === filtroDia);
+
+    if (datosFiltrados.length === 0) {
+        container.innerHTML = htmlFiltros + `<p class="text-gray-600 text-center py-20 text-[10px] font-bold uppercase tracking-widest">No hay registros para este día</p>`;
+        return;
+    }
+
+    // Agrupar por Sesión
+    const sesiones = datosFiltrados.reduce((acc, reg) => {
+        const sesionKey = `${reg.fecha} - ${reg.dia}`;
+        if (!acc[sesionKey]) acc[sesionKey] = {};
+        if (!acc[sesionKey][reg.ejercicio]) acc[sesionKey][reg.ejercicio] = [];
+        acc[sesionKey][reg.ejercicio].push(reg);
+        return acc;
+    }, {});
+
+    let htmlContenido = Object.keys(sesiones).map((sesion, sIdx) => {
+        const ejercicios = sesiones[sesion];
+        return `
+            <div class="history-accordion mb-3" id="acc-${sIdx}">
+                <div class="accordion-header p-4 flex justify-between items-center" onclick="toggleAccordion(${sIdx})">
+                    <div>
+                        <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest">${sesion.split(' - ')[1]}</p>
+                        <p class="text-white font-bold text-sm">${sesion.split(' - ')[0]}</p>
+                    </div>
+                    <i class="fas fa-chevron-down chevron text-[10px]"></i>
+                </div>
+                <div class="accordion-content px-4" id="content-${sIdx}">
+                    ${Object.keys(ejercicios).map(nombreEx => {
+            const series = ejercicios[nombreEx].sort((a, b) => a.serie - b.serie);
+            return `
+                            <div class="exercise-group mb-2">
+                                <p class="text-gray-300 text-[10px] font-bold mb-2 uppercase tracking-tighter">${nombreEx}</p>
+                                <div class="tag-container">
+                                    ${series.map((s, idx) => `
+                                        <div class="data-tag ${idx === 0 && sIdx === 0 ? 'last-record' : ''}">
+                                            <span class="tag-label">S${s.serie}</span>
+                                            <span class="tag-weight font-black">${s.peso}kg</span>
+                                            <span class="text-[8px] opacity-40">x</span>
+                                            <span class="text-white">${s.reps}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+        }).join('')}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = htmlFiltros + htmlContenido;
 }
 
 // Función para abrir/cerrar el acordeón
 function toggleAccordion(index) {
     const content = document.getElementById(`content-${index}`);
     const wrapper = document.getElementById(`acc-${index}`);
-    
+
     // Cerrar otros si prefieres (opcional)
     // document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
 
@@ -179,24 +195,53 @@ function renderDia(idx) {
 
         return `
             <div class="card p-6" id="card-${i}">
-                <div class="flex justify-between items-start mb-6">
+                <div class="flex justify-between items-start mb-4">
                     <div class="flex gap-4 items-center">
-                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all active:scale-90">
+                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all">
                             <i class="fas fa-lock-open"></i>
                         </button>
                         <div>
-                            <h3 class="font-bold text-white text-base leading-tight">${ex.nombre}</h3>
-                            <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">${ex.repeticiones || ex.duracion_segundos + 's'} objetivo</p>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-bold text-white text-base leading-tight">${ex.nombre}</h3>
+                                ${ex.nota ? `
+                                    <button onclick="toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm">
+                                        <i class="fas fa-sticky-note"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                                              <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">${ex.repeticiones || ex.duracion_segundos + 's'} objetivo</p>
                         </div>
                     </div>
                     ${ex.video ? `<a href="${ex.video}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-red-500/10 text-red-500 rounded-xl"><i class="fab fa-youtube"></i></a>` : ''}
                 </div>
+
+                ${ex.nota ? `
+                    <div id="nota-${i}" class="nota-badge">
+                        <p class="text-[11px] text-orange-200 leading-relaxed italic">
+                            <span class="font-bold text-orange-400 uppercase text-[9px]">Tips:</span> ${ex.nota}
+                        </p>
+                    </div>
+                ` : ''}
+
                 <div class="space-y-3">${rows}</div>
             </div>
         `;
     }).join('');
 
     container.innerHTML = html;
+}
+
+function toggleNota(idx) {
+    const notaDiv = document.getElementById(`nota-${idx}`);
+    const btnNota = document.getElementById(`btn-nota-${idx}`);
+
+    if (notaDiv.classList.contains('active')) {
+        notaDiv.classList.remove('active');
+        btnNota.classList.remove('active');
+    } else {
+        notaDiv.classList.add('active');
+        btnNota.classList.add('active');
+    }
 }
 
 function toggleLock(idx) {
@@ -218,19 +263,19 @@ function cambiarDia(idx) {
 }
 
 async function enviarDatos() {
-const btn = document.getElementById('saveBtn');
+    const btn = document.getElementById('saveBtn');
     const data = [];
-    
+
     document.querySelectorAll('.exercise-locked').forEach(card => {
         card.querySelectorAll('.val-peso').forEach(p => {
             const exIdx = p.dataset.ex;
             const s = p.dataset.s;
             const r = card.querySelector(`.val-reps[data-ex="${exIdx}"][data-s="${s}"]`).value;
-            if(p.value) data.push({ nombre: db.semana[diaActualIdx].ejercicios[exIdx].nombre, serie: s, peso: p.value, reps: r });
+            if (p.value) data.push({ nombre: db.semana[diaActualIdx].ejercicios[exIdx].nombre, serie: s, peso: p.value, reps: r });
         });
     });
 
-    if(data.length === 0) return alert("Primero bloquea (check verde) los ejercicios que terminaste.");
+    if (data.length === 0) return alert("Primero bloquea (check verde) los ejercicios que terminaste.");
 
     // EFECTO CARGANDO EN BOTÓN
     btn.disabled = true;
@@ -238,19 +283,19 @@ const btn = document.getElementById('saveBtn');
     btn.classList.add('opacity-80');
 
     try {
-        await fetch(API_URL, { 
-            method: 'POST', 
-            mode: 'no-cors', 
-            body: JSON.stringify({ dia: db.semana[diaActualIdx].dia, ejercicios: data }) 
+        await fetch(API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({ dia: db.semana[diaActualIdx].dia, ejercicios: data })
         });
-        
+
         btn.innerHTML = `<i class="fas fa-check-double"></i> ¡TODO GUARDADO!`;
         btn.classList.replace('bg-blue-600', 'bg-emerald-600');
-        
+
         setTimeout(() => {
             location.reload();
         }, 1500);
-    } catch(e) {
+    } catch (e) {
         btn.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ERROR`;
         btn.disabled = false;
     }

@@ -109,3 +109,77 @@
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
     }
+
+    .filter-scroll {
+        display: flex;
+        overflow-x: auto;
+        gap: 8px;
+        padding: 4px 0 16px 0;
+        scrollbar-width: none;
+    }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+        padding: 6px 14px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.05);
+        color: #64748b;
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        transition: all 0.3s;
+    }
+    .filter-chip.active {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+        border-color: #3b82f6/30;
+    }
+
+    /* Tag de Último Peso */
+    .data-tag.last-record {
+        border-color: #3b82f6/50;
+        background: rgba(59, 130, 246, 0.2);
+        position: relative;
+    }
+    .last-record::after {
+        content: 'ÚLTIMO';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 7px;
+        color: #3b82f6;
+        font-weight: 900;
+    }
+
+    .nota-badge {
+        background: rgba(245, 158, 11, 0.1); /* Color ámbar/naranja suave */
+        border-left: 3px solid #f59e0b;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: none; /* Oculto por defecto */
+        animation: fadeInDown 0.3s ease-out;
+    }
+
+    .nota-badge.active {
+        display: block;
+    }
+
+    .btn-nota {
+        color: #94a3b8;
+        transition: all 0.2s;
+    }
+
+    .btn-nota.active {
+        color: #f59e0b;
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
