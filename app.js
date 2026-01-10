@@ -21,6 +21,11 @@ async function init() {
         document.getElementById('label-hoy').innerText = hoyNombre;
         document.getElementById('sub-meta').innerText = db.perfil.objetivo.replace(/_/g, ' ');
 
+        const selector = document.getElementById('selectorRutina');
+        selector.innerHTML = db.semana.map((d, i) => 
+            `<option value="${i}" ${d.dia === hoyNombre ? 'selected' : ''}>Rutina ${d.dia}</option>`
+        ).join('');
+
         diaActualIdx = db.semana.findIndex(d => d.dia === hoyNombre);
         if (diaActualIdx === -1) diaActualIdx = 0;
 
@@ -148,29 +153,7 @@ function renderDia(idx) {
     const dia = db.semana[idx];
 
     // --- SECCIÓN DE CALENTAMIENTO ---
-    let html = `
-        <div class="card p-6 border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-500">
-                    <i class="fas fa-fire-alt"></i>
-                </div>
-                <div>
-                    <h4 class="text-orange-400 font-black text-xs uppercase tracking-widest">Calentamiento</h4>
-                    <p class="text-[9px] text-gray-500 uppercase">Preparación articular y activación</p>
-                </div>
-            </div>
-            <div class="space-y-2">
-                ${db.calentamiento.map(w => `
-                    <div class="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
-                        <span class="text-gray-300 text-xs font-medium">${w.nombre}</span>
-                        <span class="text-orange-400 font-mono font-bold text-[11px] bg-orange-500/5 px-2 py-1 rounded-lg">
-                            ${w.series ? w.series + 'x' : ''}${w.reps || w.duracion_segundos + 's'}
-                        </span>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-        
+    let html = `        
         <div class="flex items-center gap-2 py-2">
             <div class="h-[1px] flex-1 bg-white/5"></div>
             <span class="text-[10px] text-gray-600 font-bold uppercase tracking-[0.2em]">Rutina del día</span>
@@ -203,6 +186,7 @@ function renderDia(idx) {
                         <div>
                             <div class="flex items-center gap-2">
                                 <h3 class="font-bold text-white text-base leading-tight">${ex.nombre}</h3>
+                                ${ex.record.peso > 0 ? `<div class="record-badge"><i class="fas fa-crown"></i> PR: ${ex.record.peso}kg</div>` : ''}
                                 ${ex.nota ? `
                                     <button onclick="toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm">
                                         <i class="fas fa-sticky-note"></i>
@@ -247,58 +231,148 @@ function toggleNota(idx) {
 function toggleLock(idx) {
     const card = document.getElementById(`card-${idx}`);
     const btn = document.getElementById(`btn-lock-${idx}`);
+    
+    // Obtenemos los datos del ejercicio actual desde el objeto db
+    const ejercicioData = db.semana[diaActualIdx].ejercicios[idx];
+    const recordAnterior = ejercicioData.record ? ejercicioData.record.peso : 0;
+
     if (!card.classList.contains('exercise-locked')) {
+        // --- ACTIVAR BLOQUEO ---
         card.classList.add('exercise-locked');
         btn.innerHTML = '<i class="fas fa-lock text-emerald-400"></i>';
+        
+        // Lógica de detección de Récord Personal
+        let maxPesoIngresado = 0;
+        const inputsPeso = card.querySelectorAll('.val-peso');
+        
+        inputsPeso.forEach(input => {
+            const valor = parseFloat(input.value) || 0;
+            if (valor > maxPesoIngresado) maxPesoIngresado = valor;
+        });
+
+        // Si el peso máximo de hoy supera el récord histórico... ¡FIESTA!
+        if (maxPesoIngresado > recordAnterior && recordAnterior > 0) {
+            dispararCelebracion();
+            console.log("¡Nuevo récord detectado!");
+        }
+
     } else {
+        // --- DESACTIVAR BLOQUEO ---
         card.classList.remove('exercise-locked');
         btn.innerHTML = '<i class="fas fa-lock-open"></i>';
     }
 }
 
+function dispararCelebracion() {
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ['#fbbf24', '#3b82f6', '#ffffff', '#10b981'],
+        ticks: 200
+    });
+}
+
 function cambiarDia(idx) {
     diaActualIdx = idx;
+    document.getElementById('selectorRutina').value = idx; // Sincroniza el selector
     renderNav();
     renderDia(idx);
 }
 
 async function enviarDatos() {
     const btn = document.getElementById('saveBtn');
+    const selector = document.getElementById('selectorRutina');
+    const idxRutinaVisual = parseInt(selector.value);
+    const nombreDiaCalendario = db.semana[diaActualIdx].dia; 
+
     const data = [];
+    let recordSuperado = false;
 
     document.querySelectorAll('.exercise-locked').forEach(card => {
+        const pInput = card.querySelector('.val-peso');
+        if(!pInput) return;
+        
+        const exIdx = pInput.dataset.ex;
+        const exData = db.semana[idxRutinaVisual].ejercicios[exIdx];
+        const prActual = parseFloat(exData.record.peso) || 0;
+
         card.querySelectorAll('.val-peso').forEach(p => {
-            const exIdx = p.dataset.ex;
             const s = p.dataset.s;
             const r = card.querySelector(`.val-reps[data-ex="${exIdx}"][data-s="${s}"]`).value;
-            if (p.value) data.push({ nombre: db.semana[diaActualIdx].ejercicios[exIdx].nombre, serie: s, peso: p.value, reps: r });
+            
+            if (p.value) {
+                const pesoIngresado = parseFloat(p.value);
+                if (pesoIngresado > prActual && prActual > 0) recordSuperado = true;
+
+                data.push({ 
+                    nombre: exData.nombre, 
+                    serie: s, 
+                    peso: p.value, 
+                    reps: r 
+                });
+            }
         });
     });
 
-    if (data.length === 0) return alert("Primero bloquea (check verde) los ejercicios que terminaste.");
+    if (data.length === 0) return alert("Bloquea los ejercicios realizados.");
 
-    // EFECTO CARGANDO EN BOTÓN
     btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> ENVIANDO A SHEETS...`;
-    btn.classList.add('opacity-80');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> GUARDANDO...`;
 
     try {
         await fetch(API_URL, {
             method: 'POST',
             mode: 'no-cors',
-            body: JSON.stringify({ dia: db.semana[diaActualIdx].dia, ejercicios: data })
+            body: JSON.stringify({ dia: nombreDiaCalendario, ejercicios: data })
         });
 
-        btn.innerHTML = `<i class="fas fa-check-double"></i> ¡TODO GUARDADO!`;
-        btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+        if (recordSuperado) {
+            btn.innerHTML = `<i class="fas fa-crown"></i> ¡RÉCORD GUARDADO!`;
+            btn.classList.replace('bg-blue-600', 'bg-amber-500');
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, zIndex: 10000 });
+        } else {
+            btn.innerHTML = `<i class="fas fa-check-double"></i> ¡LISTO!`;
+            btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+        }
 
+        // --- EN LUGAR DE RELOAD, RESETEAMOS LA UI ---
         setTimeout(() => {
-            location.reload();
-        }, 1500);
+            limpiarDespuesDeGuardar();
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+            btn.classList.remove('bg-emerald-600', 'bg-amber-500');
+            btn.classList.add('bg-blue-600');
+            btn.classList.remove('opacity-80');
+        }, 3000);
+
     } catch (e) {
-        btn.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ERROR`;
+        btn.innerHTML = `ERROR AL GUARDAR`;
         btn.disabled = false;
     }
+}
+
+function limpiarDespuesDeGuardar() {
+    // 1. Desbloquear todas las tarjetas
+    document.querySelectorAll('.exercise-locked').forEach(card => {
+        card.classList.remove('exercise-locked');
+        // Resetear el icono del candado (buscamos el botón de lock dentro de la card)
+        const btnLock = card.querySelector('button[id^="btn-lock-"]');
+        if(btnLock) btnLock.innerHTML = '<i class="fas fa-lock-open"></i>';
+    });
+
+    // 2. Limpiar todos los inputs de peso y reps
+    document.querySelectorAll('.val-peso, .val-reps').forEach(input => {
+        input.value = "";
+    });
+
+    // 3. (Opcional) Actualizar el historial en segundo plano para que se vea lo nuevo
+    if(typeof cargarHistorial === "function") {
+        cargarHistorial(); 
+    }
+    
+    alert("Entrenamiento sincronizado correctamente.");
 }
 
 function abrirModal() {
@@ -320,6 +394,127 @@ function initChart() {
         },
         options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
     });
+}
+
+function abrirModalReporte() {
+    document.getElementById('modalReporte').classList.remove('hidden');
+}
+
+function cerrarModalReporte() {
+    document.getElementById('modalReporte').classList.add('hidden');
+    document.getElementById('motivoInactividad').value = "";
+}
+
+async function enviarReporteInactividad() {
+    const motivo = document.getElementById('motivoInactividad').value;
+    const btn = document.getElementById('btnEnviarReporte');
+    const diaActual = db.semana[diaActualIdx].dia;
+
+    if (!motivo) return alert("Por favor escribe un motivo.");
+
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Guardando...`;
+
+    try {
+        await fetch(API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+                tipo: "INACTIVIDAD",
+                dia: diaActual,
+                motivo: motivo
+            })
+        });
+
+        alert("Nota de inactividad guardada en el historial.");
+        cerrarModalReporte();
+        location.reload(); // Recargamos para que aparezca en el historial
+    } catch (e) {
+        alert("Error al guardar");
+        btn.disabled = false;
+        btn.innerText = "Guardar Nota";
+    }
+}
+
+function intercambiarRutina(nuevoIdx) {
+    // Al cambiar la rutina, actualizamos el contenido pero mantenemos el día de registro
+    // Es decir, si hoy es Lunes pero elijo Martes, se guardará como: "Fecha de hoy, Día: Lunes, Ejercicio: (del martes)"
+    renderDia(parseInt(nuevoIdx));
+    
+    // Feedback visual breve
+    const selector = document.getElementById('selectorRutina');
+    selector.classList.add('animate-pulse', 'border-blue-500');
+    setTimeout(() => selector.classList.remove('animate-pulse', 'border-blue-500'), 1000);
+}
+
+function toggleResumen() {
+    const sidebar = document.getElementById('sidebarResumen');
+    const overlay = document.getElementById('overlaySidebar');
+    
+    if (sidebar.classList.contains('translate-x-full')) {
+        sidebar.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+        
+        // Llamada a la base de datos
+        generarResumenRápido(); 
+    } else {
+        sidebar.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+    }
+}
+
+async function generarResumenRápido() {
+    const lista = document.getElementById('listaResumen');
+    const vacio = document.getElementById('resumenVacio');
+    
+    // Feedback visual de carga
+    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-blue-500"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
+    if (vacio) vacio.classList.add('hidden');
+
+    try {
+        const response = await fetch(API_URL + "?getTodaySummary=true");
+        const data = await response.json();
+
+        if (data.length === 0) {
+            lista.innerHTML = "";
+            if (vacio) vacio.classList.remove('hidden');
+            return;
+        }
+
+        // Agrupar por ejercicio ya que el historial viene por series sueltas
+        const agrupado = data.reduce((acc, curr) => {
+            if (!acc[curr.ejercicio]) acc[curr.ejercicio] = [];
+            acc[curr.ejercicio].push(curr);
+            return acc;
+        }, {});
+
+        lista.innerHTML = ""; // Limpiar spinner
+        
+        for (const [ejercicio, series] of Object.entries(agrupado)) {
+            let seriesHtml = series.map(s => `
+                <div class="flex justify-between items-center text-[10px] bg-white/5 p-2 rounded-lg border border-white/5 mb-1">
+                    <span class="text-gray-400 font-bold">Serie ${s.serie}</span>
+                    <span class="text-emerald-400 font-black">${s.peso}kg <span class="text-white/30">x</span> ${s.reps}</span>
+                </div>
+            `).join('');
+
+            lista.innerHTML += `
+                <div class="border-b border-white/5 pb-4 mb-4">
+                    <p class="text-white text-[11px] font-bold mb-2 uppercase tracking-tighter flex items-center gap-2">
+                        <i class="fas fa-history text-blue-500 text-[9px]"></i>
+                        ${ejercicio}
+                    </p>
+                    <div class="pl-4 border-l border-blue-500/20">
+                        ${seriesHtml}
+                    </div>
+                </div>
+            `;
+        }
+    } catch (error) {
+        lista.innerHTML = `<p class="text-red-400 text-[10px] text-center">Error al conectar con la base de datos</p>`;
+    }
 }
 
 init();

@@ -7,6 +7,7 @@
     <title>MarioFit Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="estilos.css" rel="stylesheet">
 </head>
@@ -31,22 +32,74 @@
         <p class="mt-4 text-[10px] text-gray-500 uppercase font-bold tracking-[0.3em]">Sincronizando datos...</p>
     </div>
 
-    <header
-        class="p-5 flex justify-between items-center sticky top-0 z-40 bg-[#0f172a]/95 backdrop-blur shadow-lg border-b border-white/5">
-        <div>
-            <h1 class="text-2xl font-black text-white tracking-tighter italic">MARIO<span
-                    class="text-blue-500 underline">FIT</span></h1>
-            <p id="sub-meta" class="text-[10px] text-gray-500 uppercase font-bold tracking-widest"></p>
-        </div>
-        <button onclick="abrirModal()"
-            class="w-12 h-12 bg-blue-600/10 text-blue-400 rounded-2xl border border-blue-500/20 flex items-center justify-center active:scale-90 transition-transform">
-            <i class="fas fa-history text-xl"></i>
+<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#0f172a]/90 backdrop-blur-md border-b border-white/10">
+    <div>
+        <h1 class="text-xl font-black text-white tracking-tighter italic leading-none">
+            MARIO<span class="text-blue-500 underline decoration-2 underline-offset-4">FIT</span>
+        </h1>
+        <p id="sub-meta" class="text-[9px] text-blue-400/60 uppercase font-bold tracking-[0.2em] mt-1"></p>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <button onclick="toggleResumen()" 
+            class="h-10 px-3 flex items-center gap-2 text-emerald-400 bg-emerald-500/10 rounded-xl border border-emerald-500/20 active:scale-95 transition-all">
+            <i class="fas fa-list-check text-[10px]"></i>
+            <span class="text-[9px] font-black uppercase tracking-tighter">Resumen del día</span>
         </button>
-    </header>
+        
+        <button onclick="location.reload()" class="w-10 h-10 flex items-center justify-center text-gray-500 bg-white/5 rounded-xl border border-white/5">
+            <i class="fas fa-sync-alt text-xs"></i>
+        </button>
+
+        <button onclick="abrirModal()" class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
+            <i class="fas fa-clock text-sm"></i>
+        </button>
+    </div>
+</header>
+
 
     <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#0f172a]"></nav>
 
+    <div class="px-6 my-4">
+        <button onclick="abrirModalReporte()"
+            class="w-full py-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+            <i class="fas fa-exclamation-circle"></i> ¿No pudiste entrenar hoy?
+        </button>
+    </div>
+
+    
+    <div class="px-4 mb-2 flex justify-between items-center">
+        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Estás viendo:</span>
+        <div class="relative">
+            <select id="selectorRutina" onchange="intercambiarRutina(this.value)"
+                class="bg-slate-800 text-blue-400 text-[10px] font-black uppercase py-1 px-3 rounded-lg border border-blue-500/20 outline-none appearance-none pr-8">
+            </select>
+            <i
+                class="fas fa-chevron-down absolute right-2 top-1/2 -translate-y-1/2 text-[8px] text-blue-500 pointer-events-none"></i>
+        </div>
+    </div>
+
     <main id="mainContent" class="px-4 space-y-6 pt-2"></main>
+
+    <div id="modalReporte"
+        class="fixed inset-0 z-[110] bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-6">
+        <div class="bg-slate-900 w-full rounded-3xl border border-white/10 p-6 shadow-2xl">
+            <h3 class="text-white font-bold text-lg mb-2">Reportar Inactividad</h3>
+            <p class="text-gray-400 text-xs mb-4">Cuéntanos por qué no se pudo completar la rutina de hoy para tu
+                registro.</p>
+
+            <textarea id="motivoInactividad" placeholder="Ej: Lesión en la rodilla, viaje de trabajo, descanso extra..."
+                class="w-full bg-slate-800 border border-white/5 rounded-xl p-4 text-white text-sm focus:border-blue-500 outline-none h-32 mb-4"></textarea>
+
+            <div class="flex gap-3">
+                <button onclick="cerrarModalReporte()"
+                    class="flex-1 py-3 rounded-xl bg-slate-800 text-gray-400 font-bold text-xs uppercase">Cancelar</button>
+                <button onclick="enviarReporteInactividad()" id="btnEnviarReporte"
+                    class="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold text-xs uppercase">Guardar
+                    Nota</button>
+            </div>
+        </div>
+    </div>
 
     <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#0f172a] to-transparent z-40">
         <button onclick="enviarDatos()" id="saveBtn"
@@ -90,6 +143,25 @@
             </div>
         </div>
     </div>
+
+<div id="sidebarResumen" class="fixed inset-y-0 right-0 w-72 z-[100] bg-[#0f172a] border-l border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="p-6 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-6"> <h2 class="text-white font-black text-sm uppercase tracking-tighter">Resumen de Sesión</h2>
+            <button onclick="toggleResumen()" class="w-8 h-8 flex items-center justify-center text-gray-500 bg-white/5 rounded-full">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div id="listaResumen" class="overflow-y-auto flex-1 pr-2"></div>
+        
+        <div id="resumenVacio" class="text-center py-20">
+            <i class="fas fa-clipboard-check text-gray-800 text-4xl mb-4"></i>
+            <p class="text-gray-600 text-[10px] font-bold uppercase tracking-widest leading-tight">Registra tu primera<br>serie para ver el resumen</p>
+        </div>
+    </div>
+</div>
+
+<div id="overlaySidebar" onclick="toggleResumen()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] hidden opacity-0 transition-opacity duration-300"></div>
 
     <script src="app.js"></script>
 </body>
