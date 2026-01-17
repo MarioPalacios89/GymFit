@@ -15,50 +15,6 @@ let historialCompleto = []; // Variable global para guardar los datos sin filtra
 // --- Alternativas de ejercicios (si una máquina está ocupada) ---
 const ALT_KEY = 'mariofit_alt_v1';
 
-// --- Notas por ejercicio (texto + foto base64) ---
-const NOTE_KEY = 'mariofit_notes_v1';
-
-function loadNotes() {
-    try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '{}'); }
-    catch { return {}; }
-}
-
-function saveNotes(notes) {
-    try { localStorage.setItem(NOTE_KEY, JSON.stringify(notes)); }
-    catch { /* ignore */ }
-}
-
-function getNoteForSlot(dayIdx, exIdx) {
-    const notes = loadNotes();
-    const key = slotKey(dayIdx, exIdx);
-    return notes?.[key] || null; // { text, photo, updatedAt, exerciseName }
-}
-
-function setNoteForSlot(dayIdx, exIdx, payload) {
-    const notes = loadNotes();
-    const key = slotKey(dayIdx, exIdx);
-    if (!payload || (!payload.text && !payload.photo)) {
-        delete notes[key];
-    } else {
-        notes[key] = {
-            text: payload.text || '',
-            photo: payload.photo || '',
-            updatedAt: new Date().toISOString(),
-            exerciseName: payload.exerciseName || ''
-        };
-    }
-    saveNotes(notes);
-}
-
-function clearNotesForSlots(slotKeys) {
-    const notes = loadNotes();
-    let changed = false;
-    slotKeys.forEach(k => {
-        if (notes[k]) { delete notes[k]; changed = true; }
-    });
-    if (changed) saveNotes(notes);
-}
-
 function loadAlt() {
     try { return JSON.parse(localStorage.getItem(ALT_KEY) || '{}'); }
     catch { return {}; }
@@ -146,7 +102,7 @@ document.addEventListener('keydown', (e) => {
 // --- NUEVA FUNCIÓN DE HISTORIAL ---
 async function cargarHistorial() {
     const container = document.getElementById('tablaHistorial');
-    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-lime-400 text-2xl"></i></div>`;
+    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-blue-500 text-2xl"></i></div>`;
 
     try {
         const res = await fetch(API_URL + "?getHistory=true&t=" + new Date().getTime());
@@ -194,7 +150,7 @@ function renderizarHistorial(filtroDia) {
             <div class="history-accordion mb-3" id="acc-${sIdx}">
                 <div class="accordion-header p-4 flex justify-between items-center" onclick="toggleAccordion(${sIdx})">
                     <div>
-                        <p class="text-[9px] text-lime-400 font-black uppercase tracking-widest">${sesion.split(' - ')[1]}</p>
+                        <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest">${sesion.split(' - ')[1]}</p>
                         <p class="text-white font-bold text-sm">${sesion.split(' - ')[0]}</p>
                     </div>
                     <i class="fas fa-chevron-down chevron text-[10px]"></i>
@@ -204,27 +160,7 @@ function renderizarHistorial(filtroDia) {
             const series = ejercicios[nombreEx].sort((a, b) => a.serie - b.serie);
             return `
                             <div class="exercise-group mb-2">
-                                ${(() => {
-                                    const noteObj = series.find(x => (x.nota && String(x.nota).trim()) || (x.foto && String(x.foto).trim()));
-                                    if (!noteObj) {
-                                        return `<p class="text-gray-300 text-[10px] font-bold mb-2 uppercase tracking-tighter">${nombreEx}</p>`;
-                                    }
-                                    const payload = {
-                                        ejercicio: nombreEx,
-                                        sesion,
-                                        nota: noteObj.nota || '',
-                                        foto: noteObj.foto || ''
-                                    };
-                                    const payloadStr = JSON.stringify(payload).replace(/"/g, '&quot;');
-                                    return `
-                                        <div class="flex items-center justify-between gap-2 mb-2">
-                                            <p class="text-gray-300 text-[10px] font-bold uppercase tracking-tighter">${nombreEx}</p>
-                                            <button class="btn-note has-note" title="Ver nota" onclick="abrirModalNotaHistorial(${payloadStr})">
-                                                <i class="fas fa-note-sticky"></i>
-                                            </button>
-                                        </div>
-                                    `;
-                                })()}
+                                <p class="text-gray-300 text-[10px] font-bold mb-2 uppercase tracking-tighter">${nombreEx}</p>
                                 <div class="tag-container">
                                     ${series.map((s, idx) => `
                                         <div class="data-tag ${idx === 0 && sIdx === 0 ? 'last-record' : ''}">
@@ -295,8 +231,6 @@ function renderDia(idx) {
     html += dia.ejercicios.map((ex, i) => {
         const v = getActiveExercise(idx, i);
         const active = v.activeEx || ex;
-        const userNote = getNoteForSlot(idx, i);
-        const hasUserNote = !!(userNote && ((userNote.text && userNote.text.trim()) || userNote.photo));
         const alts = v.alts || [];
         const isAlt = v.isAlt;
         let rows = '';
@@ -324,12 +258,9 @@ function renderDia(idx) {
                                 <h3 class="font-bold text-white text-base leading-tight">${active.nombre}</h3>
                                 ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class=\"fas fa-crown\"></i> PR: ${active.record.peso}kg</div>` : ''}
                                 ${isAlt ? `<div class="alt-badge"><i class=\"fas fa-arrows-rotate\"></i> ALT</div>` : ''}
-                                <button onclick="abrirModalNota(${idx}, ${i})" class="btn-note ${hasUserNote ? 'has-note' : ''}" title="Nota + foto">
-                                    <i class="fas fa-pen"></i>
-                                </button>
                                 ${(active.nota) ? `
-                                    <button onclick="toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm" title="Tips del ejercicio">
-                                        <i class="fas fa-lightbulb"></i>
+                                    <button onclick="toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm">
+                                        <i class="fas fa-sticky-note"></i>
                                     </button>
                                 ` : ''}
                                 ${alts.length ? `
@@ -338,7 +269,7 @@ function renderDia(idx) {
                                     </button>
                                 ` : ''}
                             </div>
-                            <p class="text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
+                            <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
                         </div>
                     </div>
                     ${active.video ? `<a href="${active.video}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-red-500/10 text-red-500 rounded-xl"><i class="fab fa-youtube"></i></a>` : ''}
@@ -373,163 +304,6 @@ function toggleNota(idx) {
     }
 }
 
-// --- Modal Nota (texto + foto) ---
-let __noteCtx = null; // { mode: 'edit'|'view', dayIdx, exIdx, title, readonly, payload }
-
-function abrirModalNota(dayIdx, exIdx) {
-    const modal = document.getElementById('modalNota');
-    if (!modal) return;
-
-    const v = getActiveExercise(dayIdx, exIdx);
-    const active = v.activeEx || v.baseEx;
-    const title = active?.nombre || 'Ejercicio';
-
-    __noteCtx = { mode: 'edit', dayIdx, exIdx, title };
-
-    const note = getNoteForSlot(dayIdx, exIdx) || { text: '', photo: '' };
-
-    document.getElementById('mn-title').textContent = title;
-    document.getElementById('mn-sub').textContent = 'Agrega una nota y/o una foto (se verá en tu historial).';
-
-    const ta = document.getElementById('mn-text');
-    ta.value = note.text || '';
-    ta.removeAttribute('readonly');
-
-    // Mostrar/ocultar preview
-    setPreviewNota(note.photo || '');
-
-    // Habilitar botones de edición
-    setNotaModoEdicion(true);
-
-    modal.classList.remove('hidden');
-}
-
-function abrirModalNotaHistorial({ ejercicio, sesion, nota, foto }) {
-    const modal = document.getElementById('modalNota');
-    if (!modal) return;
-
-    __noteCtx = { mode: 'view', title: ejercicio };
-
-    document.getElementById('mn-title').textContent = ejercicio;
-    document.getElementById('mn-sub').textContent = `Historial: ${sesion}`;
-
-    const ta = document.getElementById('mn-text');
-    ta.value = nota || '';
-    ta.setAttribute('readonly', 'readonly');
-
-    setPreviewNota(foto || '');
-    setNotaModoEdicion(false);
-
-    modal.classList.remove('hidden');
-}
-
-function cerrarModalNota() {
-    const modal = document.getElementById('modalNota');
-    if (!modal) return;
-    modal.classList.add('hidden');
-    __noteCtx = null;
-}
-
-function setNotaModoEdicion(enabled) {
-    // Muestra/oculta acciones de adjuntar/quitar y el botón guardar
-    const actionButtons = document.querySelectorAll('#modalNota .note-actions');
-    if (!actionButtons.length) return;
-
-    // Primera note-actions = adjuntar/quitar
-    if (actionButtons[0]) actionButtons[0].style.display = enabled ? 'flex' : 'none';
-    // Segunda note-actions = cancelar/guardar
-    if (actionButtons[1]) {
-        const guardar = actionButtons[1].querySelector('.note-btn.primary');
-        if (guardar) guardar.style.display = enabled ? 'block' : 'none';
-    }
-}
-
-function seleccionarFotoNota() {
-    const file = document.getElementById('mn-file');
-    if (!file) return;
-    file.value = '';
-    file.click();
-}
-
-function limpiarFotoNota() {
-    setPreviewNota('');
-}
-
-function setPreviewNota(dataUrl) {
-    const preview = document.getElementById('mn-preview');
-    const img = document.getElementById('mn-img');
-    if (!preview || !img) return;
-
-    if (!dataUrl) {
-        preview.classList.add('hidden');
-        img.removeAttribute('src');
-        preview.dataset.photo = '';
-        return;
-    }
-    preview.classList.remove('hidden');
-    img.src = dataUrl;
-    preview.dataset.photo = dataUrl;
-}
-
-// Compresión simple: max 720px, JPG 0.78
-async function fileToCompressedDataUrl(file, maxSize = 720, quality = 0.78) {
-    const dataUrl = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result || ''));
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
-
-    const img = await new Promise((resolve, reject) => {
-        const i = new Image();
-        i.onload = () => resolve(i);
-        i.onerror = reject;
-        i.src = dataUrl;
-    });
-
-    let { width, height } = img;
-    const scale = Math.min(1, maxSize / Math.max(width, height));
-    width = Math.round(width * scale);
-    height = Math.round(height * scale);
-
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, width, height);
-
-    return canvas.toDataURL('image/jpeg', quality);
-}
-
-// Listener para input file (1 vez)
-document.getElementById('mn-file')?.addEventListener('change', async (e) => {
-    const file = e?.target?.files?.[0];
-    if (!file) return;
-    try {
-        const compressed = await fileToCompressedDataUrl(file);
-        setPreviewNota(compressed);
-    } catch (err) {
-        console.error(err);
-        alert('No se pudo cargar la foto.');
-    }
-});
-
-function guardarNotaEjercicio() {
-    if (!__noteCtx || __noteCtx.mode !== 'edit') return;
-    const { dayIdx, exIdx } = __noteCtx;
-    const ta = document.getElementById('mn-text');
-    const preview = document.getElementById('mn-preview');
-    const text = (ta?.value || '').trim();
-    const photo = preview?.dataset?.photo || '';
-
-    const activeName = getActiveExercise(dayIdx, exIdx)?.activeEx?.nombre || '';
-    setNoteForSlot(dayIdx, exIdx, { text, photo, exerciseName: activeName });
-
-    // Refrescar solo el día visible para actualizar el icono
-    if (dayIdx === diaVisualIdx) renderDia(diaVisualIdx);
-    cerrarModalNota();
-}
-
 // --- Modal Alternativas ---
 let __pendingAlt = null; // { dayIdx, exIdx }
 
@@ -561,12 +335,12 @@ function abrirModalAlternativas(dayIdx, exIdx) {
         label: base.nombre,
         meta: base.repeticiones || (base.duracion_segundos ? base.duracion_segundos + 's' : ''),
         selected: selectedName === '__BASE__',
-        onClick: `elegirAlternativa(${dayIdx}, ${exIdx}, "__BASE__")`
+        onClick: `elegirAlternativa(${dayIdx}, ${exIdx}, '__BASE__')`
     }));
 
     // Alternativas
     alts.forEach((a) => {
-        const nombre = a?.nombre || a?.name;
+        let nombre = a?.nombre || a?.name;
         if (!nombre) return;
         items.push(renderAltItem({
             label: nombre,
@@ -610,7 +384,7 @@ function elegirAlternativa(dayIdx, exIdx, nombre) {
 
 function renderAltItem({ label, meta, selected, onClick }) {
     return `
-        <button class="alt-item ${selected ? 'selected' : ''}" onclick='${onClick}'>
+        <button class="alt-item ${selected ? 'selected' : ''}" onclick="${onClick}">
             <div class="alt-left">
                 <div class="alt-dot">${selected ? '<i class=\"fas fa-check\"></i>' : '<i class=\"fas fa-circle\"></i>'}</div>
                 <div class="alt-txt">
@@ -663,7 +437,7 @@ function dispararCelebracion() {
         particleCount: 150,
         spread: 70,
         origin: { y: 0.7 },
-        colors: ['#fbbf24', '#9AFF00', '#ffffff', '#10b981'],
+        colors: ['#fbbf24', '#3b82f6', '#ffffff', '#10b981'],
         ticks: 200
     });
 }
@@ -683,7 +457,6 @@ async function enviarDatos() {
     const nombreDiaCalendario = db.semana[diaRegistroIdx].dia;
 
     const data = [];
-    const slotsToClear = new Set();
     let recordSuperado = false;
 
     document.querySelectorAll('.exercise-locked').forEach(card => {
@@ -694,10 +467,6 @@ async function enviarDatos() {
         const exData = getActiveExercise(idxRutinaVisual, exIdx).activeEx || db.semana[idxRutinaVisual].ejercicios[exIdx];
         const prActual = parseFloat(exData?.record?.peso) || 0;
 
-        const note = getNoteForSlot(idxRutinaVisual, exIdx);
-        const notaTxt = note?.text || '';
-        const fotoB64 = note?.photo || '';
-
         card.querySelectorAll('.val-peso').forEach(p => {
             const s = p.dataset.s;
             const r = card.querySelector(`.val-reps[data-ex="${exIdx}"][data-s="${s}"]`).value;
@@ -706,15 +475,12 @@ async function enviarDatos() {
                 const pesoIngresado = parseFloat(p.value);
                 if (pesoIngresado > prActual && prActual > 0) recordSuperado = true;
 
-                data.push({
-                    nombre: exData.nombre,
-                    serie: s,
-                    peso: p.value,
-                    reps: r,
-                    nota: notaTxt,
-                    foto: fotoB64
+                data.push({ 
+                    nombre: exData.nombre, 
+                    serie: s, 
+                    peso: p.value, 
+                    reps: r 
                 });
-                slotsToClear.add(slotKey(idxRutinaVisual, exIdx));
             }
         });
     });
@@ -732,16 +498,13 @@ async function enviarDatos() {
             body: JSON.stringify({ dia: nombreDiaCalendario, ejercicios: data })
         });
 
-        // Limpiar notas locales de los ejercicios guardados (para empezar limpio la próxima sesión)
-        clearNotesForSlots([...slotsToClear]);
-
         if (recordSuperado) {
             btn.innerHTML = `<i class="fas fa-crown"></i> ¡RÉCORD GUARDADO!`;
-            btn.classList.replace('bg-lime-500', 'bg-amber-500');
+            btn.classList.replace('bg-blue-600', 'bg-amber-500');
             confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, zIndex: 10000 });
         } else {
             btn.innerHTML = `<i class="fas fa-check-double"></i> ¡LISTO!`;
-            btn.classList.replace('bg-lime-500', 'bg-emerald-600');
+            btn.classList.replace('bg-blue-600', 'bg-emerald-600');
         }
 
         // --- EN LUGAR DE RELOAD, RESETEAMOS LA UI ---
@@ -750,7 +513,7 @@ async function enviarDatos() {
             btn.disabled = false;
             btn.innerHTML = originalHTML;
             btn.classList.remove('bg-emerald-600', 'bg-amber-500');
-            btn.classList.add('bg-lime-500');
+            btn.classList.add('bg-blue-600');
             btn.classList.remove('opacity-80');
         }, 3000);
 
@@ -797,7 +560,7 @@ function initChart() {
         type: 'line',
         data: {
             labels: ['L', 'M', 'X', 'J', 'V'],
-            datasets: [{ data: [104, 103, 102.5, 102, 101.5], borderColor: '#9AFF00', tension: 0.4, fill: true, backgroundColor: 'rgba(154, 255, 0, 0.06)', pointRadius: 0 }]
+            datasets: [{ data: [104, 103, 102.5, 102, 101.5], borderColor: '#3b82f6', tension: 0.4, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.05)', pointRadius: 0 }]
         },
         options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
     });
@@ -879,7 +642,7 @@ async function generarResumenRápido() {
     const vacio = document.getElementById('resumenVacio');
     
     // Feedback visual de carga
-    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-lime-400"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
+    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-blue-500"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
     if (vacio) vacio.classList.add('hidden');
 
     try {
@@ -912,10 +675,10 @@ async function generarResumenRápido() {
             lista.innerHTML += `
                 <div class="border-b border-white/5 pb-4 mb-4">
                     <p class="text-white text-[11px] font-bold mb-2 uppercase tracking-tighter flex items-center gap-2">
-                        <i class="fas fa-history text-lime-400 text-[9px]"></i>
+                        <i class="fas fa-history text-blue-500 text-[9px]"></i>
                         ${ejercicio}
                     </p>
-                    <div class="pl-4 border-l border-lime-400/20">
+                    <div class="pl-4 border-l border-blue-500/20">
                         ${seriesHtml}
                     </div>
                 </div>
