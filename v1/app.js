@@ -2,18 +2,12 @@
 const API_URL = 'https://script.google.com/macros/s/AKfycbzUd4jj4F0QX9tnbmfo_sFKwaozRst1Z9bgv6s6l2IjUn4kDYxUFLTZgT15fdiuqhWm/exec';
 
 let db = null;
-// diaRegistroIdx: dia real del calendario (para guardar en historial)
-// diaVisualIdx: rutina que se muestra/edita en pantalla
-let diaRegistroIdx = 0;
-let diaVisualIdx = 0;
+let diaActualIdx = 0;
 let miGrafico = null;
 
 const diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
 let historialCompleto = []; // Variable global para guardar los datos sin filtrar
-
-// Modal "Registrar" state
-let __pendingLock = null; // { dayIdx, exIdx }
 
 // --- UX helpers ---
 const DRAFT_KEY = 'mariofit_draft_v1';
@@ -26,8 +20,8 @@ function showToast(message, type = 'info', title = '') {
     if (!toast || !msg || !t || !icon) return;
 
     const map = {
-        info:  { c: 'text-lime-300',  i: 'fa-info-circle',  ttl: 'Info' },
-        ok:    { c: 'text-lime-300', i: 'fa-check-circle', ttl: 'Listo' },
+        info:  { c: 'text-blue-400',  i: 'fa-info-circle',  ttl: 'Info' },
+        ok:    { c: 'text-emerald-400', i: 'fa-check-circle', ttl: 'Listo' },
         warn:  { c: 'text-amber-400', i: 'fa-triangle-exclamation', ttl: 'Atención' },
         error: { c: 'text-red-400', i: 'fa-circle-xmark', ttl: 'Error' }
     };
@@ -84,12 +78,11 @@ async function init() {
             `<option value="${i}" ${d.dia === hoyNombre ? 'selected' : ''}>Rutina ${d.dia}</option>`
         ).join('');
 
-        diaRegistroIdx = db.semana.findIndex(d => d.dia === hoyNombre);
-        if (diaRegistroIdx === -1) diaRegistroIdx = 0;
-        diaVisualIdx = diaRegistroIdx;
+        diaActualIdx = db.semana.findIndex(d => d.dia === hoyNombre);
+        if (diaActualIdx === -1) diaActualIdx = 0;
 
         renderNav();
-        renderDia(diaVisualIdx);
+        renderDia(diaActualIdx);
 
         // Una vez todo renderizado, quitamos el loader con un pequeño delay para suavidad
         setTimeout(() => {
@@ -103,18 +96,10 @@ async function init() {
     }
 }
 
-// Close modals with ESC
-document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    try { cerrarModalRegistro(); } catch {}
-    try { cerrarModal(); } catch {}
-    try { cerrarModalReporte(); } catch {}
-});
-
 // --- NUEVA FUNCIÓN DE HISTORIAL ---
 async function cargarHistorial() {
     const container = document.getElementById('tablaHistorial');
-    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-lime-400 text-2xl"></i></div>`;
+    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-blue-500 text-2xl"></i></div>`;
 
     try {
         const res = await fetch(API_URL + "?getHistory=true&t=" + new Date().getTime());
@@ -162,7 +147,7 @@ function renderizarHistorial(filtroDia) {
             <div class="history-accordion mb-3" id="acc-${sIdx}">
                 <div class="accordion-header p-4 flex justify-between items-center" onclick="toggleAccordion(${sIdx})">
                     <div>
-                        <p class="text-[9px] text-lime-400 font-black uppercase tracking-widest">${sesion.split(' - ')[1]}</p>
+                        <p class="text-[9px] text-blue-500 font-black uppercase tracking-widest">${sesion.split(' - ')[1]}</p>
                         <p class="text-white font-bold text-sm">${sesion.split(' - ')[0]}</p>
                     </div>
                     <i class="fas fa-chevron-down chevron text-[10px]"></i>
@@ -209,22 +194,10 @@ function toggleAccordion(index) {
 function renderNav() {
     const nav = document.getElementById('dayNav');
     nav.innerHTML = db.semana.map((d, i) => `
-            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-5 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaVisualIdx ? 'active' : ''}">
-                ${obtenerInicialDia(d.dia)}
+            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-7 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaActualIdx ? 'active' : ''}">
+                ${d.dia}
             </button>
         `).join('');
-}
-
-
-/**
- * Devuelve la inicial en mayúscula de un día de la semana.
- * Si el día es "miércoles" (con o sin tilde) devuelve "X".
- */
-function obtenerInicialDia(dia) {
-    if (!dia) return '';
-    const limpio = dia.toString().trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    if (limpio === 'miercoles' || limpio.startsWith('miercoles')) return 'X';
-    return (limpio.charAt(0) || '').toUpperCase();
 }
 
 function renderDia(idx) {
@@ -264,41 +237,30 @@ function renderDia(idx) {
         }
 
         return `
-            <div class="card p-6 exercise-collapsed" id="card-${i}" data-ex-name="${ex.nombre}">
-                <div class="exercise-header flex justify-between items-start mb-3 cursor-pointer" onclick="toggleCollapse(${i})">
+            <div class="card p-6" id="card-${i}" data-ex-name="${ex.nombre}">
+                <div class="exercise-header flex justify-between items-start mb-4 cursor-pointer" onclick="toggleCollapse(${i})">
                     <div class="flex gap-4 items-center">
                         <button onclick="event.stopPropagation(); toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all">
                             <i class="fas fa-lock-open"></i>
                         </button>
-
-                        <div class="ex-icon" aria-hidden="true">
-                            <i class="fas fa-dumbbell"></i>
-                        </div>
-
-                        <div class="min-w-0">
+                        <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="font-bold text-white text-base leading-tight truncate max-w-[46vw] sm:max-w-none">${ex.nombre}</h3>
+                                <h3 class="font-bold text-white text-base leading-tight">${ex.nombre}</h3>
+                                ${ex.record.peso > 0 ? `<div class="record-badge"><i class="fas fa-crown"></i> PR: ${ex.record.peso}kg</div>` : ''}
                                 ${ex.nota ? `
                                     <button onclick="event.stopPropagation(); toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm">
                                         <i class="fas fa-sticky-note"></i>
                                     </button>
                                 ` : ''}
                             </div>
-                            <p class="text-[10px] text-lime-300/80 font-black uppercase tracking-widest mt-1">${ex.repeticiones || ex.duracion_segundos + 's'} objetivo</p>
+                            <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">${ex.repeticiones || ex.duracion_segundos + 's'} objetivo</p>
                         </div>
                     </div>
-
                     <div class="flex items-center gap-2">
                         ${ex.video ? `<a href="${ex.video}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-red-500/10 text-red-500 rounded-xl" onclick="event.stopPropagation()"><i class="fab fa-youtube"></i></a>` : ''}
+                        <i class="fas fa-chevron-down text-gray-500 text-[10px] collapse-chevron"></i>
                     </div>
                 </div>
-
-                ${ex.record && Number(ex.record.peso) > 0 ? `
-                    <div class="pr-row" onclick="toggleCollapse(${i})">
-                        <div class="pr-left">Current PR: <span>${ex.record.peso}kg</span></div>
-                        <div class="pr-right"><i class="fas fa-chevron-right"></i></div>
-                    </div>
-                ` : ''}
 
                 ${ex.nota ? `
                     <div id="nota-${i}" class="nota-badge">
@@ -383,123 +345,38 @@ function toggleLock(idx) {
     const btn = document.getElementById(`btn-lock-${idx}`);
     
     // Obtenemos los datos del ejercicio actual desde el objeto db
-    const ejercicioData = db.semana[diaVisualIdx].ejercicios[idx];
+    const ejercicioData = db.semana[diaActualIdx].ejercicios[idx];
     const recordAnterior = ejercicioData.record ? ejercicioData.record.peso : 0;
 
-    if (card.classList.contains('exercise-locked')) {
+    if (!card.classList.contains('exercise-locked')) {
+        // --- ACTIVAR BLOQUEO ---
+        card.classList.add('exercise-locked');
+        btn.innerHTML = '<i class="fas fa-lock text-emerald-400"></i>';
+        
+        // Lógica de detección de Récord Personal
+        let maxPesoIngresado = 0;
+        const inputsPeso = card.querySelectorAll('.val-peso');
+        
+        inputsPeso.forEach(input => {
+            const valor = parseFloat(input.value) || 0;
+            if (valor > maxPesoIngresado) maxPesoIngresado = valor;
+        });
+
+        // Si el peso máximo de hoy supera el récord histórico... ¡FIESTA!
+        if (maxPesoIngresado > recordAnterior && recordAnterior > 0) {
+            dispararCelebracion();
+            console.log("¡Nuevo récord detectado!");
+        }
+
+        showToast('Ejercicio marcado como realizado. Puedes guardar el día cuando termines.', 'ok', 'Bloqueado');
+
+    } else {
         // --- DESACTIVAR BLOQUEO ---
         card.classList.remove('exercise-locked');
         btn.innerHTML = '<i class="fas fa-lock-open"></i>';
         showToast('Ejercicio desbloqueado.', 'info');
-        setSaveEnabled(document.querySelectorAll('.exercise-locked').length > 0);
-        return;
     }
 
-    // --- En lugar de bloquear al instante, mostramos un popup de confirmación (más GymRat-like) ---
-    abrirModalRegistro(diaVisualIdx, idx);
-
-}
-
-function abrirModalRegistro(dayIdx, exIdx){
-    __pendingLock = { dayIdx, exIdx };
-    const modal = document.getElementById('modalRegistro');
-    if (!modal) return;
-
-    const dia = db?.semana?.[dayIdx];
-    const ex = dia?.ejercicios?.[exIdx];
-    const card = document.getElementById(`card-${exIdx}`);
-
-    // Header
-    const title = document.getElementById('mr-title');
-    const sub = document.getElementById('mr-sub');
-    const pr = document.getElementById('mr-pr');
-    const count = document.getElementById('mr-count');
-    const list = document.getElementById('mr-list');
-    if (title) title.textContent = ex?.nombre || 'Ejercicio';
-    if (sub) sub.textContent = `${ex?.repeticiones || (ex?.duracion_segundos ? ex.duracion_segundos + 's' : '')} objetivo`;
-    if (pr) pr.textContent = (ex?.record?.peso && Number(ex.record.peso) > 0) ? `${ex.record.peso} kg` : '—';
-
-    // Series preview
-    let filled = 0;
-    const rows = [];
-    const pesos = Array.from(card?.querySelectorAll('.val-peso') || []);
-    pesos.forEach(p => {
-        const s = p.dataset.s;
-        const r = card.querySelector(`.val-reps[data-ex="${exIdx}"][data-s="${s}"]`);
-        const pv = (p.value ?? '').toString().trim();
-        const rv = (r?.value ?? '').toString().trim();
-        const has = pv !== '' || rv !== '';
-        if (has) filled++;
-
-        rows.push(`
-            <div class="mr-item">
-                <div class="mr-left">
-                    <div class="mr-badge">S${s}</div>
-                    <div class="mr-vals">
-                        <span class="${pv ? 'mr-kg' : 'mr-missing'}">${pv ? (pv + 'kg') : '— kg'}</span>
-                        <span class="mr-x">x</span>
-                        <span class="${rv ? 'mr-reps' : 'mr-missing'}">${rv ? rv : '—'} reps</span>
-                    </div>
-                </div>
-                <i class="fas fa-pen text-[10px] opacity-40"></i>
-            </div>
-        `);
-    });
-
-    if (count) count.textContent = String(filled);
-    if (list) list.innerHTML = rows.join('');
-
-    modal.classList.remove('hidden');
-}
-
-function cerrarModalRegistro(){
-    const modal = document.getElementById('modalRegistro');
-    if (!modal) return;
-    modal.classList.add('hidden');
-    __pendingLock = null;
-}
-
-function confirmarRegistro(){
-    const pending = __pendingLock;
-    if (!pending) return;
-    const { dayIdx, exIdx } = pending;
-    const card = document.getElementById(`card-${exIdx}`);
-    const btn = document.getElementById(`btn-lock-${exIdx}`);
-    const ejercicioData = db.semana[dayIdx].ejercicios[exIdx];
-    const recordAnterior = ejercicioData.record ? ejercicioData.record.peso : 0;
-
-    // Validar: al menos 1 serie con peso o reps
-    let hasAny = false;
-    let maxPesoIngresado = 0;
-    card.querySelectorAll('.val-peso').forEach(input => {
-        const pv = (input.value ?? '').toString().trim();
-        if (pv !== '') {
-            hasAny = true;
-            const v = parseFloat(pv) || 0;
-            if (v > maxPesoIngresado) maxPesoIngresado = v;
-        }
-    });
-    card.querySelectorAll('.val-reps').forEach(input => {
-        const rv = (input.value ?? '').toString().trim();
-        if (rv !== '') hasAny = true;
-    });
-
-    if (!hasAny){
-        showToast('Ingresa al menos una serie (Kg o Reps) antes de marcar como realizado.', 'warn', 'Faltan datos');
-        return;
-    }
-
-    // Bloquear
-    card.classList.add('exercise-locked');
-    btn.innerHTML = '<i class="fas fa-lock text-emerald-400"></i>';
-
-    // PR celebration
-    if (maxPesoIngresado > recordAnterior && recordAnterior > 0) {
-        dispararCelebracion();
-    }
-
-    cerrarModalRegistro();
-    showToast('Ejercicio marcado como realizado. Puedes guardar el día cuando termines.', 'ok', 'Bloqueado');
     setSaveEnabled(document.querySelectorAll('.exercise-locked').length > 0);
 }
 
@@ -508,14 +385,13 @@ function dispararCelebracion() {
         particleCount: 150,
         spread: 70,
         origin: { y: 0.7 },
-        colors: ['#9AFF00', '#6EDB00', '#ffffff', '#fbbf24'],
+        colors: ['#fbbf24', '#3b82f6', '#ffffff', '#10b981'],
         ticks: 200
     });
 }
 
 function cambiarDia(idx) {
-    // Cambia la rutina visualizada (no el día de registro del calendario)
-    diaVisualIdx = idx;
+    diaActualIdx = idx;
     document.getElementById('selectorRutina').value = idx; // Sincroniza el selector
     renderNav();
     renderDia(idx);
@@ -525,7 +401,7 @@ async function enviarDatos() {
     const btn = document.getElementById('saveBtn');
     const selector = document.getElementById('selectorRutina');
     const idxRutinaVisual = parseInt(selector.value);
-    const nombreDiaCalendario = db.semana[diaRegistroIdx].dia;
+    const nombreDiaCalendario = db.semana[diaActualIdx].dia; 
 
     const data = [];
     let recordSuperado = false;
@@ -637,7 +513,7 @@ function initChart() {
         type: 'line',
         data: {
             labels: ['L', 'M', 'X', 'J', 'V'],
-            datasets: [{ data: [104, 103, 102.5, 102, 101.5], borderColor: '#9AFF00', tension: 0.4, fill: true, backgroundColor: 'rgba(154, 255, 0, 0.06)', pointRadius: 0 }]
+            datasets: [{ data: [104, 103, 102.5, 102, 101.5], borderColor: '#3b82f6', tension: 0.4, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.05)', pointRadius: 0 }]
         },
         options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
     });
@@ -655,7 +531,7 @@ function cerrarModalReporte() {
 async function enviarReporteInactividad() {
     const motivo = document.getElementById('motivoInactividad').value;
     const btn = document.getElementById('btnEnviarReporte');
-    const diaActual = db.semana[diaRegistroIdx].dia;
+    const diaActual = db.semana[diaActualIdx].dia;
 
     if (!motivo) {
         showToast('Escribe un motivo breve para guardarlo en el historial.', 'warn', 'Falta motivo');
@@ -689,9 +565,7 @@ async function enviarReporteInactividad() {
 function intercambiarRutina(nuevoIdx) {
     // Al cambiar la rutina, actualizamos el contenido pero mantenemos el día de registro
     // Es decir, si hoy es Lunes pero elijo Martes, se guardará como: "Fecha de hoy, Día: Lunes, Ejercicio: (del martes)"
-    diaVisualIdx = parseInt(nuevoIdx);
-    renderNav();
-    renderDia(diaVisualIdx);
+    renderDia(parseInt(nuevoIdx));
     
     // Feedback visual breve
     const selector = document.getElementById('selectorRutina');
@@ -722,7 +596,7 @@ async function generarResumenRápido() {
     const vacio = document.getElementById('resumenVacio');
     
     // Feedback visual de carga
-    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-lime-400"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
+    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-blue-500"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
     if (vacio) vacio.classList.add('hidden');
 
     try {
@@ -755,7 +629,7 @@ async function generarResumenRápido() {
             lista.innerHTML += `
                 <div class="border-b border-white/5 pb-4 mb-4">
                     <p class="text-white text-[11px] font-bold mb-2 uppercase tracking-tighter flex items-center gap-2">
-                        <i class="fas fa-history text-lime-400 text-[9px]"></i>
+                        <i class="fas fa-history text-blue-500 text-[9px]"></i>
                         ${ejercicio}
                     </p>
                     <div class="pl-4 border-l border-blue-500/20">

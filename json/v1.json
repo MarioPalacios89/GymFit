@@ -1,0 +1,245 @@
+{
+  "version": "1.0",
+  "perfil": {
+    "nombre": "Mario",
+    "estatura_cm": 175,
+    "peso_inicial_kg": 104,
+    "objetivo": "pérdida_de_grasa_y_recomposición_corporal",
+    "reglas": { "rir_objetivo": "1-2" }
+  },
+  "calentamiento": [
+    { "nombre": "Jumping jacks", "reps": "60 s" },
+    { "nombre": "Sentadilla sin peso", "reps": "20" },
+    { "nombre": "Rotaciones hombro/cadera", "reps": "10 c/zona" },
+    { "nombre": "Puente de glúteo", "reps": "15" },
+    { "nombre": "Band pull apart", "reps": "20" },
+    { "nombre": "Plancha", "reps": "30 s" }
+  ],
+  "semana": [
+  {
+    "dia": "Lunes",
+    "enfoque": "Tren superior + core (fuerza)",
+    "ejercicios": [
+      {
+        "nombre": "Flexiones explosivas (activación)",
+        "series": 2,
+        "repeticiones": "8-10"
+      },
+      {
+        "nombre": "Press de banca con pausa (1s)",
+        "series": 3,
+        "repeticiones": "8-10",
+        "nota": "Pausa 1s en el pecho, subida explosiva",
+        "video": "https://www.youtube.com/watch?v=OqqxtmceTQk"
+      },
+      {
+        "nombre": "Jalón al pecho",
+        "series": 3,
+        "repeticiones": "10-12",
+        "video": "https://www.youtube.com/watch?v=DRZGCgv7N7g"
+      },
+      {
+        "nombre": "Remo sentado",
+        "series": 3,
+        "repeticiones": "10-12",
+        "video": "https://www.youtube.com/watch?v=JtTusrYzAos"
+      },
+      {
+        "nombre": "Press hombro mancuernas",
+        "series": 3,
+        "repeticiones": 10,
+        "video": "https://www.youtube.com/watch?v=laTnegu5ls8"
+      },
+      {
+        "nombre": "Curl bíceps",
+        "series": 3,
+        "repeticiones": 12
+      },
+      {
+        "nombre": "Extensión tríceps cuerda",
+        "series": 3,
+        "repeticiones": 12,
+        "video": "https://www.youtube.com/watch?v=Y-NCnt3OhNU"
+      },
+      {
+        "nombre": "Plancha frontal",
+        "series": 3,
+        "repeticiones": "45-60s"
+      }
+    ]
+  },
+
+  {
+    "dia": "Martes",
+    "enfoque": "Tren inferior (fuerza)",
+    "ejercicios": [
+      {
+        "nombre": "Sentadilla goblet pesada",
+        "series": 3,
+        "repeticiones": "10-12",
+        "nota": "Bajada controlada, subida explosiva"
+      },
+      {
+        "nombre": "Sentadilla / Prensa",
+        "series": 3,
+        "repeticiones": "10-12",
+        "video": "https://www.youtube.com/shorts/ORNAjnqUmy8"
+      },
+      {
+        "nombre": "Peso muerto rumano",
+        "series": 3,
+        "repeticiones": 10,
+        "video": "https://www.youtube.com/watch?v=O-MLxyVYRBY"
+      },
+      {
+        "nombre": "Curl femoral",
+        "series": 3,
+        "repeticiones": 12
+      },
+      {
+        "nombre": "Extensión cuádriceps",
+        "series": 3,
+        "repeticiones": 12
+      },
+      {
+        "nombre": "Elevación talones",
+        "series": 4,
+        "repeticiones": 15
+      }
+    ]
+  },
+
+  {
+    "dia": "Miércoles",
+    "enfoque": "Cardio + core + fuerza funcional",
+    "ejercicios": [
+      {
+        "nombre": "Caminata inclinada / bicicleta",
+        "series": 1,
+        "repeticiones": "45min"
+      },
+      {
+        "nombre": "Farmer walk (caminata del granjero)",
+        "series": 3,
+        "repeticiones": "20-30 m",
+        "nota": "Postura firme, core activo",
+        "video":"https://www.tiktok.com/@nalisthenics/video/7573431266507328790?q=Farmer%20walk%20&t=1767338521272"
+      },
+      {
+        "nombre": "Dead bug",
+        "series": 3,
+        "repeticiones": "10/lado",
+        "nota": "Pausa 2s",
+        "video": "https://www.youtube.com/watch?v=SPTBzZdINlg"
+      },
+      {
+        "nombre": "Plancha lateral",
+        "series": 3,
+        "repeticiones": "45s"
+      }
+    ]
+  },
+
+  {
+    "dia": "Jueves",
+    "enfoque": "Tren superior + calistenia",
+    "ejercicios": [
+      {
+        "nombre": "Press inclinado mancuernas",
+        "series": 3,
+        "repeticiones": "10-12",
+        "video": "https://www.youtube.com/watch?v=OhnoqtPEpzM"
+      },
+      {
+        "nombre": "Remo máquina",
+        "series": 3,
+        "repeticiones": "10-12"
+      },
+      {
+        "nombre": "Face pull",
+        "series": 3,
+        "repeticiones": 15,
+        "video": "https://www.youtube.com/watch?v=tIuXc_X8T4I"
+      },
+      {
+        "nombre": "Curl martillo",
+        "series": 3,
+        "repeticiones": 12,
+        "video": "https://www.youtube.com/watch?v=nB4SjEQrONQ"
+      },
+      {
+        "nombre": "Fondos paralelas",
+        "series": 3,
+        "repeticiones": "12-15",
+        "video": "https://www.youtube.com/watch?v=3cd1L740bp0"
+      },
+      {
+        "nombre": "Flexiones",
+        "series": 2,
+        "repeticiones": "AMRAP (mínimo 10)"
+      }
+    ]
+  },
+
+  {
+    "dia": "Viernes",
+    "enfoque": "Tren inferior + core (glúteo fuerte)",
+    "ejercicios": [
+      {
+        "nombre": "Hip Thrust con pausa (2s arriba)",
+        "series": 3,
+        "repeticiones": "10-12",
+        "video": "https://www.youtube.com/watch?v=14wE63cK26I",
+        "nota": "2s arriba"
+      },
+      {
+        "nombre": "Zancada búlgara",
+        "series": 3,
+        "repeticiones": "10/pierna",
+        "video": "https://www.youtube.com/watch?v=QbroBC-qlvs"
+      },
+      {
+        "nombre": "Curl femoral",
+        "series": 3,
+        "repeticiones": 12
+      },
+      {
+        "nombre": "Elevación piernas",
+        "series": 3,
+        "repeticiones": "12-15"
+      }
+    ]
+  },
+
+  {
+    "dia": "Sábado",
+    "enfoque": "Circuito metabólico",
+    "ejercicios": [
+      {
+        "nombre": "Burpees",
+        "series": 4,
+        "repeticiones": 12,
+        "video": "https://www.tiktok.com/@dfernandofit/video/7504358432602983687"
+      },
+      {
+        "nombre": "Sentadilla salto",
+        "series": 4,
+        "repeticiones": 15,
+        "video": "https://www.tiktok.com/@rubfitpro/video/7395835570355735840"
+      },
+      {
+        "nombre": "Crunch bicicleta",
+        "series": 4,
+        "repeticiones": 20,
+        "video": "https://www.tiktok.com/@tatayfitness/video/7007294558304324890"
+      },
+      {
+        "nombre": "Hollow hold",
+        "series": 4,
+        "repeticiones": "40s",
+        "video": "https://www.youtube.com/watch?v=_7crS8CZHrA"
+      }
+    ]
+  }
+]
+}

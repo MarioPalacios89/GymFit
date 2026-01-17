@@ -158,50 +158,6 @@
         </div>
     </div>
 
-    <!-- Modal: Confirmar/Agregar registro del ejercicio (estilo tipo GymRat+) -->
-    <div id="modalRegistro" class="fixed inset-0 z-[120] hidden">
-        <div class="modal-backdrop" onclick="cerrarModalRegistro()"></div>
-
-        <div class="modal-sheet">
-            <div class="modal-grab"></div>
-
-            <div class="modal-head">
-                <div>
-                    <p class="modal-kicker">Registrar</p>
-                    <h3 id="mr-title" class="modal-title">Ejercicio</h3>
-                    <p id="mr-sub" class="modal-sub">Objetivo</p>
-                </div>
-                <button class="modal-close" onclick="cerrarModalRegistro()" aria-label="Cerrar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="mr-card">
-                <div class="mr-row">
-                    <span class="mr-label">Current PR</span>
-                    <span id="mr-pr" class="mr-value">—</span>
-                </div>
-                <div class="mr-row">
-                    <span class="mr-label">Series registradas</span>
-                    <span id="mr-count" class="mr-value">0</span>
-                </div>
-            </div>
-
-            <div class="mr-list" id="mr-list">
-                <!-- rows -->
-            </div>
-
-            <div class="mr-actions">
-                <button class="mr-btn ghost" onclick="cerrarModalRegistro()">
-                    Cancelar
-                </button>
-                <button class="mr-btn primary" onclick="confirmarRegistro()">
-                    <i class="fas fa-lock mr-2"></i> Marcar realizado
-                </button>
-            </div>
-        </div>
-    </div>
-
 <div id="sidebarResumen" class="fixed inset-y-0 right-0 w-72 z-[100] bg-[#070b0a] border-l border-lime-500/10 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out">
     <div class="p-6 h-full flex flex-col">
         <div class="flex justify-between items-center mb-6"> <h2 class="text-white font-black text-sm uppercase tracking-tighter">Resumen de Sesión</h2>
