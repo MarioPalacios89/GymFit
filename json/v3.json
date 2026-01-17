@@ -1,0 +1,306 @@
+{
+  "version": "3.0",
+  "control_lesion": {
+    "activa": true,
+    "zona_afectada": "tobillo",
+    "impacto_permitido": false,
+    "estrategia": "maxima_intensidad_sin_impacto",
+    "nota": "Se prioriza fuerza explosiva, hipertrofia y core mientras sana el tobillo"
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "estatura_cm": 175,
+    "peso_inicial_kg": 104,
+    "objetivo": "pérdida_de_grasa_y_recomposición_corporal",
+    "reglas": {
+      "rir_objetivo": "0-1 en ultimo set"
+    }
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta estática",
+      "reps": "6-8 min"
+    },
+    {
+      "nombre": "Movilidad hombros y cadera",
+      "reps": "10 c/zona"
+    },
+    {
+      "nombre": "Puente de glúteo",
+      "reps": "20"
+    },
+    {
+      "nombre": "Band pull apart",
+      "reps": "25"
+    },
+    {
+      "nombre": "Plancha",
+      "reps": "40 s"
+    }
+  ],
+"semana": [
+  {
+    "dia": "Lunes",
+    "enfoque": "Tren superior EXPLOSIVO (fuerza)",
+    "ejercicios": [
+      {
+        "codigo": "E0001",
+        "nombre": "Flexiones explosivas controladas",
+        "series": 4,
+        "repeticiones": "6-8",
+        "nota": "Explosivas en subida, control total en bajada",
+        "video": "https://www.tiktok.com/@pipearenas.fit/video/6862478142431382789?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0002", "nombre": "Flexiones con bandas", "series": 4, "repeticiones": "8" }
+        ]
+      },
+      {
+        "codigo": "E0003",
+        "nombre": "Press de banca con pausa (2s)",
+        "series": 4,
+        "repeticiones": "5-6",
+        "nota": "Carga alta, pausa estricta, máxima intención de velocidad",
+        "video": "https://www.tiktok.com/@strength.network/video/7538025316120333590?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0004", "nombre": "Floor press", "series": 4, "repeticiones": "5-6" },
+          { "codigo": "E0005", "nombre": "Press inclinado barra", "series": 4, "repeticiones": "6", "video": "https://youtube.com/shorts/zJ49DeX0BxE?si=79qbX0f_kEv95dFI" }
+        ]
+      },
+      {
+        "codigo": "E0006",
+        "nombre": "Jalón al pecho pesado",
+        "series": 4,
+        "repeticiones": "6-8",
+        "nota": "Explosivo al bajar, control al subir",
+        "video":"https://youtube.com/shorts/3e-76jcA91w?si=DPxV9G9dTPLZpGd4",
+        "alternativas": [
+          { "codigo": "E0007", "nombre": "Pulldown unilateral", "series": 4, "repeticiones": "8/lado", "video":"https://youtube.com/shorts/CwXhNVqpCxo?si=K0tuV2nMjrEDwnqN" }
+        ]
+      },
+      {
+        "codigo": "E0008",
+        "nombre": "Remo sentado pesado",
+        "series": 4,
+        "repeticiones": "6-8",
+        "alternativas": [
+          { "codigo": "E0009", "nombre": "Remo con barra Pendlay", "series": 5, "repeticiones": "5","video":"https://youtube.com/shorts/sr_U0jBE89A?si=0ZPk0DGR7HIl03Cx" },
+          { "codigo": "E0010", "nombre": "Remo mancuerna banco", "series": 4, "repeticiones": "8/lado", "video":"https://youtube.com/shorts/u7W1mDPAwVk?si=2Pnb9WnpcfKd6Uug" }
+        ]
+      },
+      {
+        "codigo": "E0011",
+        "nombre": "Plancha frontal con lastre",
+        "series": 4,
+        "repeticiones": "40-50 s",
+        "video": "https://www.tiktok.com/@maguiquinteros96/video/7324866437619715333?is_from_webapp=1&sender_device=pc"
+      }
+    ]
+  },
+  {
+    "dia": "Martes",
+    "enfoque": "Tren inferior seguro + glúteo fuerte",
+    "ejercicios": [
+      {
+        "codigo": "E0012",
+        "nombre": "Hip Thrust con pausa (3s)",
+        "series": 4,
+        "repeticiones": "6-8",
+        "nota": "Máxima activación de glúteo",
+        "video": "https://www.tiktok.com/@arielyu.fit/video/7538070405790043406?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575"
+      },
+      {
+        "codigo": "E0013",
+        "nombre": "Hack squat",
+        "series": 4,
+        "repeticiones": "8-10",
+        "video": "https://youtu.be/rYgNArpwE7E?si=meQrWX8xedSNeOvI",
+        "alternativas": [          
+          { "codigo": "E0014", "nombre": "Sentadilla goblet pesada", "series": 4, "repeticiones": "8-10","video":"https://www.tiktok.com/@araceligargut/video/7583070083572944149?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575" }
+        ]
+      },
+      {
+        "codigo": "E0015",
+        "nombre": "Curl femoral",
+        "series": 4,
+        "repeticiones": "10-12",
+        "video": "https://www.tiktok.com/@juulisia._/video/7558862591146102038?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575"
+      },
+      {
+        "codigo": "E0016",
+        "nombre": "Elevación piernas",
+        "series": 4,
+        "repeticiones": "15-20",
+        "video": "https://www.tiktok.com/@bluegym.animation/video/7594007841573276950?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0017", "nombre": "Crunch inverso banco", "series": 4, "repeticiones": "15", "video":"https://youtube.com/shorts/1m6Y1ZfLkpw?si=AWnZXcKmW3UxuLUa" }
+        ]
+      }
+    ]
+  },
+  {
+    "dia": "Miércoles",
+    "enfoque": "Cardio intensivo SIN impacto + core",
+    "ejercicios": [
+      {
+        "codigo": "E0018",
+        "nombre": "Bicicleta estática HIIT",
+        "series": 1,
+        "repeticiones": "10x (30s muy fuerte / 90s suave)",
+        "nota": "RPE 9 en intervalos"
+      },
+      {
+        "codigo": "E0019",
+        "nombre": "Dead bug con pausa",
+        "series": 4,
+        "repeticiones": "12/lado",
+        "video": "https://www.tiktok.com/@nikkipolos/video/7577802889972829454?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575"
+      },
+      {
+        "codigo": "E0020",
+        "nombre": "Plancha lateral",
+        "series": 4,
+        "repeticiones": "50 s",
+        "video": "https://www.tiktok.com/@brunoarroyo98/video/7555984308150783243?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575"
+      }
+    ]
+  },
+  {
+    "dia": "Jueves",
+    "enfoque": "Hipertrofia tren superior (alta densidad)",
+    "ejercicios": [
+      {
+        "codigo": "E0021",
+        "nombre": "Press inclinado mancuernas",
+        "series": 4,
+        "repeticiones": "10-12",
+        "nota": "Último set drop-set",
+        "video": "https://www.tiktok.com/@bluegym.animation/video/7535495618756873474?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0005", "nombre": "Press inclinado barra", "series": 4, "repeticiones": "6", "video": "https://youtube.com/shorts/zJ49DeX0BxE?si=79qbX0f_kEv95dFI" },
+          { "codigo": "E0022", "nombre": "Press máquina convergente", "series": 4, "repeticiones": "12", "video":"https://youtube.com/shorts/JXJmPXlqwh0?si=cLbqrzStrABle2yO" }
+        ]
+      },
+      {
+        "codigo": "E0008",
+        "nombre": "Remo sentado pesado",
+        "series": 4,
+        "repeticiones": "6-8",
+        "alternativas": [
+          { "codigo": "E0009", "nombre": "Remo con barra Pendlay", "series": 5, "repeticiones": "5","video":"https://youtube.com/shorts/sr_U0jBE89A?si=0ZPk0DGR7HIl03Cx" },
+          { "codigo": "E0010", "nombre": "Remo mancuerna banco", "series": 4, "repeticiones": "8/lado", "video":"https://youtube.com/shorts/u7W1mDPAwVk?si=2Pnb9WnpcfKd6Uug" }
+        ]
+      },
+      {
+        "codigo": "E0023",
+        "nombre": "Face pull",
+        "series": 4,
+        "repeticiones": 15,
+        "video": "https://www.tiktok.com/@bluegym.animation/video/7554433542382505238?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0024", "nombre": "Y-raise banco inclinado", "series": 4, "repeticiones": "12", "video":"https://youtube.com/shorts/BvxuWwQOj_E?si=ZByr03pFnEBb7i3x" }
+        ]
+      },
+      {
+        "codigo": "E0025",
+        "nombre": "Curl bíceps",
+        "series": 4,
+        "repeticiones": "12-15",
+        "nota": "Superserie, descanso mínimo",
+        "video": "https://www.tiktok.com/@albertotuya/video/7553261788649803030?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0026", "nombre": "Curl inclinado", "series": 4, "repeticiones": "12", "video":"https://youtube.com/shorts/CnKi1AOAE10?si=dQlNz4Y6LYSZnsFJ" },
+          { "codigo": "E0027", "nombre": "Curl polea baja", "series": 4, "repeticiones": "15", "video":"https://youtube.com/shorts/_DIqfJzUDPY?si=iU4SDJgKYlZIA5cf" }
+        ]
+      },
+      {
+        "codigo": "E0028",
+        "nombre": "Extensión tríceps cuerda",
+        "series": 4,
+        "repeticiones": "12-15",
+        "nota": "Superserie, descanso mínimo",
+        "video": "https://www.tiktok.com/@maurofialho_pro/video/7573061514656058646?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0029", "nombre": "Fondos en paralelas", "series": 4, "repeticiones": "8-10" },
+          { "codigo": "E0030", "nombre": "Extensión overhead polea", "series": 4, "repeticiones": "12", "video":"https://youtube.com/shorts/9Ark9S11uXw?si=ke2dC54pweNii8VP" }
+        ]
+      }
+    ]
+  },
+  {
+    "dia": "Viernes",
+    "enfoque": "Glúteo + core INTENSIVO",
+    "ejercicios": [
+      {
+        "codigo": "E0031",
+        "nombre": "Hip Thrust unilateral",
+        "series": 4,
+        "repeticiones": "8/pierna",
+        "nota": "Control total",
+        "video": "https://www.tiktok.com/@miguelcoach_/video/7582362668313464120?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0032", "nombre": "Step-up alto", "series": 4, "repeticiones": "8/pierna", "video":"https://youtube.com/shorts/mw6iqu9K8DY?si=InJXDZhMzJuJ2xBs" }          
+        ]
+      },
+      {
+        "codigo": "E0032",
+        "nombre": "Zancada estática corta",
+        "series": 4,
+        "repeticiones": "8-10/pierna",
+        "video": "https://www.tiktok.com/@arnoldtorrijos/video/7442138160970190135?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [          
+          { "codigo": "E0033", "nombre": "Reverse lunge", "series": 4, "repeticiones": "10/pierna", "video":"https://youtube.com/shorts/38xlLGfguz4?si=o7k_Cwwaporyijoc" }
+        ]
+      },
+      {
+        "codigo": "E0015",
+        "nombre": "Curl femoral",
+        "series": 4,
+        "repeticiones": 12,
+        "video": "https://www.tiktok.com/@juulisia._/video/7558862591146102038?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575"
+      },
+      {
+        "codigo": "E0034",
+        "nombre": "Hollow hold",
+        "series": 4,
+        "repeticiones": "40-50 s",
+        "video": "https://www.tiktok.com/@ninolift/video/7457231292648688929?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0035", "nombre": "V-sit hold", "series": 4, "repeticiones": "30-40 s", "video": "https://youtube.com/shorts/GT0fJIRVRXg?si=d8NsOyMHfTqE9F93" }          
+        ]
+      }
+    ]
+  },
+  {
+    "dia": "Sábado",
+    "enfoque": "Metabólico brutal sin impacto",
+    "ejercicios": [
+      {
+        "codigo": "E0036",
+        "nombre": "Bicicleta (intervalos largos)",
+        "series": 1,
+        "repeticiones": "30 min"
+      },
+      {
+        "codigo": "E0037",
+        "nombre": "Remo en T",
+        "series": 4,
+        "repeticiones": 12,
+        "video": "https://www.tiktok.com/@martiinhm/video/7212327721240710405?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0038", "nombre": "Remo máquina unilateral", "series": 4, "repeticiones": "10/lado", "video":"https://youtube.com/shorts/Q-xjSatXUV4?si=a2vJxXtTQ7-RQouj" }
+        ]
+      },
+      {
+        "codigo": "E0039",
+        "nombre": "Crunch bicicleta",
+        "series": 4,
+        "repeticiones": 12,
+        "video": "https://www.tiktok.com/@ramosfitnatix/video/7167054475721542917?is_from_webapp=1&sender_device=pc&web_id=7596105597222061575",
+        "alternativas": [
+          { "codigo": "E0040", "nombre": "Crunch polea alta", "series": 4, "repeticiones": "15", "video":"https://youtube.com/shorts/2ZeXSjzQN30?si=dn6-PN9uKLQrZU20" }
+        ]
+      }
+    ]
+  }
+]
+}

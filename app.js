@@ -114,7 +114,7 @@ async function init() {
         document.getElementById('sub-meta').innerText = db.perfil.objetivo.replace(/_/g, ' ');
 
         const selector = document.getElementById('selectorRutina');
-        selector.innerHTML = db.semana.map((d, i) => 
+        selector.innerHTML = db.semana.map((d, i) =>
             `<option value="${i}" ${d.dia === hoyNombre ? 'selected' : ''}>Rutina ${d.dia}</option>`
         ).join('');
 
@@ -140,7 +140,7 @@ async function init() {
 // Close modals with ESC
 document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
-    try { cerrarModalAlternativas(); } catch {}
+    try { cerrarModalAlternativas(); } catch { }
 });
 
 // --- NUEVA FUNCIÓN DE HISTORIAL ---
@@ -205,26 +205,36 @@ function renderizarHistorial(filtroDia) {
             return `
                             <div class="exercise-group mb-2">
                                 ${(() => {
-                                    const noteObj = series.find(x => (x.nota && String(x.nota).trim()) || (x.foto && String(x.foto).trim()));
-                                    if (!noteObj) {
-                                        return `<p class="text-gray-300 text-[10px] font-bold mb-2 uppercase tracking-tighter">${nombreEx}</p>`;
-                                    }
-                                    const payload = {
-                                        ejercicio: nombreEx,
-                                        sesion,
-                                        nota: noteObj.nota || '',
-                                        foto: noteObj.foto || ''
-                                    };
-                                    const payloadStr = JSON.stringify(payload).replace(/"/g, '&quot;');
-                                    return `
+                    // const noteObj = series.find(x => (x.nota && String(x.nota).trim()) || (x.foto && String(x.foto).trim()));
+                    const noteObj = series.find(x =>
+                        (x.nota && String(x.nota).trim()) ||
+                        (x.fotoUrl && String(x.fotoUrl).trim()) ||
+                        (x.foto && String(x.foto).trim()) // compat viejo base64
+                    );
+
+                    if (!noteObj) {
+                        return `<p class="text-gray-300 text-[10px] font-bold mb-2 uppercase tracking-tighter">${nombreEx}</p>`;
+                    }
+
+                    const payload = {
+                        ejercicio: nombreEx,
+                        sesion,
+                        nota: noteObj.nota || '',
+                        foto: noteObj.fotoUrl || noteObj.foto || '' // usa URL si existe
+                    };
+                    const payloadStr = JSON.stringify(payload).replace(/"/g, '&quot;');
+                    return `
                                         <div class="flex items-center justify-between gap-2 mb-2">
                                             <p class="text-gray-300 text-[10px] font-bold uppercase tracking-tighter">${nombreEx}</p>
-                                            <button class="btn-note has-note" title="Ver nota" onclick="abrirModalNotaHistorial(${payloadStr})">
-                                                <i class="fas fa-note-sticky"></i>
-                                            </button>
+                            <button class="btn-note has-note flex items-center gap-2" title="Ver nota" onclick="abrirModalNotaHistorial(${payloadStr})">
+  <i class="fas fa-note-sticky"></i>
+  ${payload.foto ? `<span class="w-6 h-6 rounded-lg overflow-hidden border border-lime-400/20">
+    <img src="${payload.foto}" class="w-full h-full object-cover"/>
+  </span>` : ''}
+</button>
                                         </div>
                                     `;
-                                })()}
+                })()}
                                 <div class="tag-container">
                                     ${series.map((s, idx) => `
                                         <div class="data-tag ${idx === 0 && sIdx === 0 ? 'last-record' : ''}">
@@ -313,7 +323,7 @@ function renderDia(idx) {
         }
 
         return `
-            <div class="card p-6" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g,'&quot;')}">
+            <div class="card p-6" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
                 <div class="flex justify-between items-start mb-4">
                     <div class="flex gap-4 items-center">
                         <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all">
@@ -626,7 +636,7 @@ function renderAltItem({ label, meta, selected, onClick }) {
 function toggleLock(idx) {
     const card = document.getElementById(`card-${idx}`);
     const btn = document.getElementById(`btn-lock-${idx}`);
-    
+
     // Obtenemos los datos del ejercicio ACTIVO del día VISUAL (corrige el bug al ver otro día)
     const ejercicioData = getActiveExercise(diaVisualIdx, idx).activeEx || db.semana[diaVisualIdx].ejercicios[idx];
     const recordAnterior = ejercicioData.record ? ejercicioData.record.peso : 0;
@@ -635,11 +645,11 @@ function toggleLock(idx) {
         // --- ACTIVAR BLOQUEO ---
         card.classList.add('exercise-locked');
         btn.innerHTML = '<i class="fas fa-lock text-emerald-400"></i>';
-        
+
         // Lógica de detección de Récord Personal
         let maxPesoIngresado = 0;
         const inputsPeso = card.querySelectorAll('.val-peso');
-        
+
         inputsPeso.forEach(input => {
             const valor = parseFloat(input.value) || 0;
             if (valor > maxPesoIngresado) maxPesoIngresado = valor;
@@ -688,8 +698,8 @@ async function enviarDatos() {
 
     document.querySelectorAll('.exercise-locked').forEach(card => {
         const pInput = card.querySelector('.val-peso');
-        if(!pInput) return;
-        
+        if (!pInput) return;
+
         const exIdx = Number(pInput.dataset.ex);
         const exData = getActiveExercise(idxRutinaVisual, exIdx).activeEx || db.semana[idxRutinaVisual].ejercicios[exIdx];
         const prActual = parseFloat(exData?.record?.peso) || 0;
@@ -701,7 +711,7 @@ async function enviarDatos() {
         card.querySelectorAll('.val-peso').forEach(p => {
             const s = p.dataset.s;
             const r = card.querySelector(`.val-reps[data-ex="${exIdx}"][data-s="${s}"]`).value;
-            
+
             if (p.value) {
                 const pesoIngresado = parseFloat(p.value);
                 if (pesoIngresado > prActual && prActual > 0) recordSuperado = true;
@@ -766,7 +776,7 @@ function limpiarDespuesDeGuardar() {
         card.classList.remove('exercise-locked');
         // Resetear el icono del candado (buscamos el botón de lock dentro de la card)
         const btnLock = card.querySelector('button[id^="btn-lock-"]');
-        if(btnLock) btnLock.innerHTML = '<i class="fas fa-lock-open"></i>';
+        if (btnLock) btnLock.innerHTML = '<i class="fas fa-lock-open"></i>';
     });
 
     // 2. Limpiar todos los inputs de peso y reps
@@ -775,10 +785,10 @@ function limpiarDespuesDeGuardar() {
     });
 
     // 3. (Opcional) Actualizar el historial en segundo plano para que se vea lo nuevo
-    if(typeof cargarHistorial === "function") {
-        cargarHistorial(); 
+    if (typeof cargarHistorial === "function") {
+        cargarHistorial();
     }
-    
+
     alert("Entrenamiento sincronizado correctamente.");
 }
 
@@ -849,7 +859,7 @@ function intercambiarRutina(nuevoIdx) {
     diaVisualIdx = parseInt(nuevoIdx);
     renderNav();
     renderDia(diaVisualIdx);
-    
+
     // Feedback visual breve
     const selector = document.getElementById('selectorRutina');
     selector.classList.add('animate-pulse', 'border-blue-500');
@@ -859,14 +869,14 @@ function intercambiarRutina(nuevoIdx) {
 function toggleResumen() {
     const sidebar = document.getElementById('sidebarResumen');
     const overlay = document.getElementById('overlaySidebar');
-    
+
     if (sidebar.classList.contains('translate-x-full')) {
         sidebar.classList.remove('translate-x-full');
         overlay.classList.remove('hidden');
         setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-        
+
         // Llamada a la base de datos
-        generarResumenRápido(); 
+        generarResumenRápido();
     } else {
         sidebar.classList.add('translate-x-full');
         overlay.classList.add('opacity-0');
@@ -877,7 +887,7 @@ function toggleResumen() {
 async function generarResumenRápido() {
     const lista = document.getElementById('listaResumen');
     const vacio = document.getElementById('resumenVacio');
-    
+
     // Feedback visual de carga
     lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-lime-400"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando base de datos...</p></div>`;
     if (vacio) vacio.classList.add('hidden');
@@ -900,7 +910,7 @@ async function generarResumenRápido() {
         }, {});
 
         lista.innerHTML = ""; // Limpiar spinner
-        
+
         for (const [ejercicio, series] of Object.entries(agrupado)) {
             let seriesHtml = series.map(s => `
                 <div class="flex justify-between items-center text-[10px] bg-white/5 p-2 rounded-lg border border-white/5 mb-1">
