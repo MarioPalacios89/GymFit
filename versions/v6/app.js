@@ -18,8 +18,6 @@ const ALT_KEY = 'mariofit_alt_v1';
 // --- Notas por ejercicio (texto + foto base64) ---
 const NOTE_KEY = 'mariofit_notes_v1';
 
-let modoConversion = 'lb-to-kg'; // Estado inicial
-
 function loadNotes() {
     try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '{}'); }
     catch { return {}; }
@@ -294,6 +292,7 @@ function renderDia(idx) {
     const container = document.getElementById('mainContent');
     const dia = db.semana[idx];
 
+    // --- SECCIÓN DE CALENTAMIENTO ---
     let html = `        
         <div class="flex items-center gap-2 py-2">
             <div class="h-[1px] flex-1 bg-white/5"></div>
@@ -302,6 +301,7 @@ function renderDia(idx) {
         </div>
     `;
 
+    // --- SECCIÓN DE EJERCICIOS ---
     html += dia.ejercicios.map((ex, i) => {
         const v = getActiveExercise(idx, i);
         const active = v.activeEx || ex;
@@ -323,53 +323,39 @@ function renderDia(idx) {
         }
 
         return `
-            <div class="card p-6 relative" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
+            <div class="card p-6" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="flex gap-4 items-center flex-1">
-                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all shrink-0">
+                    <div class="flex gap-4 items-center">
+                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all">
                             <i class="fas fa-lock-open"></i>
                         </button>
-                        
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <h3 class="font-bold text-white text-base leading-tight truncate">${active.nombre}</h3>
-                                ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class="fas fa-crown"></i> ${active.record.peso}kg</div>` : ''}
-                                ${isAlt ? `<div class="alt-badge bg-lime-500/10 text-lime-500 text-[8px] px-2 py-0.5 rounded-md font-black italic border border-lime-500/20">ALT</div>` : ''}
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="font-bold text-white text-base leading-tight">${active.nombre}</h3>
+                                ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class=\"fas fa-crown\"></i> PR: ${active.record.peso}kg</div>` : ''}
+                                ${isAlt ? `<div class="alt-badge"><i class=\"fas fa-arrows-rotate\"></i> ALT</div>` : ''}
+                                <button onclick="abrirModalNota(${idx}, ${i})" class="btn-note ${hasUserNote ? 'has-note' : ''}" title="Nota + foto">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                ${(active.nota) ? `
+                                    <button onclick="toggleNota(${i})" id="btn-nota-${i}" class="btn-nota text-sm" title="Tips del ejercicio">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </button>
+                                ` : ''}
+                                ${alts.length ? `
+                                    <button onclick="abrirModalAlternativas(${idx}, ${i})" class="btn-alt text-sm" title="Cambiar por alternativa">
+                                        <i class="fas fa-arrows-rotate"></i>
+                                    </button>
+                                ` : ''}
                             </div>
                             <p class="text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
                         </div>
                     </div>
-
-                    <div class="relative ml-2">
-                        <button onclick="toggleExerciseMenu(event, ${idx}, ${i})" class="w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </button>
-
-                        <div id="exMenu-${idx}-${i}" class="hidden absolute right-0 mt-2 w-44 bg-[#0e1513] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                            <button onclick="abrirModalNota(${idx}, ${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 ${hasUserNote ? 'text-orange-400' : ''}">
-                                <i class="fas fa-pen w-4 text-center"></i> Mi Nota
-                            </button>
-                            
-                            ${active.nota ? `
-                            <button onclick="toggleNota(${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
-                                <i class="fas fa-lightbulb w-4 text-center text-yellow-400"></i> Tips Técnica
-                            </button>` : ''}
-
-                            ${alts.length ? `
-                            <button onclick="abrirModalAlternativas(${idx}, ${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
-                                <i class="fas fa-arrows-rotate w-4 text-center text-lime-400"></i> Alternativas
-                            </button>` : ''}
-
-                            ${active.video ? `
-                            <a href="${active.video}" target="_blank" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold">
-                                <i class="fab fa-youtube w-4 text-center text-red-500"></i> Ver Video
-                            </a>` : ''}
-                        </div>
-                    </div>
+                    ${active.video ? `<a href="${active.video}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-red-500/10 text-red-500 rounded-xl"><i class="fab fa-youtube"></i></a>` : ''}
                 </div>
 
                 ${active.nota ? `
-                    <div id="nota-${i}" class="nota-badge hidden">
+                    <div id="nota-${i}" class="nota-badge">
                         <p class="text-[11px] text-orange-200 leading-relaxed italic">
                             <span class="font-bold text-orange-400 uppercase text-[9px]">Tips:</span> ${active.nota}
                         </p>
@@ -383,25 +369,6 @@ function renderDia(idx) {
 
     container.innerHTML = html;
 }
-
-// Función auxiliar para controlar los menús de ejercicios
-function toggleExerciseMenu(event, dayIdx, exIdx) {
-    event.stopPropagation();
-    const menuId = `exMenu-${dayIdx}-${exIdx}`;
-    const allMenus = document.querySelectorAll('[id^="exMenu-"]');
-    const currentMenu = document.getElementById(menuId);
-    
-    allMenus.forEach(m => {
-        if (m.id !== menuId) m.classList.add('hidden');
-    });
-
-    currentMenu.classList.toggle('hidden');
-}
-
-// Cerrar menús al tocar fuera
-document.addEventListener('click', () => {
-    document.querySelectorAll('[id^="exMenu-"]').forEach(m => m.classList.add('hidden'));
-});
 
 function toggleNota(idx) {
     const notaDiv = document.getElementById(`nota-${idx}`);
@@ -968,79 +935,5 @@ async function generarResumenRápido() {
         lista.innerHTML = `<p class="text-red-400 text-[10px] text-center">Error al conectar con la base de datos</p>`;
     }
 }
-
-// Función para abrir/cerrar el menú de opciones del header
-function toggleMenuActions(event) {
-    if (event) event.stopPropagation(); // Evita que el clic se propague
-    const menu = document.getElementById('menuActions');
-    menu.classList.toggle('show');
-}
-
-// Cerrar el menú automáticamente si haces clic en cualquier otro lugar de la pantalla
-document.addEventListener('click', function(event) {
-    const menu = document.getElementById('menuActions');
-    const btn = document.getElementById('btnMainActions');
-    
-    if (menu && !menu.contains(event.target) && !btn.contains(event.target)) {
-        menu.classList.remove('show');
-    }
-});
-
-// Cerrar el menú al hacer scroll para que no flote sobre el contenido
-window.addEventListener('scroll', () => {
-    const menu = document.getElementById('menuActions');
-    if (menu) menu.classList.remove('show');
-});
-
-function toggleConversor(event) {
-    if (event) event.stopPropagation();
-    const popup = document.getElementById('popupConversor');
-    popup.classList.toggle('hidden');
-    if (!popup.classList.contains('hidden')) {
-        document.getElementById('inputVal').focus();
-    }
-}
-
-function swapConversion() {
-    const title = document.getElementById('convTitle');
-    const labelIn = document.getElementById('labelInput');
-    const labelOut = document.getElementById('labelOutput');
-    const input = document.getElementById('inputVal');
-    
-    if (modoConversion === 'lb-to-kg') {
-        modoConversion = 'kg-to-lb';
-        title.innerText = "Kilos a Libras";
-        labelIn.innerText = "Kilos";
-        labelOut.innerText = "Libras (Resultado)";
-    } else {
-        modoConversion = 'lb-to-kg';
-        title.innerText = "Libras a Kilos";
-        labelIn.innerText = "Libras";
-        labelOut.innerText = "Kilos (Resultado)";
-    }
-    input.value = "";
-    document.getElementById('outputVal').innerText = "0.00";
-}
-
-function convertWeight() {
-    const val = parseFloat(document.getElementById('inputVal').value) || 0;
-    const output = document.getElementById('outputVal');
-    
-    if (modoConversion === 'lb-to-kg') {
-        // 1 Lb = 0.453592 Kg
-        output.innerText = (val * 0.453592).toFixed(2);
-    } else {
-        // 1 Kg = 2.20462 Lb
-        output.innerText = (val * 2.20462).toFixed(2);
-    }
-}
-
-// Cerrar al hacer clic fuera
-document.addEventListener('click', (e) => {
-    const popup = document.getElementById('popupConversor');
-    if (popup && !popup.contains(e.target) && !e.target.closest('button')) {
-        popup.classList.add('hidden');
-    }
-});
 
 init();
