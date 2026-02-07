@@ -1,0 +1,228 @@
+{
+    "version": "4.0",
+    "control_lesion": {
+        "activa": true,
+        "zona_afectada": "tobillo",
+        "impacto_permitido": false,
+        "estrategia": "maxima_intensidad_sin_impacto",
+        "nota": "Se prioriza fuerza explosiva, hipertrofia y core mientras sana el tobillo"
+    },
+    "perfil": {
+        "nombre": "Mario",
+        "estatura_cm": 175,
+        "peso_inicial_kg": 104,
+        "objetivo": "pérdida_de_grasa_y_recomposición_corporal",
+        "reglas": {
+            "rir_objetivo": "0-1 en ultimo set"
+        }
+    },
+    "calentamiento": [
+        {
+            "nombre": "Bicicleta estática",
+            "reps": "6-8 min"
+        },
+        {
+            "nombre": "Movilidad hombros y cadera",
+            "reps": "10 c/zona"
+        },
+        {
+            "nombre": "Puente de glúteo",
+            "reps": "20"
+        },
+        {
+            "nombre": "Band pull apart",
+            "reps": "25"
+        },
+        {
+            "nombre": "Plancha",
+            "reps": "40 s"
+        }
+    ],
+    "semana": [
+        {
+            "dia": "Lunes",
+            "enfoque": "Pecho + Tríceps + Cardio",
+            "ejercicios": [
+                {
+                    "nombre": "Machine Chest Press",
+                    "series": 4,
+                    "repeticiones": "5-8"
+                },
+                {
+                    "nombre": "Seated Cable Pec Flye",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Overhead Cable Triceps Extension (Bar)",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Barbell Skullcrusher",
+                    "series": 4,
+                    "repeticiones": "6-10"
+                },
+                {
+                    "nombre": "Bicicleta estática",
+                    "series": 1,
+                    "repeticiones": "30 min",
+                    "nota": "Cardio LISS 60-70% FC máx"
+                }
+            ]
+        },
+        {
+            "dia": "Martes",
+            "enfoque": "Espalda + Abdomen (rápido)",
+            "ejercicios": [
+                {
+                    "nombre": "Wide Grip Lat Pulldown",
+                    "series": 4,
+                    "repeticiones": "6-10"
+                },
+                {
+                    "nombre": "Neutral Grip Lat Pulldown",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Chest Supported Row",
+                    "series": 4,
+                    "repeticiones": "6-10"
+                },
+                {
+                    "nombre": "One Arm Lat Pulldown",
+                    "series": 4,
+                    "repeticiones": "10-12"
+                },
+                {
+                    "nombre": "Cable Crunch Pesado",
+                    "series": 3,
+                    "repeticiones": "10-12"
+                }
+            ]
+        },
+        {
+            "dia": "Miércoles",
+            "enfoque": "Pierna (Cuádriceps) + Cardio",
+            "ejercicios": [
+                {
+                    "nombre": "Hack Squat",
+                    "series": 4,
+                    "repeticiones": "5-8"
+                },
+                {
+                    "nombre": "Smith Machine Squat",
+                    "series": 4,
+                    "repeticiones": "6-10"
+                },
+                {
+                    "nombre": "Bulgarian Split Squat",
+                    "series": 4,
+                    "repeticiones": "8-10"
+                },
+                {
+                    "nombre": "Machine Hip Abduction",
+                    "series": 4,
+                    "repeticiones": "12-15"
+                },
+                {
+                    "nombre": "Bicicleta estática",
+                    "series": 1,
+                    "repeticiones": "20 min",
+                    "nota": "Cardio LISS suave post pierna"
+                }
+            ]
+        },
+        {
+            "dia": "Jueves",
+            "enfoque": "Hombros (rápido)",
+            "ejercicios": [
+                {
+                    "nombre": "Cable Lateral Raise",
+                    "series": 4,
+                    "repeticiones": "12-15"
+                },
+                {
+                    "nombre": "Behind-the-back Cable Lateral Raise",
+                    "series": 4,
+                    "repeticiones": "12-15"
+                },
+                {
+                    "nombre": "Reverse Pec Deck",
+                    "series": 4,
+                    "repeticiones": "12-15"
+                },
+                {
+                    "nombre": "Cable Y Raise",
+                    "series": 4,
+                    "repeticiones": "12-15"
+                }
+            ]
+        },
+        {
+            "dia": "Viernes",
+            "enfoque": "Bíceps + Tríceps + Cardio",
+            "ejercicios": [
+                {
+                    "nombre": "Face Away Bayesian Curl",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Machine Preacher Curl",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Overhead Cable Triceps Extension (Bar)",
+                    "series": 4,
+                    "repeticiones": "8-12"
+                },
+                {
+                    "nombre": "Caminata continua o elíptica",
+                    "series": 1,
+                    "repeticiones": "35-45 min",
+                    "nota": "Cardio LISS sostenido"
+                }
+            ]
+        },
+        {
+            "dia": "Sábado",
+            "enfoque": "Glúteos + Posterior + Abdomen + Cardio",
+            "ejercicios": [
+                {
+                    "nombre": "Hip Thrust",
+                    "series": 4,
+                    "repeticiones": "6-10"
+                },
+                {
+                    "nombre": "45-Degree Back Extension",
+                    "series": 4,
+                    "repeticiones": "10-15"
+                },
+                {
+                    "nombre": "Walking Lunges",
+                    "series": 4,
+                    "repeticiones": "12-16 pasos"
+                },
+                {
+                    "nombre": "Cable Crunch",
+                    "series": 3,
+                    "repeticiones": "12-15"
+                },
+                {
+                    "nombre": "Dead Bug Controlado",
+                    "series": 3,
+                    "repeticiones": "10-12"
+                },
+                {
+                    "nombre": "Air Bike / Elíptica",
+                    "series": 6,
+                    "repeticiones": "20s ON / 60s OFF",
+                    "nota": "HIIT corto semanal"
+                }
+            ]
+        }
+    ]
+}

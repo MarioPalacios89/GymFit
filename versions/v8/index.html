@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MarioFit Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="estilos.css" rel="stylesheet">
+</head>
+
+<body class="pb-20">
+
+    <div id="loading-screen"
+        class="fixed inset-0 z-[100] bg-[#070b0a] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative">
+            <div class="w-20 h-20 border-4 border-lime-400/20 border-t-lime-400 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i class="fas fa-bolt text-lime-400 text-xl animate-pulse"></i>
+            </div>
+        </div>
+        <h1 class="mt-6 text-2xl font-black text-white italic tracking-tighter">MARIO<span
+                class="text-lime-400">FIT</span></h1>
+        <div class="mt-2 flex items-center gap-2">
+            <span class="inline-block w-1 h-1 bg-lime-400 rounded-full animate-bounce"></span>
+            <span class="inline-block w-1 h-1 bg-lime-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span class="inline-block w-1 h-1 bg-lime-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+        </div>
+        <p class="mt-4 text-[10px] text-gray-500 uppercase font-bold tracking-[0.3em]">Sincronizando datos...</p>
+    </div>
+
+    <!-- Modal: Alternativas de ejercicio -->
+    <div id="modalAlternativas" class="fixed inset-0 z-[130] hidden">
+        <div class="modal-backdrop" onclick="cerrarModalAlternativas()"></div>
+        <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="ma-title">
+            <div class="modal-grab"></div>
+            <div class="modal-head">
+                <div>
+                    <div class="modal-kicker">ALTERNATIVAS</div>
+                    <div id="ma-title" class="modal-title">Ejercicio</div>
+                    <div id="ma-sub" class="modal-sub">Elige una alternativa</div>
+                </div>
+                <button class="modal-close" onclick="cerrarModalAlternativas()" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="ma-list" class="alt-list mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Modal: Nota + Foto por ejercicio -->
+    <div id="modalNota" class="fixed inset-0 z-[140] hidden">
+        <div class="modal-backdrop" onclick="cerrarModalNota()"></div>
+        <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="mn-title">
+            <div class="modal-grab"></div>
+            <div class="modal-head">
+                <div>
+                    <div class="modal-kicker">NOTA</div>
+                    <div id="mn-title" class="modal-title">Ejercicio</div>
+                    <div id="mn-sub" class="modal-sub">Agrega una nota y/o una foto (se verá en tu historial).</div>
+                </div>
+                <button class="modal-close" onclick="cerrarModalNota()" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mt-4">
+                <textarea id="mn-text" class="note-textarea" placeholder="Ej: máquina ocupada, técnica, dolor, cues, etc..."></textarea>
+
+                <input id="mn-file" type="file" accept="image/*" class="hidden" />
+
+                <div class="note-actions">
+                    <button class="note-btn" onclick="seleccionarFotoNota()">
+                        <i class="fas fa-camera mr-2"></i> Adjuntar
+                    </button>
+                    <button class="note-btn" onclick="limpiarFotoNota()">
+                        <i class="fas fa-trash mr-2"></i> Quitar
+                    </button>
+                </div>
+
+                <div id="mn-preview" class="note-preview hidden">
+                    <img id="mn-img" alt="Foto adjunta" />
+                </div>
+
+                <div class="note-actions">
+                    <button class="note-btn" onclick="cerrarModalNota()">Cancelar</button>
+                    <button class="note-btn primary" onclick="guardarNotaEjercicio()">
+                        <i class="fas fa-check mr-2"></i> Guardar nota
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#070b0a]/95 backdrop-blur-md border-b border-white/5">
+    <div>
+        <h1 class="text-xl font-black text-white italic tracking-tighter leading-none">
+            MARIO<span class="text-[#9AFF00]">FIT</span>
+        </h1>
+        <p id="sub-meta" class="text-[9px] text-[#9AFF00]/60 uppercase font-bold tracking-[0.2em] mt-1"></p>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <div class="relative">
+            <button id="btnMainActions" onclick="toggleMenuActions(event)" class="w-10 h-10 flex items-center justify-center bg-[#9AFF00] text-black rounded-xl shadow-lg shadow-[#9AFF00]/20 active:scale-90 transition-transform">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+
+            <div id="menuActions" class="hidden absolute right-0 mt-3 w-48 bg-[#0e1513] border border-[#9AFF00]/20 rounded-2xl shadow-2xl z-50 overflow-hidden animate-fadeInDown">
+                <button onclick="toggleResumen()" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 uppercase text-left">
+                    <i class="fas fa-list-check text-[#9AFF00]"></i> Resumen
+                </button>
+                <button onclick="location.reload()" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 uppercase text-left">
+                    <i class="fas fa-sync-alt text-[#9AFF00]"></i> Sincronizar
+                </button>
+                <button onclick="abrirModal()" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold uppercase text-left">
+                    <i class="fas fa-history text-[#9AFF00]"></i> Historial
+                </button>
+                            <button onclick="toggleConversor(event)" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 uppercase tracking-tighter text-left">
+        <i class="fas fa-weight text-lime-400"></i> Conversor de libras / kilos
+    </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="menuOverlay" onclick="toggleMenuContextual()" class="fixed inset-0 z-40 hidden"></div>
+
+
+    <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#070b0a]"></nav>
+
+    <div class="px-6 my-4">
+        <button onclick="abrirModalReporte()"
+            class="w-full py-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+            <i class="fas fa-exclamation-circle"></i> ¿No pudiste entrenar hoy?
+        </button>
+    </div>
+
+    
+    <div class="px-4 mb-2 flex justify-between items-center">
+        <span class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Estás viendo:</span>
+        <div class="relative">
+            <select id="selectorRutina" onchange="intercambiarRutina(this.value)"
+                class="bg-slate-900 text-lime-300 text-[10px] font-black uppercase py-1 px-3 rounded-lg border border-lime-400/20 outline-none appearance-none pr-8">
+            </select>
+            <i
+                class="fas fa-chevron-down absolute right-2 top-1/2 -translate-y-1/2 text-[8px] text-lime-400 pointer-events-none"></i>
+        </div>
+    </div>
+
+    <main id="mainContent" class="px-4 space-y-6 pt-2"></main>
+
+    <div id="modalReporte"
+        class="fixed inset-0 z-[110] bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-6">
+        <div class="bg-slate-900 w-full rounded-3xl border border-white/10 p-6 shadow-2xl">
+            <h3 class="text-white font-bold text-lg mb-2">Reportar Inactividad</h3>
+            <p class="text-gray-400 text-xs mb-4">Cuéntanos por qué no se pudo completar la rutina de hoy para tu
+                registro.</p>
+
+            <textarea id="motivoInactividad" placeholder="Ej: Lesión en la rodilla, viaje de trabajo, descanso extra..."
+                class="w-full bg-slate-800 border border-white/5 rounded-xl p-4 text-white text-sm focus:border-lime-400 outline-none h-32 mb-4"></textarea>
+
+            <div class="flex gap-3">
+                <button onclick="cerrarModalReporte()"
+                    class="flex-1 py-3 rounded-xl bg-slate-800 text-gray-400 font-bold text-xs uppercase">Cancelar</button>
+                <button onclick="enviarReporteInactividad()" id="btnEnviarReporte"
+                    class="flex-1 py-3 rounded-xl bg-red-600 text-white font-bold text-xs uppercase">Guardar
+                    Nota</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#070b0a] to-transparent z-40">
+        <button onclick="enviarDatos()" id="saveBtn"
+            class="w-full bg-lime-500 hover:bg-lime-400 text-[#061009] font-black py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all">
+            <i class="fas fa-check-circle"></i> GUARDAR DÍA
+        </button>
+    </div>
+
+    <div id="modalProgreso" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 hidden">
+        <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onclick="cerrarModal()"></div>
+        <div
+            class="relative w-full max-w-2xl bg-slate-900 rounded-t-[40px] p-6 border-t border-white/10 shadow-2xl overflow-hidden flex flex-col h-[90vh]">
+
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-white">Historial y Progreso</h2>
+                <button onclick="cerrarModal()" class="text-gray-500 hover:text-white"><i
+                        class="fas fa-times-circle text-2xl"></i></button>
+            </div>
+
+            <div class="bg-slate-800/30 p-4 rounded-3xl border border-white/5 mb-6">
+                <canvas id="chartProgreso" height="120"></canvas>
+            </div>
+
+            <div class="flex-1 overflow-y-auto no-scrollbar">
+                <h3 class="text-lime-300 text-[10px] font-bold uppercase tracking-widest mb-3">Registros Recientes</h3>
+                <div id="tablaHistorial" class="space-y-3">
+                    <p class="text-gray-500 text-center text-xs py-10">Cargando registros...</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mt-6">
+                <button onclick="registrarPeso()"
+                    class="bg-lime-500 text-[#061009] p-4 rounded-2xl font-black text-xs uppercase shadow-lg shadow-lime-900/30">
+                    <i class="fas fa-weight mr-2"></i> Peso
+                </button>
+                <div
+                    class="bg-slate-800 p-4 rounded-2xl border border-white/5 text-center flex flex-col justify-center">
+                    <p class="text-[9px] text-gray-500 uppercase font-bold">Hoy</p>
+                    <p id="label-hoy" class="text-white text-xs font-bold"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="popupConversor" class="hidden fixed top-20 right-4 w-64 bg-[#0e1513] border border-[#9AFF00]/20 rounded-2xl shadow-2xl z-[60] p-5 animate-fadeInDown backdrop-blur-md">
+    <div class="flex justify-between items-center mb-4">
+        <h4 id="convTitle" class="text-[10px] font-black text-white uppercase tracking-widest italic">Lb a Kilos</h4>
+        <button onclick="swapConversion()" class="w-8 h-8 flex items-center justify-center bg-[#9AFF00] text-black rounded-lg text-xs active:rotate-180 transition-transform duration-300">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+    <div class="space-y-4">
+        <input type="number" id="inputVal" oninput="convertWeight()" placeholder="0.00" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-bold outline-none focus:border-[#9AFF00]">
+        <div class="bg-black/20 rounded-xl p-4 border border-white/5 text-center">
+            <p class="text-[8px] text-gray-500 uppercase font-bold mb-1 tracking-widest">Resultado</p>
+            <p id="outputVal" class="text-2xl font-black text-[#9AFF00]">0.00</p>
+        </div>
+    </div>
+</div>
+
+<div id="sidebarResumen" class="fixed inset-y-0 right-0 w-72 z-[100] bg-[#0f172a] border-l border-white/10 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="p-6 h-full flex flex-col">
+        <div class="flex justify-between items-center mb-6"> <h2 class="text-white font-black text-sm uppercase tracking-tighter">Resumen de Sesión</h2>
+            <button onclick="toggleResumen()" class="w-8 h-8 flex items-center justify-center text-gray-500 bg-white/5 rounded-full">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div id="listaResumen" class="overflow-y-auto flex-1 pr-2"></div>
+        
+        <div id="resumenVacio" class="text-center py-20">
+            <i class="fas fa-clipboard-check text-gray-800 text-4xl mb-4"></i>
+            <p class="text-gray-600 text-[10px] font-bold uppercase tracking-widest leading-tight">Registra tu primera<br>serie para ver el resumen</p>
+        </div>
+    </div>
+</div>
+
+<div id="overlaySidebar" onclick="toggleResumen()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] hidden opacity-0 transition-opacity duration-300"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
