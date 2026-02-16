@@ -46,22 +46,27 @@
                 {
                     "nombre": "Machine Chest Press",
                     "series": 4,
-                    "repeticiones": "5-8"
+                    "repeticiones": "5-8",
+                    "video": "https://www.tiktok.com/@chemofit/video/7558272859961920786?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
-                    "nombre": "Seated Cable Pec Flye",
+                    "nombre": "Pec Deck (Chest Fly Machine)",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "10-12",
+                    "nota": "Aprieta 1s al centro, controla la apertura",
+                    "video": "https://www.tiktok.com/@totojamus/video/7487990552269540614?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Overhead Cable Triceps Extension (Bar)",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "8-12",
+                    "video": "https://www.tiktok.com/@tiktokbargains34/video/7398093878152236321?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Barbell Skullcrusher",
                     "series": 4,
-                    "repeticiones": "6-10"
+                    "repeticiones": "6-10",
+                    "video": "https://www.tiktok.com/@joshuaktl_/video/7598805712575188245?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Bicicleta estática",
@@ -78,27 +83,32 @@
                 {
                     "nombre": "Wide Grip Lat Pulldown",
                     "series": 4,
-                    "repeticiones": "6-10"
+                    "repeticiones": "6-10",
+                    "video": "https://www.tiktok.com/@hawkeye_training/video/7561110147716615454?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Neutral Grip Lat Pulldown",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "8-12",
+                    "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Chest Supported Row",
                     "series": 4,
-                    "repeticiones": "6-10"
+                    "repeticiones": "6-10",
+                    "video": "https://www.tiktok.com/@physique.slayer/video/7573382297995545878?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "One Arm Lat Pulldown",
                     "series": 4,
-                    "repeticiones": "10-12"
+                    "repeticiones": "10-12",
+                    "video": "https://www.tiktok.com/@nowtrain/video/7298313932312251681?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Cable Crunch Pesado",
                     "series": 3,
-                    "repeticiones": "10-12"
+                    "repeticiones": "10-12",
+                    "video": "https://www.tiktok.com/@gustavo.estre/video/7522892003793784070?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 }
             ]
         },
@@ -109,22 +119,32 @@
                 {
                     "nombre": "Hack Squat",
                     "series": 4,
-                    "repeticiones": "5-8"
+                    "repeticiones": "5-8",
+                    "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Smith Machine Squat",
                     "series": 4,
-                    "repeticiones": "6-10"
+                    "repeticiones": "6-10",
+                    "video": "https://www.tiktok.com/@joinyoucan/video/7571945211891420430?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
-                    "nombre": "Bulgarian Split Squat",
+                    "nombre": "Split Squat estático",
                     "series": 4,
-                    "repeticiones": "8-10"
+                    "repeticiones": "8-10",
+                    "video": "https://www.tiktok.com/@azharfit/video/7518835883034889477?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
+                },
+                {
+                    "nombre": "Curl Leg Machine",
+                    "series": 4,
+                    "repeticiones": "8-10",
+                    "video": "https://www.tiktok.com/@deltabolic/video/7520075344108326200?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Machine Hip Abduction",
                     "series": 4,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video": "https://www.tiktok.com/@bluegym.animation/video/7582680931396291862?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Bicicleta estática",
@@ -141,22 +161,26 @@
                 {
                     "nombre": "Cable Lateral Raise",
                     "series": 4,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video":"https://www.tiktok.com/@jeffnippardfitness/video/7338448295838174469?is_from_webapp=1&sender_device=pc&web_id=7606456098589541906"
                 },
                 {
                     "nombre": "Behind-the-back Cable Lateral Raise",
                     "series": 4,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video":"https://www.tiktok.com/@jaycutler/video/7405730431137533215?is_from_webapp=1&sender_device=pc"
                 },
                 {
                     "nombre": "Reverse Pec Deck",
                     "series": 4,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video":"https://youtube.com/shorts/LLgkANwIKzk?si=5PQV9jxN3WPj46KD"
                 },
                 {
                     "nombre": "Cable Y Raise",
                     "series": 4,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video":"https://youtube.com/shorts/Zy0M8JMLnD0?si=UL-zYnlox1U84pMB"
                 }
             ]
         },
@@ -167,17 +191,20 @@
                 {
                     "nombre": "Face Away Bayesian Curl",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "8-12",
+                    "video":"https://www.tiktok.com/@jeff_nippard_clips/video/7478729277995765014?is_from_webapp=1&sender_device=pc&web_id=7606456098589541906"
                 },
                 {
                     "nombre": "Machine Preacher Curl",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "8-12",
+                    "video":"https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456098589541906"
                 },
                 {
                     "nombre": "Overhead Cable Triceps Extension (Bar)",
                     "series": 4,
-                    "repeticiones": "8-12"
+                    "repeticiones": "8-12",
+                    "video":"https://www.tiktok.com/@strongsplit.ios/video/7550937539494825223?is_from_webapp=1&sender_device=pc&web_id=7606456098589541906"
                 },
                 {
                     "nombre": "Caminata continua o elíptica",
@@ -194,27 +221,33 @@
                 {
                     "nombre": "Hip Thrust",
                     "series": 4,
-                    "repeticiones": "6-10"
+                    "repeticiones": "6-10",
+                    "video": "https://www.tiktok.com/@dianamena.fit/video/7541578291799477522"
                 },
                 {
-                    "nombre": "45-Degree Back Extension",
+                    "nombre": "Máquina de patada de glúteo",
                     "series": 4,
-                    "repeticiones": "10-15"
+                    "repeticiones": "12-15 / pierna",
+                    "nota": "Pausa 1s arriba, espalda neutra",
+                    "video": "https://www.tiktok.com/@christian.ramirezc/video/7587067775290445077?is_from_webapp=1&sender_device=pc"
                 },
                 {
                     "nombre": "Walking Lunges",
                     "series": 4,
-                    "repeticiones": "12-16 pasos"
+                    "repeticiones": "12-16 pasos",
+                    "video": "https://www.tiktok.com/@consistencyyy/video/7437217929898347798?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Cable Crunch",
                     "series": 3,
-                    "repeticiones": "12-15"
+                    "repeticiones": "12-15",
+                    "video": "https://www.tiktok.com/@bluegym.animation/video/7594008148793396502?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Dead Bug Controlado",
                     "series": 3,
-                    "repeticiones": "10-12"
+                    "repeticiones": "10-12",
+                    "video": "https://www.tiktok.com/@nikkipolos/video/7577802889972829454?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
                 },
                 {
                     "nombre": "Air Bike / Elíptica",

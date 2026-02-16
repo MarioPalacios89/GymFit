@@ -1,0 +1,434 @@
+{
+  "version": "4.2",
+  "control_lesion": {
+    "activa": true,
+    "zona_afectada": "tobillo",
+    "impacto_permitido": false,
+    "estrategia": "maxima_intensidad_sin_impacto"
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "estatura_cm": 175,
+    "peso_inicial_kg": 104,
+    "objetivo": "pérdida_de_grasa_y_recomposición_corporal",
+    "reglas": {
+      "rir_objetivo": "0-1 en ultimo set"
+    }
+  },
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Pecho + Tríceps",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 4,
+          "repeticiones": "5-8",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Pec Deck",
+          "series": 4,
+          "repeticiones": "10-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension",
+          "series": 4,
+          "repeticiones": "8-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Barbell Skullcrusher",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 3,
+          "repeticiones": "8-10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Flat Dumbbell Flyes",
+          "series": 3,
+          "repeticiones": "12",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Push-ups",
+          "series": 2,
+          "repeticiones": "al fallo",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Bench Press (Dumbbell)",
+          "series": 3,
+          "repeticiones": "8-10",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Arnold Press (Dumbbell)",
+          "series": 3,
+          "repeticiones": "10-12",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 3,
+          "repeticiones": "12-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Lateral Raise (Dumbbell)",
+          "series": "2-3",
+          "repeticiones": "12-20",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Butterfly (Pec Deck)",
+          "series": "2-3",
+          "repeticiones": "15-20",
+          "grupo": "rutina_C"
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Espalda",
+      "ejercicios": [
+        {
+          "nombre": "Wide Grip Lat Pulldown",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 4,
+          "repeticiones": "8-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 3,
+          "repeticiones": "10-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Deadlifts",
+          "series": 4,
+          "repeticiones": "5",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Lat Pulldown",
+          "series": 3,
+          "repeticiones": "10-12",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Barbell Row",
+          "series": 3,
+          "repeticiones": "10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Face Pulls",
+          "series": 3,
+          "repeticiones": "15",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Bent Over Row (Barbell)",
+          "series": 3,
+          "repeticiones": "8-10",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Lat Pulldown (Cable)",
+          "series": 3,
+          "repeticiones": "10-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Bicep Curl (Machine)",
+          "series": "2-3",
+          "repeticiones": "12-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Face Pull",
+          "series": "2-3",
+          "repeticiones": "15-25",
+          "grupo": "rutina_C"
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Piernas",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 4,
+          "repeticiones": "5-8",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Smith Machine Squat",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Leg Curl Machine",
+          "series": 4,
+          "repeticiones": "8-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Squats",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Leg Press",
+          "series": 3,
+          "repeticiones": "12",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Dumbbell Lunges",
+          "series": 3,
+          "repeticiones": "10 por pierna",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Standing Calf Raises",
+          "series": 4,
+          "repeticiones": "20",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Squat (Barbell)",
+          "series": 3,
+          "repeticiones": "6-10",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Romanian Deadlift (Dumbbell)",
+          "series": 3,
+          "repeticiones": "8-12",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Leg Extension (Machine)",
+          "series": 3,
+          "repeticiones": "12-20",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Standing Calf Raise (Machine)",
+          "series": "2-3",
+          "repeticiones": "15-20",
+          "grupo": "rutina_C"
+        }
+      ]
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Hombros",
+      "ejercicios": [
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 4,
+          "repeticiones": "12-15",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Reverse Pec Deck",
+          "series": 4,
+          "repeticiones": "12-15",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Overhead Shoulder Press",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Front Raises",
+          "series": 3,
+          "repeticiones": "12",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Shrugs",
+          "series": 3,
+          "repeticiones": "15",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Seated Overhead Press (Barbell)",
+          "series": 3,
+          "repeticiones": "8-10",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Chest Dip",
+          "series": 3,
+          "repeticiones": "5-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Skullcrusher (Dumbbell)",
+          "series": "2-3",
+          "repeticiones": "10-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Front Raise (Cable)",
+          "series": "2-3",
+          "repeticiones": "12-20",
+          "grupo": "rutina_C"
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Bíceps + Tríceps",
+      "ejercicios": [
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 4,
+          "repeticiones": "8-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 4,
+          "repeticiones": "8-12",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Barbell Curls",
+          "series": 4,
+          "repeticiones": "10",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Hammer Curls",
+          "series": 3,
+          "repeticiones": "12",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Close-Grip Bench Press",
+          "series": 3,
+          "repeticiones": "8",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Inverted Row",
+          "series": 3,
+          "repeticiones": "5-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Seated Cable Row",
+          "series": 3,
+          "repeticiones": "10-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Dumbbell Row",
+          "series": "2-3",
+          "repeticiones": "10-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Plate Curl",
+          "series": "2-3",
+          "repeticiones": "12-15",
+          "grupo": "rutina_C"
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Core + Glúteos",
+      "ejercicios": [
+        {
+          "nombre": "Hip Thrust",
+          "series": 4,
+          "repeticiones": "6-10",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 3,
+          "repeticiones": "12-15",
+          "grupo": "rutina_A"
+        },
+        {
+          "nombre": "Plank",
+          "series": 3,
+          "repeticiones": "1 min",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Hanging Leg Raises",
+          "series": 3,
+          "repeticiones": "15",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Russian Twists",
+          "series": 3,
+          "repeticiones": "20",
+          "grupo": "rutina_B"
+        },
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 3,
+          "repeticiones": "6-10",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Lunge (Dumbbell)",
+          "series": 3,
+          "repeticiones": "10-12 por pierna",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Lying Leg Curl (Machine)",
+          "series": 3,
+          "repeticiones": "12-15",
+          "grupo": "rutina_C"
+        },
+        {
+          "nombre": "Seated Calf Raise",
+          "series": "2-3",
+          "repeticiones": "10-12",
+          "grupo": "rutina_C"
+        }
+      ]
+    }
+  ]
+}

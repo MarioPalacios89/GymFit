@@ -1,0 +1,264 @@
+{
+  "version": "5.0_PRO",
+  "reglas_globales": {
+    "rir_objetivo": "0-1 en ultimo set",
+    "abdominales_permitidos_solo": [
+      "Lunes",
+      "Miércoles",
+      "Viernes"
+    ]
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Recomposición corporal + Potencial PRO",
+    "frecuencia": "6 dias",
+    "enfoque": "Push/Pull/Legs Hibrido Fuerza + Hipertrofia"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta estática",
+      "reps": "6-8 min"
+    },
+    {
+      "nombre": "Movilidad hombros y cadera",
+      "reps": "10 c/zona"
+    },
+    {
+      "nombre": "Puente de glúteo",
+      "reps": "20"
+    },
+    {
+      "nombre": "Band pull apart",
+      "reps": "25"
+    },
+    {
+      "nombre": "Plancha",
+      "reps": "40 s"
+    }
+  ],
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Push Fuerza + Core",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 4,
+          "repeticiones": "5-8",
+          "video":"https://www.tiktok.com/@gymclipsdaily_/video/7522630897452076343?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 3,
+          "repeticiones": "8-10",
+          "video":"https://www.tiktok.com/@manila.mass/video/7519977629571812610?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Arnold Press",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://www.tiktok.com/@petarklancir/video/7361505925825318176?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video":"https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Ab Crunch Machine",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video":"https://www.tiktok.com/@christian.ramirezc/video/7578871354036931860?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Low Plank",
+          "series": 3,
+          "repeticiones": "45-60s",
+          "video":"https://www.tiktok.com/@lydz0683/video/7450049633109282055?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Pull Fuerza",
+      "ejercicios": [
+        {
+          "nombre": "Bent Over Row (Barbell)",
+          "series": 4,
+          "repeticiones": "6-8",
+          "video":"https://www.tiktok.com/@gymvibesdaily3/video/7561780817362472214?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Lat Pulldown (Cable)",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://www.tiktok.com/@emilioborn/video/7194414752536513838?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://www.tiktok.com/@quanbfit/video/7600579997140651294?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Face Pull",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video":"https://www.tiktok.com/@coach.bambi/video/7474384576651988279?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 3,
+          "repeticiones": "10-12",
+          "video":"https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Pierna Cuádriceps + Core",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 4,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
+        },
+        {
+          "nombre": "Leg Press",
+          "series": 3,
+          "repeticiones": "10-12",
+          "video":"https://www.tiktok.com/@emilioborn/video/7332120713630960939?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Romanian Deadlift (Dumbbell)",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://www.tiktok.com/@quanbfit/video/7535638943128194318?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 3,
+          "repeticiones": "12-20",
+          "video":"https://www.tiktok.com/@deltabolic/video/7507771948806475014?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Reverse Crunch",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video":"https://www.tiktok.com/@kristineswiz/video/7013461934435486981?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Dumbbell Side Bend pesado",
+          "series": 3,
+          "repeticiones": "12-15 por lado",
+          "video":"https://www.tiktok.com/@levelup.pxb/video/7570220194442792212?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        }
+      ]
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Push Hipertrofia",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://www.tiktok.com/@quanbfit/video/7507049272634805546?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Butterfly (Pec Deck)",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@totojamus/video/7487990552269540614?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117"
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video":"https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf"
+        },
+        {
+          "nombre": "Skullcrusher (Dumbbell)",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video":"https://www.tiktok.com/@coach.mapache/video/7362269771745840390?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        },
+        {
+          "nombre": "Lateral Raise (Dumbbell)",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video":"https://www.tiktok.com/@deltabolic/video/7500728320695356677?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056"
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Pull Hipertrofia + Core",
+      "ejercicios": [
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 3,
+          "repeticiones": "10-12"
+        },
+        {
+          "nombre": "Seated Cable Row",
+          "series": 3,
+          "repeticiones": "10-15"
+        },
+        {
+          "nombre": "Dumbbell Row",
+          "series": 3,
+          "repeticiones": "10-12"
+        },
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 3,
+          "repeticiones": "10-12"
+        },
+        {
+          "nombre": "Hammer Curl",
+          "series": 3,
+          "repeticiones": "12-15"
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 3,
+          "repeticiones": "12-15"
+        },
+        {
+          "nombre": "Russian Twists",
+          "series": 3,
+          "repeticiones": "20"
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Pierna Posterior",
+      "ejercicios": [
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 4,
+          "repeticiones": "6-10"
+        },
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 3,
+          "repeticiones": "10-15"
+        },
+        {
+          "nombre": "Split Squat Estático",
+          "series": 3,
+          "repeticiones": "8-10 por pierna"
+        },
+        {
+          "nombre": "Seated Calf Raise",
+          "series": 3,
+          "repeticiones": "12-15"
+        }
+      ]
+    }
+  ]
+}
