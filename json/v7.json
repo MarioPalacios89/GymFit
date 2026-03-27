@@ -1,0 +1,454 @@
+{
+  "version": "6.1_REPOTENCIADA_MAS_CALISTENIA",
+  "reglas_globales": {
+    "rir_objetivo": "1-2 en compuestos; 0-1 solo en el ultimo set de aislados",
+    "abdominales_permitidos_solo": [
+      "Lunes",
+      "Miércoles",
+      "Viernes"
+    ],
+    "progresion_carga": "Subir 2-5% cuando completes el tope del rango en todas las series con tecnica limpia",
+    "descansos": {
+      "compuestos": "2-3 min",
+      "aislados": "60-90 s",
+      "core": "45-60 s"
+    },
+    "nota_estrategica": "Mantener ejercicios ancla por 6-8 semanas; variar solo accesorios o agarres"
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Recomposición corporal + reducción visual de cintura/abdomen + progresión medible",
+    "frecuencia": "6 dias",
+    "enfoque": "Push/Pull/Legs Hibrido Fuerza + Hipertrofia con volumen optimizado"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta estática",
+      "reps": "5-7 min"
+    },
+    {
+      "nombre": "Movilidad hombros y cadera",
+      "reps": "8-10 c/zona"
+    },
+    {
+      "nombre": "Puente de glúteo",
+      "reps": "15-20"
+    },
+    {
+      "nombre": "Band pull apart",
+      "reps": "20-25"
+    },
+    {
+      "nombre": "Serie de aproximación del primer ejercicio",
+      "reps": "2-3 sets progresivos"
+    }
+  ],
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Push Fuerza + Core",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 4,
+          "repeticiones": "5-8",
+          "video": "https://www.tiktok.com/@gymclipsdaily_/video/7522630897452076343?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ejercicio ancla de pecho; prioridad absoluta del dia"
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 3,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@manila.mass/video/7519977629571812610?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Upper chest y hombro anterior sin gastar tanta espalda baja"
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 3,
+          "repeticiones": "6-10",
+          "video": "https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf",
+          "nota": "Mas estable que Arnold para progresar carga"
+        },
+        {
+          "nombre": "Lateral Raise (Dumbbell)",
+          "series": 3,
+          "repeticiones": "12-20",
+          "video": "https://www.tiktok.com/@deltabolic/video/7500728320695356677?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Control total, sin balanceo"
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ya te venia respondiendo bien; lo mantenemos"
+        },
+        {
+          "nombre": "Ab Crunch Machine",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@christian.ramirezc/video/7578871354036931860?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Abdomen cargado sin abusar del volumen"
+        },
+        {
+          "nombre": "Low Plank",
+          "series": 3,
+          "repeticiones": "40-60s",
+          "video": "https://www.tiktok.com/@lydz0683/video/7450049633109282055?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Core anti-extension"
+        },
+        {
+          "nombre": "[CALIX] Push-ups controladas",
+          "series": 2,
+          "repeticiones": "10-20 o 1-2 reps antes del fallo",
+          "video": "https://www.youtube.com/results?search_query=push+ups+proper+form",
+          "nota": "Pecho y triceps con tecnica limpia; si estas muy cansado hazlas inclinadas",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Bear Crawl",
+          "series": 2,
+          "repeticiones": "20-30 s",
+          "video": "https://www.youtube.com/results?search_query=bear+crawl+exercise+form",
+          "nota": "Sube gasto y exige hombro/core sin necesitar carga",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Hollow Body Hold",
+          "series": 2,
+          "repeticiones": "20-30 s",
+          "video": "https://www.youtube.com/results?search_query=hollow+body+hold+exercise",
+          "nota": "Opcional si te queda energia. Core profundo; excelente para definir control abdominal",
+          "tipo": "complementario"
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Pull Fuerza",
+      "ejercicios": [
+        {
+          "nombre": "Bent Over Row (Barbell)",
+          "series": 4,
+          "repeticiones": "5-8",
+          "video": "https://www.tiktok.com/@gymvibesdaily3/video/7561780817362472214?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ancla de espalda media y fuerza"
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 3,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@quanbfit/video/7600579997140651294?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Te dio buen retorno y quita fatiga lumbar"
+        },
+        {
+          "nombre": "One Arm Lat Pulldown",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.youtube.com/results?search_query=one+arm+lat+pulldown",
+          "nota": "Mejor sesgo a dorsal y estiramiento"
+        },
+        {
+          "nombre": "Face Pull",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.tiktok.com/@coach.bambi/video/7474384576651988279?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Salud de hombro y deltoide posterior"
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Biceps con progresion facil"
+        },
+        {
+          "nombre": "Hammer Curl",
+          "series": 2,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@emilioborn/video/7309283824830123295?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Braquial y antebrazo sin saturar volumen"
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Pierna Cuádriceps + Core",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 4,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Principal para quads; muy buena respuesta en tu historial"
+        },
+        {
+          "nombre": "Leg Press",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@emilioborn/video/7332120713630960939?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Volumen util sin exigir tanto estabilidad"
+        },
+        {
+          "nombre": "Romanian Deadlift (Dumbbell)",
+          "series": 3,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@quanbfit/video/7535638943128194318?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Mantiene posterior y gluteo sin desplazar el foco del dia"
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 2,
+          "repeticiones": "12-20",
+          "video": "https://www.tiktok.com/@deltabolic/video/7507771948806475014?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Acabado de cuadriciceps"
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 4,
+          "repeticiones": "12-20",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Pausa de 1 s arriba y abajo"
+        },
+        {
+          "nombre": "Reverse Crunch",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@kristineswiz/video/7013461934435486981?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Mejor para abdomen inferior que girar el torso"
+        },
+        {
+          "nombre": "Dead bug con pausa",
+          "series": 3,
+          "repeticiones": "8-10 por lado",
+          "video": "https://www.youtube.com/results?search_query=dead+bug+con+pausa",
+          "nota": "Core profundo y control lumbo-pelvico"
+        },
+        {
+          "nombre": "[CALIX] Wall Sit",
+          "series": 2,
+          "repeticiones": "30-45 s",
+          "video": "https://www.youtube.com/results?search_query=wall+sit+exercise+form",
+          "nota": "Cuadriceps y tolerancia al esfuerzo sin castigar tanto articulaciones",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Mountain Climbers",
+          "series": 2,
+          "repeticiones": "30-40 s",
+          "video": "https://www.youtube.com/results?search_query=mountain+climbers+exercise+form",
+          "nota": "Sube pulsaciones y mete core dinamico",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Reverse Crunch en suelo",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.youtube.com/results?search_query=reverse+crunch+exercise+form",
+          "nota": "Opcional si te queda energia. Solo si aun te sientes bien; pelvis controlada, sin impulso",
+          "tipo": "complementario"
+        }
+      ]
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Push Hipertrofia",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 4,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@quanbfit/video/7507049272634805546?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Se queda porque te venia respondiendo bien"
+        },
+        {
+          "nombre": "Butterfly (Pec Deck)",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@totojamus/video/7487990552269540614?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Pecho en acortamiento; sin gastar tanta energia neural"
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 3,
+          "repeticiones": "12-20",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Mejor tension continua para hombro lateral"
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=overhead+cable+triceps+extension+bar",
+          "nota": "Enfasis en la cabeza larga del triceps"
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Remate de triceps, sin duplicar demasiado volumen"
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Pull Hipertrofia + Core",
+      "ejercicios": [
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Se mantiene pero con menos presion de carga y mas tecnica"
+        },
+        {
+          "nombre": "Seated Cable Row",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@demic_story_/video/7563621122827193622?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Espalda media con recorrido controlado"
+        },
+        {
+          "nombre": "Reverse Pec Deck",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.youtube.com/results?search_query=reverse+pec+deck",
+          "nota": "Deltoide posterior sin redundar con otra remada"
+        },
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 3,
+          "repeticiones": "10-12",
+          "video": "https://www.tiktok.com/@jeff_nippard_clips/video/7478729277995765014?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Biceps en posicion estirada"
+        },
+        {
+          "nombre": "Hammer Curl",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@emilioborn/video/7309283824830123295?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Braquial y antebrazo"
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@angelique.stalker_fit/video/7595771413219282184?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Abdomen cargado principal del dia"
+        },
+        {
+          "nombre": "Elevación piernas",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=elevacion+de+piernas+abdominales",
+          "nota": "Abdomen inferior; controlando la pelvis"
+        },
+        {
+          "nombre": "[CALIX] Dominadas asistidas o Australian Rows",
+          "series": 2,
+          "repeticiones": "6-10",
+          "video": "https://www.youtube.com/results?search_query=assisted+pull+up+or+australian+row+form",
+          "nota": "[CALIX] Escoge una: dominadas asistidas si tienes apoyo; Australian row si quieres menos fatiga",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Scapular Pull-ups",
+          "series": 2,
+          "repeticiones": "8-12",
+          "video": "https://www.youtube.com/results?search_query=scapular+pull+ups+form",
+          "nota": "Activa escapulas y mejora patron de traccion",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Hanging Knee Raises",
+          "series": 2,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=hanging+knee+raises+form",
+          "nota": "Opcional si te queda energia. Como ya tienes core en viernes, aqui solo rematas si quedaste con energia",
+          "tipo": "complementario"
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Pierna Posterior + Glúteo",
+      "ejercicios": [
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 4,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@_juliafigols/video/7579369518279986454?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Ancla de gluteo"
+        },
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@hebehiompt/video/7467566489323769120?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Isquios por flexion de rodilla"
+        },
+        {
+          "nombre": "45-Degree Back Extension",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=45+degree+back+extension+glutes",
+          "nota": "Gluteo/isquios con menos fatiga que otro RDL"
+        },
+        {
+          "nombre": "Split Squat Estático",
+          "series": 3,
+          "repeticiones": "8-10 por pierna",
+          "video": "https://www.tiktok.com/@flight_fitness_pros/video/7568630097289186591?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Unilateral para estabilidad y pierna completa"
+        },
+        {
+          "nombre": "Machine Hip Abduction",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.youtube.com/results?search_query=machine+hip+abduction",
+          "nota": "Gluteo medio y forma"
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 3,
+          "repeticiones": "12-20",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Gemelo con pausa arriba"
+        },
+        {
+          "nombre": "[CALIX] Step-Back Lunge con peso corporal",
+          "series": 2,
+          "repeticiones": "10-12 por pierna",
+          "video": "https://www.youtube.com/results?search_query=step+back+lunge+bodyweight+form",
+          "nota": "Mejor que saltos para no sobrecargar despues del trabajo pesado de gluteo/isquios",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Glute Bridge March",
+          "series": 2,
+          "repeticiones": "16-20 alternadas",
+          "video": "https://www.youtube.com/results?search_query=glute+bridge+march+exercise+form",
+          "nota": "Gluteo y estabilidad pelvica sin carga extra",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Farmer March sin peso o marcha alta",
+          "series": 2,
+          "repeticiones": "30-40 s",
+          "video": "https://www.youtube.com/results?search_query=high+knee+march+exercise+form",
+          "nota": "Trabajo metabolico, postura y coordinacion",
+          "tipo": "complementario"
+        },
+        {
+          "nombre": "[CALIX] Bodyweight Squat continuo",
+          "series": 1,
+          "repeticiones": "20-25",
+          "video": "https://www.youtube.com/results?search_query=bodyweight+squat+form",
+          "nota": "Opcional si te queda energia. Solo como cierre de bombeo; no obligatorio",
+          "tipo": "complementario"
+        }
+      ]
+    }
+  ]
+}
