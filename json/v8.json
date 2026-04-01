@@ -1,0 +1,845 @@
+{
+  "version": "8.0_ELITE_RECOVERY",
+  "feature_recuperacion": {
+    "enabled": true,
+    "max_dias_perdidos": 2,
+    "max_ejercicios_totales": 4,
+    "max_ejercicios_por_dia_perdido": 2,
+    "max_series_totales": 8,
+    "max_series_por_ejercicio": 2,
+    "nunca_recuperar_dias": [
+      "Sábado"
+    ],
+    "solo_en_dia_activo": true,
+    "estrategia": "No recuperar dias completos. Solo accesorios recuperables, de baja o media fatiga, compatibles con el dia activo."
+  },
+  "reglas_globales": {
+    "rir_objetivo": "1-2 en compuestos; 0-1 solo en el ultimo set de aislados",
+    "abdominales_permitidos_solo": [
+      "Lunes",
+      "Miércoles",
+      "Viernes"
+    ],
+    "progresion_carga": "Subir 2-5% cuando completes el tope del rango en todas las series con tecnica limpia",
+    "descansos": {
+      "ancla_fuerza": "2.5-3 min",
+      "compuestos": "2 min",
+      "aislados": "60-90 s",
+      "core": "45-60 s"
+    },
+    "nota_estrategica": "Mantener anclas 8 semanas; variar accesorios solo si se estanca o la maquina no esta disponible"
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Recomposicion agresiva, cintura mas limpia, torso mas ancho, piernas mas densas y fuerza mantenida",
+    "frecuencia": "6 dias",
+    "enfoque": "Push/Pull/Legs elite con 2 frecuencias, fuerza en anclas y volumen inteligente para esculpir"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta o caminata inclinada suave",
+      "reps": "5-7 min"
+    },
+    {
+      "nombre": "Movilidad hombros y cadera",
+      "reps": "8-10 c/zona"
+    },
+    {
+      "nombre": "Band pull apart",
+      "reps": "20"
+    },
+    {
+      "nombre": "Puente de glúteo",
+      "reps": "15"
+    },
+    {
+      "nombre": "Serie de aproximación del primer ejercicio",
+      "reps": "2-4 sets progresivos"
+    }
+  ],
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Push Fuerza + Delts + Core",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 4,
+          "repeticiones": "4-6",
+          "video": "https://www.tiktok.com/@gymclipsdaily_/video/7522630897452076343?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ancla principal del dia; busca fuerza limpia y estable.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps",
+            "hombro_anterior"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Machine Chest Press",
+              "series": 4,
+              "repeticiones": "5-8"
+            },
+            {
+              "nombre": "Smith Machine Bench Press",
+              "series": 4,
+              "repeticiones": "5-8"
+            }
+          ]
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 3,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@manila.mass/video/7519977629571812610?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Upper chest con buen retorno estetico sin destruir el SNC.",
+          "rol": "base",
+          "grupos": [
+            "pecho_superior",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 3,
+          "repeticiones": "6-8",
+          "video": "https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf",
+          "nota": "Hombro frontal y fuerza de empuje. No pases de tecnica limpia.",
+          "rol": "base",
+          "grupos": [
+            "hombro",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 3,
+          "repeticiones": "12-18",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Ejercicio clave para dar amplitud visual al torso.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 5,
+            "series": 2,
+            "compatible_en": [
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Recuperacion segura para hombro lateral con minimo desgaste"
+          }
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Remate fuerte de triceps sin castigar codos.",
+          "rol": "aislado",
+          "grupos": [
+            "triceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Triceps recuperable sin afectar anclas del siguiente dia"
+          }
+        },
+        {
+          "nombre": "Ab Crunch Machine",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@christian.ramirezc/video/7578871354036931860?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Abdomen con carga real, controlando la pelvis.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Miércoles",
+              "Viernes"
+            ],
+            "nota": "Solo se recupera en dias permitidos de abdomen"
+          }
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Pull Fuerza + Espalda ancha",
+      "ejercicios": [
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 4,
+          "repeticiones": "5-8",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Ancla vertical para anchura y fuerza.",
+          "rol": "ancla",
+          "grupos": [
+            "dorsal",
+            "biceps"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "One Arm Lat Pulldown",
+              "series": 4,
+              "repeticiones": "6-10"
+            },
+            {
+              "nombre": "Assisted Pull-Up",
+              "series": 4,
+              "repeticiones": "5-8"
+            }
+          ]
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 3,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@quanbfit/video/7600579997140651294?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Remo pesado sin cargar de mas la zona lumbar.",
+          "rol": "base",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "One Arm Lat Pulldown",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.youtube.com/results?search_query=one+arm+lat+pulldown",
+          "nota": "Mejora la conexion con el dorsal y el estiramiento.",
+          "rol": "base",
+          "grupos": [
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Face Pull",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.tiktok.com/@coach.bambi/video/7474384576651988279?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Salud escapular y hombro posterior; te mantiene alineado.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior",
+            "trapecio_medio"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 5,
+            "series": 2,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Excelente recuperacion de pull por bajo costo de fatiga"
+          }
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Biceps con estabilidad para progresar sin balanceo.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Biceps recuperable con poco impacto sistemico"
+          }
+        },
+        {
+          "nombre": "Hammer Curl",
+          "series": 2,
+          "repeticiones": "10-12",
+          "video": "https://www.tiktok.com/@emilioborn/video/7309283824830123295?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Braquial y antebrazo para dar brazo mas grueso.",
+          "rol": "aislado",
+          "grupos": [
+            "braquial",
+            "antebrazo"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Recuperacion de brazos cuando falto pull"
+          }
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Pierna Cuadriceps + Posterior de soporte + Core",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 4,
+          "repeticiones": "5-8",
+          "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Ancla dominante de cuadriceps; profundidad estable y controlada.",
+          "rol": "ancla",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Leg Press",
+              "series": 4,
+              "repeticiones": "6-10"
+            }
+          ]
+        },
+        {
+          "nombre": "Leg Press",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@emilioborn/video/7332120713630960939?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Volumen util para cuads sin pedir tanta tecnica.",
+          "rol": "base",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Seated Leg Curl",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.youtube.com/results?search_query=seated+leg+curl",
+          "nota": "Balancea isquios para proteger la rodilla y mantener pierna completa.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Lying Leg Curl",
+              "series": 3,
+              "repeticiones": "8-12"
+            }
+          ]
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@deltabolic/video/7507771948806475014?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Acabado visual del cuadriceps, sin necesidad de demasiada carga.",
+          "rol": "aislado",
+          "grupos": [
+            "cuadriceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo recuperar si el siguiente dia no es otra pierna pesada"
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 4,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Gemelo con pausa arriba y abajo.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Pantorrilla se puede recuperar sin contaminar demasiado la semana"
+          }
+        },
+        {
+          "nombre": "Reverse Crunch",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@kristineswiz/video/7013461934435486981?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Abdomen inferior con pelvis controlada.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Viernes"
+            ],
+            "nota": "Solo recuperar en otro dia permitido de abdomen"
+          }
+        },
+        {
+          "nombre": "Dead Bug con pausa",
+          "series": 2,
+          "repeticiones": "8-10 por lado",
+          "video": "https://youtube.com/shorts/vn72PVWnu14?si=xIhmK0dTYvWKMCGe",
+          "nota": "Core profundo y control lumbo-pelvico.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          }
+        }
+      ]
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Push Hipertrofia + Detalle",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@quanbfit/video/7507049272634805546?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Pecho estable para sumar volumen real.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Butterfly (Pec Deck)",
+          "series": 3,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@totojamus/video/7487990552269540614?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Acortamiento brutal para pecho visual.",
+          "rol": "aislado",
+          "grupos": [
+            "pecho"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Pecho recuperable si no toca otro push pesado al dia siguiente"
+          }
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 2,
+          "repeticiones": "8-10",
+          "video": "https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf",
+          "nota": "Volumen contenido para hombro, sin repetir demasiada fatiga.",
+          "rol": "base",
+          "grupos": [
+            "hombro",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Hombro lateral alto volumen para ensanchar el look.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 5,
+            "series": 2,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Perfecto para recuperar un push perdido"
+          }
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=overhead+cable+triceps+extension+bar",
+          "nota": "Enfasis en la cabeza larga del triceps.",
+          "rol": "aislado",
+          "grupos": [
+            "triceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Triceps recuperable con poca fatiga total"
+          }
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Cierre de triceps para bombeo y detalle.",
+          "rol": "aislado",
+          "grupos": [
+            "triceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Uso secundario si se perdio el jueves"
+          }
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Pull Hipertrofia + Brazos + Core",
+      "ejercicios": [
+        {
+          "nombre": "Seated Cable Row",
+          "series": 3,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@demic_story_/video/7563621122827193622?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Remo controlado para llenar espalda media.",
+          "rol": "ancla",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 3,
+          "repeticiones": "10-12",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Trabaja la anchura con tecnica y control.",
+          "rol": "base",
+          "grupos": [
+            "dorsal",
+            "biceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Reverse Pec Deck",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.youtube.com/results?search_query=reverse+pec+deck",
+          "nota": "Deltoide posterior limpio y hombro balanceado.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 2,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Si perdiste viernes, esto si se puede recuperar el sabado"
+          }
+        },
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 3,
+          "repeticiones": "10-12",
+          "video": "https://www.tiktok.com/@jeff_nippard_clips/video/7478729277995765014?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Biceps en estiramiento para mejor estimulo.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 5,
+            "series": 2,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Biceps muy buena opcion de recuperacion si faltaste viernes"
+          }
+        },
+        {
+          "nombre": "Hammer Curl",
+          "series": 2,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@emilioborn/video/7309283824830123295?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Brazo mas denso y antebrazo fuerte.",
+          "rol": "aislado",
+          "grupos": [
+            "braquial",
+            "antebrazo"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 2,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Complemento si perdiste viernes"
+          }
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@angelique.stalker_fit/video/7595771413219282184?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Abdomen cargado y medible.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Hanging Knee Raise",
+          "series": 2,
+          "repeticiones": "10-15",
+          "video": "https://youtube.com/shorts/Gtv_pe0E42U?si=q6L6o21Sjmw4fv7U",
+          "nota": "Core inferior sin excesivo volumen.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          }
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Pierna Posterior + Glúteo",
+      "ejercicios": [
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 4,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@_juliafigols/video/7579369518279986454?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Ancla absoluta de gluteo y potencia de cadera.",
+          "rol": "ancla",
+          "grupos": [
+            "gluteo",
+            "isquios"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Romanian Deadlift (Dumbbell)",
+          "series": 3,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@quanbfit/video/7535638943128194318?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Posterior fuerte sin sobrecargar como dos bisagras pesadas en la semana.",
+          "rol": "base",
+          "grupos": [
+            "isquios",
+            "gluteo",
+            "erectores"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 3,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@hebehiompt/video/7467566489323769120?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Isquios por flexion de rodilla y detalle posterior.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Split Squat Estático",
+          "series": 2,
+          "repeticiones": "8-10 por pierna",
+          "video": "https://www.tiktok.com/@flight_fitness_pros/video/7568630097289186591?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Unilateral para estabilidad y gluteo sin volverte eterno el dia.",
+          "rol": "base",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Machine Hip Abduction",
+          "series": 3,
+          "repeticiones": "15-20",
+          "video": "https://www.youtube.com/results?search_query=machine+hip+abduction",
+          "nota": "Gluteo medio para cintura mas marcada por contraste visual.",
+          "rol": "aislado",
+          "grupos": [
+            "gluteo_medio"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 3,
+          "repeticiones": "12-20",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Pantorrilla con pausa y recorrido completo.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          }
+        }
+      ]
+    }
+  ]
+}
