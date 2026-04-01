@@ -631,3 +631,237 @@ body {
   color: #fbbf24;
   margin-top: 2px;
 }
+
+
+/* ===============================
+   Mobile fix v9.1
+   =============================== */
+.mobile-safe-body{
+  padding-bottom: 8.5rem;
+}
+
+.exercise-card{
+  overflow: visible;
+}
+
+.exercise-set-row{
+  display: grid;
+  grid-template-columns: 44px minmax(0,1fr) minmax(0,1fr);
+  gap: 12px;
+  align-items: center;
+}
+.series-index{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #08110f;
+  border: 1px solid rgba(255,255,255,0.05);
+  color: #6b7b74;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 10px;
+  font-weight: 900;
+}
+.exercise-name{
+  max-width: 100%;
+}
+.advisor-heading-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.advisor-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+@media (max-width: 640px){
+  header{
+    padding: 16px 14px;
+  }
+  #sub-meta{
+    max-width: calc(100vw - 100px);
+    line-height: 1.45;
+  }
+  #dayNav{
+    padding: 14px;
+    gap: 10px;
+  }
+  .day-btn{
+    min-width: 88px;
+    padding-inline: 0 !important;
+  }
+  #mainContent{
+    padding-inline: 12px;
+  }
+  .hero-panel{
+    padding: 16px;
+    border-radius: 24px;
+  }
+  .hero-title{
+    font-size: 18px;
+  }
+  .hero-sub{
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .exercise-card{
+    padding: 18px !important;
+    border-radius: 24px;
+  }
+  .exercise-card-head{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .exercise-card-main{
+    display: grid;
+    grid-template-columns: 44px 44px minmax(0,1fr);
+    gap: 10px;
+    align-items: start;
+    width: 100%;
+  }
+  .exercise-lock-btn,
+  .exercise-icon-bubble,
+  .exercise-menu-btn{
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 16px !important;
+  }
+  .exercise-icon-bubble{
+    font-size: 17px;
+  }
+  .exercise-card-actions{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-left: 0 !important;
+  }
+  .exercise-card-content{
+    min-width: 0;
+    padding-right: 54px;
+  }
+  .exercise-title-row{
+    display:flex;
+    align-items:flex-start;
+    gap: 8px;
+  }
+  .exercise-name{
+    flex: 1 1 100%;
+    font-size: 15px !important;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    padding-right: 0;
+  }
+  .record-badge{
+    font-size: 8px;
+    padding: 3px 7px;
+  }
+  .exercise-target{
+    font-size: 10px !important;
+    line-height: 1.4;
+  }
+  .muscle-chip-row{
+    gap: 6px;
+  }
+  .muscle-chip{
+    font-size: 9px;
+    padding: 6px 9px;
+  }
+  .advisor-box{
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+  .advisor-top{
+    margin-bottom: 8px;
+  }
+  .advisor-title-wrap{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .advisor-heading-line{
+    justify-content: flex-start;
+  }
+  .advisor-cta{
+    width: 100%;
+    border-radius: 14px;
+    padding: 11px 12px;
+    font-size: 10px;
+  }
+  .advisor-grid{
+    gap: 8px;
+  }
+  .advisor-stat{
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .advisor-label{
+    font-size: 8px;
+  }
+  .advisor-stat strong{
+    font-size: 13px;
+    line-height: 1.25;
+    display: block;
+  }
+  .advisor-note{
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .exercise-set-row{
+    grid-template-columns: 40px minmax(0,1fr) minmax(0,1fr);
+    gap: 10px;
+  }
+  .series-index{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+  input[type="number"]{
+    height: 44px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 390px){
+  .hero-top{
+    align-items: flex-start;
+  }
+  .hero-icon-wrap{
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    font-size: 18px;
+  }
+  .hero-title{
+    font-size: 17px;
+  }
+  .day-btn{
+    min-width: 76px;
+    font-size: 11px;
+  }
+  .exercise-card-main{
+    grid-template-columns: 40px 40px minmax(0,1fr);
+    gap: 8px;
+  }
+  .exercise-lock-btn,
+  .exercise-icon-bubble,
+  .exercise-menu-btn{
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 14px !important;
+  }
+  .exercise-card-content{
+    padding-right: 48px;
+  }
+  .advisor-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}

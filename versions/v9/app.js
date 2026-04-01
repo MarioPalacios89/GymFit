@@ -266,12 +266,15 @@ function renderAdvisorBlock(ex, exIdx) {
         <div class="advisor-box mt-3">
             <div class="advisor-top">
                 <div class="advisor-title-wrap">
-                    <span class="advisor-kicker">Top Set Advisor</span>
-                    <span class="${getAdvisorBadgeClass(a.status)}">${String(a.status_label || a.status || '').replace('_',' ')}</span>
+                    <div class="advisor-heading-line">
+                        <span class="advisor-kicker">Top Set Advisor</span>
+                        <span class="${getAdvisorBadgeClass(a.status)}">${String(a.status_label || a.status || '').replace('_',' ')}</span>
+                    </div>
+                    <button class="advisor-cta" onclick="applyAdvisorStart(${exIdx})">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Usar inicio</span>
+                    </button>
                 </div>
-                <button class="advisor-cta" onclick="applyAdvisorStart(${exIdx})">
-                    <i class="fas fa-wand-magic-sparkles"></i> Usar inicio
-                </button>
             </div>
             <div class="advisor-grid">
                 <div class="advisor-stat">
@@ -291,7 +294,7 @@ function renderAdvisorBlock(ex, exIdx) {
                     <strong>${cleanSessions} sesiones</strong>
                 </div>
             </div>
-            ${a.note ? `<p class="advisor-note"><i class="fas fa-circle-info"></i> ${a.note}</p>` : ''}
+            ${a.note ? `<p class="advisor-note"><i class="fas fa-circle-info"></i><span>${a.note}</span></p>` : ''}
         </div>
     `;
 }
@@ -1043,8 +1046,8 @@ function renderDia(idx) {
 
         for (let s = 1; s <= numSeries; s++) {
             rows += `
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-[10px] font-bold text-gray-600 border border-white/5">${s}º</div>
+                <div class="exercise-set-row">
+                    <div class="series-index">${s}º</div>
                     <input type="number" placeholder="Kg" class="val-peso" data-ex="${i}" data-s="${s}">
                     <input type="number" placeholder="Reps" class="val-reps" data-ex="${i}" data-s="${s}">
                 </div>
@@ -1057,10 +1060,10 @@ function renderDia(idx) {
         const groupChips = getGroupChips(active);
 
         return `
-            <div class="card p-6 relative ${accentClass} ${energyMeta.card || ''}" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
-                <div class="flex justify-between items-start mb-4 gap-3">
-                    <div class="flex gap-4 items-start flex-1 min-w-0">
-                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all shrink-0">
+            <div class="card exercise-card p-6 relative ${accentClass} ${energyMeta.card || ''}" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
+                <div class="exercise-card-head mb-4">
+                    <div class="exercise-card-main">
+                        <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="exercise-lock-btn w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all shrink-0">
                             <i class="fas fa-lock-open"></i>
                         </button>
 
@@ -1068,22 +1071,22 @@ function renderDia(idx) {
                             <i class="fas ${iconClass}"></i>
                         </div>
 
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <h3 class="font-bold text-white text-base leading-tight truncate">${active.nombre}</h3>
+                        <div class="exercise-card-content min-w-0 flex-1">
+                            <div class="exercise-title-row flex items-center gap-2 flex-wrap">
+                                <h3 class="exercise-name font-bold text-white text-base leading-tight truncate">${active.nombre}</h3>
                                 ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class="fas fa-crown"></i> ${active.record.peso}kg</div>` : ''}
                                 ${isAlt ? `<div class="alt-badge bg-lime-500/10 text-lime-500 text-[8px] px-2 py-0.5 rounded-md font-black italic border border-lime-500/20">ALT</div>` : ''}
                                 ${active.rol ? `<div class="text-[8px] px-2 py-0.5 rounded-md font-black uppercase tracking-wider ${active.rol === 'ancla' ? 'bg-amber-400/10 text-amber-300 border border-amber-400/20' : 'bg-white/5 text-gray-300 border border-white/10'}">${active.rol}</div>` : ''}
                                 ${energyMeta.label ? `<div class="${energyMeta.cls}">${energyMeta.label}</div>` : ''}
                             </div>
-                            <p class="text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
+                            <p class="exercise-target text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
                             ${groupChips ? `<div class="muscle-chip-row mt-2">${groupChips}</div>` : ''}
                             ${renderAdvisorBlock(active, i)}
                         </div>
                     </div>
 
-                    <div class="relative ml-2 shrink-0">
-                        <button onclick="toggleExerciseMenu(event, ${idx}, ${i})" class="w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5">
+                    <div class="exercise-card-actions relative ml-2 shrink-0">
+                        <button onclick="toggleExerciseMenu(event, ${idx}, ${i})" class="exercise-menu-btn w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
 
