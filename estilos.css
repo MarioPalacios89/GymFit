@@ -580,7 +580,7 @@ body {
    Top Set Advisor
    =============================== */
 .advisor-box{
-  margin-top: 14px;
+  margin-top: 0;
   padding: 14px;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(154,255,0,0.10) 0%, rgba(154,255,0,0.04) 100%);
@@ -596,8 +596,10 @@ body {
 .advisor-title-wrap{
   display:flex;
   align-items:center;
+  justify-content: space-between;
   gap:8px;
   flex-wrap:wrap;
+  width: 100%;
 }
 .advisor-kicker{
   font-size: 9px;
@@ -608,7 +610,7 @@ body {
 }
 .advisor-grid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap:10px;
 }
 .advisor-stat{
@@ -706,6 +708,31 @@ body {
 
 .exercise-card{
   overflow: visible;
+}
+
+/* Base layout para exercise-card-head y exercise-card-main — funciona en todos los tamaños */
+.exercise-card-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+.exercise-card-main {
+  display: grid;
+  grid-template-columns: 44px 44px minmax(0,1fr);
+  gap: 10px;
+  align-items: start;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.exercise-card-actions {
+  flex-shrink: 0;
+  margin-left: 0;
+  align-self: flex-start;
+}
+.exercise-card-content {
+  min-width: 0;
+  flex: 1;
 }
 
 .exercise-set-row{
@@ -891,6 +918,7 @@ body {
     font-size: 10px;
   }
   .advisor-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 8px;
   }
   .advisor-stat{
@@ -957,4 +985,177 @@ body {
   .advisor-grid{
     grid-template-columns: repeat(2, minmax(0,1fr));
   }
+}
+
+/* ===============================
+   Mobile UX — Mejoras v9.5
+   =============================== */
+
+/* Feedback visual al completar un input: borde verde sutil */
+input[type="number"]:not(:placeholder-shown) {
+    border-color: rgba(154, 255, 0, 0.32) !important;
+    background: rgba(154, 255, 0, 0.04) !important;
+    color: #ffffff;
+}
+
+/* Placeholder estilizado — más sutil y tipográficamente limpio */
+input[type="number"]::placeholder {
+    color: rgba(143, 163, 154, 0.28);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* Feedback táctil en botón ⋮ del ejercicio */
+.exercise-menu-btn {
+    transition: background 120ms ease, border-color 120ms ease, transform 100ms ease;
+}
+.exercise-menu-btn:active {
+    background: rgba(154, 255, 0, 0.12) !important;
+    border-color: rgba(154, 255, 0, 0.25) !important;
+    transform: scale(0.90);
+}
+
+/* Separador sutil entre cabeza del ejercicio y las series */
+.exercise-card .space-y-3 {
+    padding-top: 16px;
+    margin-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Lock button activo — feedback verde */
+.exercise-lock-btn {
+    transition: background 120ms ease, border-color 120ms ease, transform 100ms ease;
+}
+.exercise-lock-btn:active {
+    transform: scale(0.90);
+}
+.exercise-lock-btn.locked {
+    background: rgba(154, 255, 0, 0.08) !important;
+    border-color: rgba(154, 255, 0, 0.30) !important;
+    color: var(--primary) !important;
+}
+
+@media (max-width: 640px) {
+
+    /* === Nombre del ejercicio: más prominente y jerárquico === */
+    .exercise-name {
+        font-size: 17px !important;
+        font-weight: 900 !important;
+        letter-spacing: -0.025em !important;
+        line-height: 1.15 !important;
+        color: #ffffff !important;
+    }
+
+    /* === Target: más visible y con acento correcto === */
+    .exercise-target {
+        font-size: 11px !important;
+        letter-spacing: 0.16em !important;
+        margin-top: 5px !important;
+        opacity: 0.85;
+    }
+
+    /* === Muscle chips: mínimo 10px para legibilidad === */
+    .muscle-chip {
+        font-size: 10px !important;
+        padding: 7px 12px !important;
+    }
+
+    /* === Número de serie: acento verde para jerarquía visual === */
+    .series-index {
+        color: rgba(154, 255, 0, 0.55) !important;
+        border-color: rgba(154, 255, 0, 0.10) !important;
+        background: rgba(154, 255, 0, 0.03) !important;
+        font-size: 11px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.06em !important;
+    }
+
+    /* === Inputs de series: más altos y mejor tipografía === */
+    input[type="number"] {
+        height: 52px !important;
+        font-size: 16px !important;
+        font-weight: 800 !important;
+        border-radius: 18px !important;
+        letter-spacing: -0.01em;
+    }
+
+    /* === Advisor stats: más legibles en pantalla pequeña === */
+    .advisor-stat strong {
+        font-size: 15px !important;
+    }
+    .advisor-label {
+        font-size: 9px !important;
+        letter-spacing: 0.15em !important;
+    }
+
+    /* === Header subtitle: no overflow en pantalla estrecha === */
+    #sub-meta {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* === Botón ⋮ más táctil en mobile === */
+    .exercise-menu-btn {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 14px !important;
+    }
+
+    /* === Day nav: altura mínima de 44px garantizada === */
+    .day-btn {
+        min-height: 44px !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.04em !important;
+    }
+}
+
+/* ===============================
+   Exercise card — badges y jerarquía
+   =============================== */
+
+/* Fila de badges: separada del nombre, flex-wrap limpio */
+.exercise-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    min-height: 0; /* colapsa si no hay badges */
+}
+/* Cuando no hay ningún badge, el div queda a height:0 */
+.exercise-badges-row:empty {
+    margin-top: 0;
+}
+
+/* Base para todos los ex-badge */
+.ex-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+.ex-badge--ancla {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fcd34d;
+    border-color: rgba(245, 158, 11, 0.28);
+}
+.ex-badge--base {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(230, 241, 236, 0.75);
+    border-color: rgba(255, 255, 255, 0.10);
+}
+.ex-badge--alt {
+    background: rgba(154, 255, 0, 0.08);
+    color: #9aff00;
+    border-color: rgba(154, 255, 0, 0.22);
+    font-style: italic;
 }

@@ -263,7 +263,7 @@ function renderAdvisorBlock(ex, exIdx) {
     if (!a || !a.enabled || !a.start_kg || !a.top_set_kg) return '';
     const cleanSessions = Number(a.clean_sessions || 0);
     return `
-        <div class="advisor-box mt-3">
+        <div class="advisor-box">
             <div class="advisor-top">
                 <div class="advisor-title-wrap">
                     <div class="advisor-heading-line">
@@ -1072,16 +1072,15 @@ function renderDia(idx) {
                         </div>
 
                         <div class="exercise-card-content min-w-0 flex-1">
-                            <div class="exercise-title-row flex items-center gap-2 flex-wrap">
-                                <h3 class="exercise-name font-bold text-white text-base leading-tight truncate">${active.nombre}</h3>
+                            <h3 class="exercise-name font-bold text-white text-base leading-tight">${active.nombre}</h3>
+                            <div class="exercise-badges-row">
                                 ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class="fas fa-crown"></i> ${active.record.peso}kg</div>` : ''}
-                                ${isAlt ? `<div class="alt-badge bg-lime-500/10 text-lime-500 text-[8px] px-2 py-0.5 rounded-md font-black italic border border-lime-500/20">ALT</div>` : ''}
-                                ${active.rol ? `<div class="text-[8px] px-2 py-0.5 rounded-md font-black uppercase tracking-wider ${active.rol === 'ancla' ? 'bg-amber-400/10 text-amber-300 border border-amber-400/20' : 'bg-white/5 text-gray-300 border border-white/10'}">${active.rol}</div>` : ''}
+                                ${isAlt ? `<div class="ex-badge ex-badge--alt">ALT</div>` : ''}
+                                ${active.rol ? `<div class="ex-badge ${active.rol === 'ancla' ? 'ex-badge--ancla' : 'ex-badge--base'}">${active.rol}</div>` : ''}
                                 ${energyMeta.label ? `<div class="${energyMeta.cls}">${energyMeta.label}</div>` : ''}
                             </div>
-                            <p class="exercise-target text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-1">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + 's' : '')} objetivo</p>
+                            ${active.repeticiones || active.duracion_segundos ? `<p class="exercise-target text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-2">${active.repeticiones || active.duracion_segundos + 's'} objetivo</p>` : ''}
                             ${groupChips ? `<div class="muscle-chip-row mt-2">${groupChips}</div>` : ''}
-                            ${renderAdvisorBlock(active, i)}
                         </div>
                     </div>
 
@@ -1091,6 +1090,8 @@ function renderDia(idx) {
                         </button>
                     </div>
                 </div>
+
+                ${renderAdvisorBlock(active, i)}
 
                 ${active.nota ? `
                     <div id="nota-${i}" class="nota-badge hidden">
