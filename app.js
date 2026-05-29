@@ -1086,35 +1086,9 @@ function renderDia(idx) {
                     </div>
 
                     <div class="exercise-card-actions relative ml-2 shrink-0">
-                        <button onclick="toggleExerciseMenu(event, ${idx}, ${i})" class="exercise-menu-btn w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5">
+                        <button onclick="abrirAcciones(${idx}, ${i})" class="exercise-menu-btn w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5" aria-label="Acciones">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
-
-                        <div id="exMenu-${idx}-${i}" onclick="event.stopPropagation()" class="exercise-context-menu hidden absolute right-0 mt-2 w-44 bg-[#0e1513] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                            <div class="exercise-context-head">
-                                <span class="exercise-context-kicker">Ejercicio activo</span>
-                                <strong class="exercise-context-name">${active.nombre}</strong>
-                                <p class="exercise-context-sub">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + ' segundos' : 'Acciones disponibles')}</p>
-                            </div>
-                            <button onclick="closeExerciseMenus(); abrirModalNota(${idx}, ${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 ${hasUserNote ? 'text-orange-400' : ''}">
-                                <i class="fas fa-pen w-4 text-center"></i> Mi Nota
-                            </button>
-
-                            ${active.nota ? `
-                            <button onclick="closeExerciseMenus(); toggleNota(${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
-                                <i class="fas fa-lightbulb w-4 text-center text-yellow-400"></i> Tips Técnica
-                            </button>` : ''}
-
-                            ${alts.length ? `
-                            <button onclick="closeExerciseMenus(); abrirModalAlternativas(${idx}, ${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
-                                <i class="fas fa-arrows-rotate w-4 text-center text-lime-400"></i> Alternativas
-                            </button>` : ''}
-
-                            ${active.video ? `
-                            <a href="${active.video}" target="_blank" onclick="closeExerciseMenus()" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold">
-                                <i class="fab fa-youtube w-4 text-center text-red-500"></i> Ver Video
-                            </a>` : ''}
-                        </div>
                     </div>
                 </div>
 
@@ -1136,45 +1110,89 @@ function renderDia(idx) {
     container.innerHTML = html;
 }
 
-// Función auxiliar para controlar los menús de ejercicios
-function toggleExerciseMenu(event, dayIdx, exIdx) {
-    event.stopPropagation();
-    const menuId = `exMenu-${dayIdx}-${exIdx}`;
-    const allMenus = document.querySelectorAll('[id^="exMenu-"]');
-    const currentMenu = document.getElementById(menuId);
-    const overlay = document.getElementById('menuOverlay');
-    const shouldOpen = currentMenu.classList.contains('hidden');
-    
-    allMenus.forEach(m => {
-        if (m.id !== menuId) m.classList.add('hidden');
-    });
+// === Acciones del ejercicio — bottom sheet global ===
+function abrirAcciones(dayIdx, exIdx) {
+    const v = getActiveExercise(dayIdx, exIdx);
+    const ex = v?.activeEx || db?.semana?.[dayIdx]?.ejercicios?.[exIdx];
+    if (!ex) return;
 
-    currentMenu.classList.toggle('hidden');
+    const notes = loadNotes();
+    const hasNote = !!notes[slotKey(dayIdx, exIdx)];
+    const alts = v?.alts || [];
 
-    if (shouldOpen) {
-        overlay?.classList.remove('hidden');
-        document.body.classList.add('exercise-menu-open');
-    } else {
-        closeExerciseMenus();
+    document.getElementById('mac-title').textContent = ex.nombre;
+    document.getElementById('mac-sub').textContent =
+        ex.repeticiones
+            ? `Objetivo: ${ex.repeticiones}`
+            : (ex.duracion_segundos ? `${ex.duracion_segundos} seg` : '');
+
+    const items = [];
+
+    items.push(`
+        <button onclick="cerrarAcciones(); abrirModalNota(${dayIdx}, ${exIdx})"
+            class="acc-action-btn ${hasNote ? 'has-data' : ''}">
+            <span class="acc-action-icon" style="color:${hasNote ? '#fbbf24' : '#94a3b8'}">
+                <i class="fas fa-pen"></i>
+            </span>
+            <span class="acc-action-body">
+                <strong>Mi Nota</strong>
+                <span>${hasNote ? 'Ya tienes una nota — editar o ver' : 'Agrega texto o foto a este ejercicio'}</span>
+            </span>
+            ${hasNote ? '<span class="acc-action-badge">Guardada</span>' : '<i class="fas fa-chevron-right acc-action-chev"></i>'}
+        </button>`);
+
+    if (ex.nota) {
+        items.push(`
+        <button onclick="cerrarAcciones(); toggleNota(${exIdx})"
+            class="acc-action-btn">
+            <span class="acc-action-icon" style="color:#fcd34d">
+                <i class="fas fa-lightbulb"></i>
+            </span>
+            <span class="acc-action-body">
+                <strong>Tips de Técnica</strong>
+                <span>Consejos para ejecutar este ejercicio</span>
+            </span>
+            <i class="fas fa-chevron-right acc-action-chev"></i>
+        </button>`);
     }
+
+    if (alts.length) {
+        items.push(`
+        <button onclick="cerrarAcciones(); abrirModalAlternativas(${dayIdx}, ${exIdx})"
+            class="acc-action-btn">
+            <span class="acc-action-icon" style="color:#a3e635">
+                <i class="fas fa-arrows-rotate"></i>
+            </span>
+            <span class="acc-action-body">
+                <strong>Alternativas</strong>
+                <span>${alts.length} ejercicio${alts.length !== 1 ? 's' : ''} alternativo${alts.length !== 1 ? 's' : ''} disponible${alts.length !== 1 ? 's' : ''}</span>
+            </span>
+            <i class="fas fa-chevron-right acc-action-chev"></i>
+        </button>`);
+    }
+
+    if (ex.video) {
+        items.push(`
+        <a href="${ex.video}" target="_blank" onclick="cerrarAcciones()"
+            class="acc-action-btn">
+            <span class="acc-action-icon" style="color:#f87171">
+                <i class="fab fa-youtube"></i>
+            </span>
+            <span class="acc-action-body">
+                <strong>Ver Video</strong>
+                <span>Tutorial en YouTube</span>
+            </span>
+            <i class="fas fa-chevron-right acc-action-chev"></i>
+        </a>`);
+    }
+
+    document.getElementById('mac-list').innerHTML = items.join('');
+    document.getElementById('modalAcciones').classList.remove('hidden');
 }
 
-function closeExerciseMenus() {
-    document.querySelectorAll('[id^="exMenu-"]').forEach(m => m.classList.add('hidden'));
-    document.getElementById('menuOverlay')?.classList.add('hidden');
-    document.body.classList.remove('exercise-menu-open');
+function cerrarAcciones() {
+    document.getElementById('modalAcciones').classList.add('hidden');
 }
-
-// Cerrar menús al tocar fuera
-document.addEventListener('click', (event) => {
-    const target = event.target;
-    if (target instanceof Element && (target.closest('[id^="exMenu-"]') || target.closest('.exercise-menu-btn'))) {
-        return;
-    }
-    closeExerciseMenus();
-});
-
-window.addEventListener('scroll', closeExerciseMenus, { passive: true });
 
 function toggleNota(idx) {
     const notaDiv = document.getElementById(`nota-${idx}`);
