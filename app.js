@@ -1090,23 +1090,28 @@ function renderDia(idx) {
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
 
-                        <div id="exMenu-${idx}-${i}" class="hidden absolute right-0 mt-2 w-44 bg-[#0e1513] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden">
-                            <button onclick="abrirModalNota(${idx}, ${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 ${hasUserNote ? 'text-orange-400' : ''}">
+                        <div id="exMenu-${idx}-${i}" onclick="event.stopPropagation()" class="exercise-context-menu hidden absolute right-0 mt-2 w-44 bg-[#0e1513] border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden">
+                            <div class="exercise-context-head">
+                                <span class="exercise-context-kicker">Ejercicio activo</span>
+                                <strong class="exercise-context-name">${active.nombre}</strong>
+                                <p class="exercise-context-sub">${active.repeticiones || (active.duracion_segundos ? active.duracion_segundos + ' segundos' : 'Acciones disponibles')}</p>
+                            </div>
+                            <button onclick="closeExerciseMenus(); abrirModalNota(${idx}, ${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 ${hasUserNote ? 'text-orange-400' : ''}">
                                 <i class="fas fa-pen w-4 text-center"></i> Mi Nota
                             </button>
 
                             ${active.nota ? `
-                            <button onclick="toggleNota(${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
+                            <button onclick="closeExerciseMenus(); toggleNota(${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
                                 <i class="fas fa-lightbulb w-4 text-center text-yellow-400"></i> Tips Técnica
                             </button>` : ''}
 
                             ${alts.length ? `
-                            <button onclick="abrirModalAlternativas(${idx}, ${i})" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
+                            <button onclick="closeExerciseMenus(); abrirModalAlternativas(${idx}, ${i})" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5">
                                 <i class="fas fa-arrows-rotate w-4 text-center text-lime-400"></i> Alternativas
                             </button>` : ''}
 
                             ${active.video ? `
-                            <a href="${active.video}" target="_blank" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold">
+                            <a href="${active.video}" target="_blank" onclick="closeExerciseMenus()" class="exercise-context-item w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold">
                                 <i class="fab fa-youtube w-4 text-center text-red-500"></i> Ver Video
                             </a>` : ''}
                         </div>
@@ -1137,18 +1142,39 @@ function toggleExerciseMenu(event, dayIdx, exIdx) {
     const menuId = `exMenu-${dayIdx}-${exIdx}`;
     const allMenus = document.querySelectorAll('[id^="exMenu-"]');
     const currentMenu = document.getElementById(menuId);
+    const overlay = document.getElementById('menuOverlay');
+    const shouldOpen = currentMenu.classList.contains('hidden');
     
     allMenus.forEach(m => {
         if (m.id !== menuId) m.classList.add('hidden');
     });
 
     currentMenu.classList.toggle('hidden');
+
+    if (shouldOpen) {
+        overlay?.classList.remove('hidden');
+        document.body.classList.add('exercise-menu-open');
+    } else {
+        closeExerciseMenus();
+    }
+}
+
+function closeExerciseMenus() {
+    document.querySelectorAll('[id^="exMenu-"]').forEach(m => m.classList.add('hidden'));
+    document.getElementById('menuOverlay')?.classList.add('hidden');
+    document.body.classList.remove('exercise-menu-open');
 }
 
 // Cerrar menús al tocar fuera
-document.addEventListener('click', () => {
-    document.querySelectorAll('[id^="exMenu-"]').forEach(m => m.classList.add('hidden'));
+document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof Element && (target.closest('[id^="exMenu-"]') || target.closest('.exercise-menu-btn'))) {
+        return;
+    }
+    closeExerciseMenus();
 });
+
+window.addEventListener('scroll', closeExerciseMenus, { passive: true });
 
 function toggleNota(idx) {
     const notaDiv = document.getElementById(`nota-${idx}`);

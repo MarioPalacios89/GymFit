@@ -1,0 +1,1073 @@
+{
+  "version": "10.0_HEAVY_DUTY_HIBRIDO_6D",
+  "feature_recuperacion": {
+    "enabled": true,
+    "max_dias_perdidos": 2,
+    "max_ejercicios_totales": 2,
+    "max_ejercicios_por_dia_perdido": 1,
+    "max_series_totales": 2,
+    "max_series_por_ejercicio": 1,
+    "nunca_recuperar_dias": [
+      "Sábado"
+    ],
+    "solo_en_dia_activo": true,
+    "estrategia": "En Heavy Duty no se recuperan días completos. Solo 1-2 aislados seguros, 1 serie cada uno, y nunca anclas."
+  },
+  "reglas_globales": {
+    "rir_objetivo": "0-1 en top set de anclas y bases; 0 en aislados estables con técnica limpia",
+    "abdominales_permitidos_solo": [
+      "Lunes",
+      "Miércoles",
+      "Viernes"
+    ],
+    "progresion_carga": "Subir solo cuando el top set llega al tope del rango con técnica limpia; si no, repetir hasta consolidar",
+    "descansos": {
+      "ancla_fuerza": "3-4 min",
+      "base": "2.5-3 min",
+      "aislados": "90-120 s",
+      "core": "60-90 s"
+    },
+    "nota_estrategica": "Heavy Duty híbrido: pocas series efectivas, mucho control técnico y cero volumen basura. Si el rendimiento cae 2 sesiones seguidas, recorta un accesorio antes de subir volumen."
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Máxima recomposición posible: torso más ancho, cintura más limpia, piernas densas y fuerza mantenida sin fatiga basura",
+    "frecuencia": "6 dias",
+    "enfoque": "Heavy Duty híbrido 6 días: baja cantidad de sets efectivos, intensidad alta y progresión medida"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta o caminata inclinada suave",
+      "reps": "5-7 min"
+    },
+    {
+      "nombre": "Movilidad hombros y cadera",
+      "reps": "8-10 c/zona"
+    },
+    {
+      "nombre": "Band pull apart",
+      "reps": "20"
+    },
+    {
+      "nombre": "Puente de glúteo",
+      "reps": "15"
+    },
+    {
+      "nombre": "Serie de aproximación del primer ejercicio",
+      "reps": "2-4 sets progresivos"
+    }
+  ],
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Push Heavy Duty A",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 2,
+          "repeticiones": "5-7",
+          "video": "https://www.tiktok.com/@gymclipsdaily_/video/7522630897452076343?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Serie 1 pesada de preparación sin fallo; serie 2 top set real. No hagas más volumen.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps",
+            "hombro_anterior"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Machine Chest Press",
+              "series": 4,
+              "repeticiones": "5-8"
+            },
+            {
+              "nombre": "Smith Machine Bench Press",
+              "series": 4,
+              "repeticiones": "5-8"
+            }
+          ],
+          "topset": {
+            "step_kg": 2.5,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 1,
+          "repeticiones": "6-8",
+          "video": "https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf",
+          "nota": "Una sola serie efectiva. Debe sentirse pesada pero limpia.",
+          "rol": "base",
+          "grupos": [
+            "hombro",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Top set controlado. Puedes usar rest-pause corto solo si la técnica sigue limpia.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 1.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0",
+                "intensificador": "rest_pause_opcional"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Triceps Rope Pushdown",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@hazzytrainer/video/7342928504360652037?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Un top set duro y limpio. Busca congestión, no series extra.",
+          "rol": "aislado",
+          "grupos": [
+            "triceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0",
+                "intensificador": "rest_pause_opcional"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Ab Crunch Machine",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@christian.ramirezc/video/7578871354036931860?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Una serie efectiva con control total; no necesitas más.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Viernes"
+            ],
+            "nota": "Core recuperable solo en días permitidos."
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "core_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 6
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Pull Heavy Duty A",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 2,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Serie 1 pesada de preparación; serie 2 top set. No agregues jalones extra después.",
+          "rol": "ancla",
+          "grupos": [
+            "dorsal",
+            "biceps"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "One Arm Lat Pulldown",
+              "series": 4,
+              "repeticiones": "6-10"
+            },
+            {
+              "nombre": "Assisted Pull-Up",
+              "series": 4,
+              "repeticiones": "5-8"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 1,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@quanbfit/video/7600579997140651294?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Una serie efectiva muy sólida. Mantén pecho pegado y recorrido completo.",
+          "rol": "base",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Face Pull",
+          "series": 1,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@coach.bambi/video/7474384576651988279?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Serie técnica al fallo controlado; no lo conviertas en cardio.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior",
+            "trapecio_medio"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Una sola serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 1,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Top set de bíceps con control total y sin balanceo.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 5
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Pierna Heavy Duty A",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 2,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Serie 1 pesada de preparación; serie 2 top set brutal pero profundo y limpio.",
+          "rol": "ancla",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Leg Press",
+              "series": 4,
+              "repeticiones": "6-10"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Seated Leg Curl",
+          "series": 1,
+          "repeticiones": "8-10",
+          "video": "https://www.youtube.com/results?search_query=seated+leg+curl",
+          "nota": "Top set de isquios para equilibrar rodilla y posterior.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Lying Leg Curl",
+              "series": 3,
+              "repeticiones": "8-12"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@deltabolic/video/7507771948806475014?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Un top set y termina. Puedes hacer rest-pause corto en las últimas reps.",
+          "rol": "aislado",
+          "grupos": [
+            "cuadriceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0",
+                "intensificador": "rest_pause_opcional"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Un top set con pausa abajo y arriba.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Reverse Crunch",
+          "series": 1,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@kristineswiz/video/7013461934435486981?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Una serie dura, pelvis controlada.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Viernes"
+            ],
+            "nota": "Core recuperable solo en día permitido."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.9,
+            "usar_asesor": false
+          },
+          "heavy_duty": {
+            "modo": "core_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 6
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Push Heavy Duty B",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 2,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@quanbfit/video/7507049272634805546?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Serie 1 pesada de preparación; serie 2 top set. No persigas más series.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 1,
+          "repeticiones": "6-9",
+          "video": "https://www.tiktok.com/@manila.mass/video/7519977629571812610?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Top set para pecho superior. Mantén control total en la bajada.",
+          "rol": "base",
+          "grupos": [
+            "pecho_superior",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 1,
+          "repeticiones": "12-18",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Segundo estímulo semanal de hombro lateral; una sola serie basta.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 1.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0",
+                "intensificador": "rest_pause_opcional"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 4
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Pull Heavy Duty B",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Seated Cable Row",
+          "series": 2,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@demic_story_/video/7563621122827193622?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Serie 1 pesada de preparación; serie 2 top set real.",
+          "rol": "ancla",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 1,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Segundo estímulo semanal para dorsal; una sola serie efectiva.",
+          "rol": "base",
+          "grupos": [
+            "dorsal",
+            "biceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Reverse Pec Deck",
+          "series": 1,
+          "repeticiones": "12-15",
+          "video": "https://www.youtube.com/results?search_query=reverse+pec+deck",
+          "nota": "Deltoide posterior al fallo técnico, sin balanceo.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@jeff_nippard_clips/video/7478729277995765014?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Bíceps en estiramiento, top set limpio y sin series basura.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en HD."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@angelique.stalker_fit/video/7595771413219282184?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Un top set medible y profundo.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "core_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 6
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Pierna Heavy Duty B",
+      "metodo": "heavy_duty_hibrido",
+      "ejercicios": [
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 2,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@_juliafigols/video/7579369518279986454?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Serie 1 pesada de preparación; serie 2 top set absoluto con pausa arriba.",
+          "rol": "ancla",
+          "grupos": [
+            "gluteo",
+            "isquios"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 10.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "ancla_hd",
+            "series": [
+              {
+                "tipo": "preparacion_pesada",
+                "rir": "1-2"
+              },
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Romanian Deadlift (Dumbbell)",
+          "series": 1,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@quanbfit/video/7535638943128194318?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Una sola serie efectiva. Si la lumbar toma el control, no cuenta.",
+          "rol": "base",
+          "grupos": [
+            "isquios",
+            "gluteo",
+            "erectores"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 4.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@hebehiompt/video/7467566489323769120?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Top set de isquios por flexión de rodilla.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "base_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Machine Hip Abduction",
+          "series": 1,
+          "repeticiones": "12-20",
+          "video": "https://www.youtube.com/results?search_query=machine+hip+abduction",
+          "nota": "Una serie larga para glúteo medio y contraste de cintura.",
+          "rol": "aislado",
+          "grupos": [
+            "gluteo_medio"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0"
+              }
+            ]
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 1,
+          "repeticiones": "12-18",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Un top set con recorrido completo. Sin rebotes.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "heavy_duty": {
+            "modo": "aislado_hd",
+            "series": [
+              {
+                "tipo": "top_set",
+                "rir": "0-1"
+              }
+            ]
+          }
+        }
+      ],
+      "series_efectivas_totales": 6
+    }
+  ],
+  "feature_topset_advisor": {
+    "enabled": true,
+    "ventana_sesiones_limpias": 5,
+    "estrategia": "Usar solo historial limpio y comparable. No mezclar maquinas, barras o notas que cambian el contexto.",
+    "regla_subida": {
+      "subir_si": "El top set toca el tope del rango o lo supera en 2 sesiones limpias consecutivas",
+      "mantener_si": "Estás dentro del rango pero aún no dominas el tope",
+      "consolidar_si": "Te quedas por debajo del rango o la técnica se rompe antes del objetivo"
+    }
+  },
+  "heavy_duty_global": {
+    "enabled": true,
+    "filosofia": "1 top set real por ejercicio; las anclas pueden llevar 1 serie previa pesada no al fallo para aterrizar mejor el rendimiento dentro de la app",
+    "series_efectivas": "Anclas 2 (1 preparación pesada + 1 top set), bases 1, aislados 1, core 1",
+    "tempo": "2-3 s excéntrica; 1 s de control en estiramiento cuando aplique",
+    "intensificadores": "Rest-pause solo en máquinas y aislados estables; evitarlo en anclas pesadas",
+    "descarga": "1 semana de descarga cada 5-6 semanas o antes si el top set cae 2 sesiones consecutivas",
+    "regla_clave": "No persigas cansancio; persigue progresión del top set"
+  }
+}

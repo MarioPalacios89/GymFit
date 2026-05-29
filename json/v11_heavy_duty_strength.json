@@ -1,0 +1,1445 @@
+{
+  "version": "11.1_HEAVY_DUTY_STRENGTH_6D_ORDEN_OPTIMIZADO",
+  "feature_recuperacion": {
+    "enabled": true,
+    "max_dias_perdidos": 2,
+    "max_ejercicios_totales": 2,
+    "max_ejercicios_por_dia_perdido": 1,
+    "max_series_totales": 2,
+    "max_series_por_ejercicio": 1,
+    "nunca_recuperar_dias": [
+      "Sábado"
+    ],
+    "solo_en_dia_activo": true,
+    "estrategia": "En Heavy Duty Strength no se recuperan días completos. Solo 1-2 aislados seguros, 1 serie cada uno, nunca anclas ni bases pesadas."
+  },
+  "reglas_globales": {
+    "rir_objetivo": "Anclas: RIR 1 en top set; RIR 0-1 solo en semana pico. Bases: RIR 1. Aislados: fallo técnico controlado.",
+    "abdominales_permitidos_solo": [
+      "Lunes",
+      "Miércoles",
+      "Viernes"
+    ],
+    "progresion_carga": "Subir solo cuando el top set llega al tope del rango con técnica limpia; en anclas validar 2 sesiones comparables antes de subir si el salto es grande.",
+    "descansos": {
+      "ancla_fuerza": "3.5-5 min",
+      "base": "3-4 min",
+      "aislados": "90-150 s",
+      "core": "60-90 s"
+    },
+    "nota_estrategica": "Versión orientada a fuerza: menos fallo absoluto en compuestos, más cargas altas, más descanso, progresión lenta y cero volumen basura."
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Maximizar ganancia de fuerza manteniendo recomposición: torso fuerte, espalda ancha, piernas densas y cintura limpia",
+    "frecuencia": "6 dias",
+    "enfoque": "Heavy Duty Strength híbrido: top set pesado, selección de ejercicios más transferible a fuerza y accesorios mínimos"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Bicicleta o caminata inclinada suave",
+      "reps": "5-7 min"
+    },
+    {
+      "nombre": "Movilidad específica del patrón del día",
+      "reps": "5 min"
+    },
+    {
+      "nombre": "Activación articular",
+      "reps": "hombro/cadera/escápulas según día"
+    },
+    {
+      "nombre": "Series de aproximación del primer ejercicio",
+      "reps": "3-5 sets progresivos, sin fatiga"
+    }
+  ],
+  "bloque_strength": {
+    "duracion": "4 semanas + descarga opcional",
+    "semana_1": "Top set con RIR 2. Construir técnica y encontrar peso real.",
+    "semana_2": "Top set con RIR 1. Repetir o subir poco si el rango fue sólido.",
+    "semana_3": "Semana pico: RIR 0-1 solo si técnica está limpia.",
+    "semana_4": "Consolidar: repetir carga o bajar 5-8% si el rendimiento cayó.",
+    "descarga": "Si fallas el mínimo de reps en 2 sesiones seguidas, recorta 1 accesorio o baja 8-10% el top set por una semana."
+  },
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Push Strength A",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Press horizontal pesado + hombro fuerte + tríceps transferible",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 2,
+          "repeticiones": "4-6",
+          "video": "https://www.tiktok.com/@gymclipsdaily_/video/7522630897452076343?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ancla principal de fuerza. Serie 1 = preparación neural; serie 2 = top set. No llegar a fallo absoluto.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps",
+            "hombro_anterior"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Smith Machine Bench Press",
+              "series": 2,
+              "repeticiones": "4-6"
+            },
+            {
+              "nombre": "Machine Chest Press",
+              "series": 2,
+              "repeticiones": "5-7"
+            }
+          ],
+          "topset": {
+            "step_kg": 2.5,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Seated Overhead Press",
+          "series": 1,
+          "repeticiones": "4-6",
+          "video": "https://youtube.com/shorts/fAlu-BsnPqE?si=mzrXhMM6OFzIyqIf",
+          "nota": "Base fuerte para hombro y transferencia al press. Una sola serie pesada y limpia.",
+          "rol": "base",
+          "grupos": [
+            "hombro",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Machine Dip / Assisted Dip",
+          "series": 1,
+          "repeticiones": "5-8",
+          "video": "https://www.youtube.com/results?search_query=machine+dip+assisted+dip+exercise",
+          "nota": "Nuevo ejercicio top para fuerza de tríceps y bloqueo del press. Mantén pecho estable y hombros seguros.",
+          "rol": "base",
+          "grupos": [
+            "triceps",
+            "pecho_inferior"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Close-Grip Machine Press",
+              "series": 1,
+              "repeticiones": "5-8"
+            },
+            {
+              "nombre": "Triceps Rope Pushdown",
+              "series": 1,
+              "repeticiones": "8-12"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Accesorio estético clave. Fallo técnico controlado, sin balanceo.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Martes",
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 1.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado",
+                "intensificador": "rest_pause_opcional"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Ab Crunch Machine",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@christian.ramirezc/video/7578871354036931860?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Core con carga real. Busca progresión, no velocidad.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "core_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "control y carga, no velocidad"
+              }
+            ],
+            "fallo": "fallo técnico controlado"
+          }
+        }
+      ],
+      "series_efectivas_totales": 6,
+      "cantidad_ejercicios": 5
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Pull Strength A",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Tracción vertical fuerte + remo pesado + bíceps controlado",
+      "ejercicios": [
+        {
+          "nombre": "Assisted Pull-Up / Weighted Pull-Up",
+          "series": 2,
+          "repeticiones": "4-6",
+          "video": "https://www.youtube.com/results?search_query=assisted+pull+up+machine+proper+form",
+          "nota": "Ancla vertical más transferible a fuerza que el jalón. Si aún no haces dominada libre, reduce asistencia progresivamente.",
+          "rol": "ancla",
+          "grupos": [
+            "dorsal",
+            "biceps",
+            "escapulas"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Neutral Grip Lat Pulldown",
+              "series": 2,
+              "repeticiones": "5-7"
+            },
+            {
+              "nombre": "One Arm Lat Pulldown",
+              "series": 1,
+              "repeticiones": "6-8"
+            }
+          ],
+          "topset": {
+            "step_kg": 2.5,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Chest Supported Row",
+          "series": 1,
+          "repeticiones": "5-7",
+          "video": "https://www.tiktok.com/@quanbfit/video/7600579997140651294?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Remo pesado sin fatigar lumbar. Mantén pausa breve en contracción.",
+          "rol": "base",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Face Pull",
+          "series": 1,
+          "repeticiones": "12-15",
+          "video": "https://www.tiktok.com/@coach.bambi/video/7474384576651988279?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Seguro para hombro posterior y salud escapular. Fallo técnico, no peso sucio.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior",
+            "trapecio_medio"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 1,
+          "repeticiones": "6-10",
+          "video": "https://www.tiktok.com/@deltabolic/video/7436891909504634168?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Bíceps estable, más pesado que la versión de hipertrofia. Sin balanceo.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Miércoles",
+              "Jueves",
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        }
+      ],
+      "series_efectivas_totales": 5,
+      "cantidad_ejercicios": 4
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Leg Strength A",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Cuádriceps fuerte + presión pesada + posterior mínimo necesario",
+      "ejercicios": [
+        {
+          "nombre": "Hack Squat",
+          "series": 2,
+          "repeticiones": "4-6",
+          "video": "https://www.tiktok.com/@therealpaulk/video/7148112222466706731?is_from_webapp=1&sender_device=pc&web_id=7604301686644164117",
+          "nota": "Ancla de pierna. Profundidad estable, sin rebote. No fallar con técnica rota.",
+          "rol": "ancla",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Pendulum Squat",
+              "series": 2,
+              "repeticiones": "4-6"
+            },
+            {
+              "nombre": "Smith Squat",
+              "series": 2,
+              "repeticiones": "4-6"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Leg Press",
+          "series": 1,
+          "repeticiones": "6-8",
+          "video": "https://www.youtube.com/results?search_query=leg+press+proper+form",
+          "nota": "Nuevo constructor de fuerza y densidad. Pies estables, rango completo seguro.",
+          "rol": "base",
+          "grupos": [
+            "cuadriceps",
+            "gluteo"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Hack Squat ligero",
+              "series": 1,
+              "repeticiones": "6-8"
+            }
+          ],
+          "topset": {
+            "step_kg": 10.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Seated Leg Curl",
+          "series": 1,
+          "repeticiones": "6-10",
+          "video": "https://www.youtube.com/results?search_query=seated+leg+curl",
+          "nota": "Isquios fuertes para rodilla y posterior. Una serie pesada controlada.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Lying Leg Curl",
+              "series": 1,
+              "repeticiones": "6-10"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Más orientado a fuerza que a bombeo. Pausa abajo y arriba.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Jueves",
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Reverse Crunch",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@kristineswiz/video/7013461934435486981?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Core inferior con pelvis controlada.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 2,
+            "series": 1,
+            "compatible_en": [
+              "Viernes"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.9,
+            "usar_asesor": false
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "core_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "control y carga, no velocidad"
+              }
+            ],
+            "fallo": "fallo técnico controlado"
+          }
+        }
+      ],
+      "series_efectivas_totales": 6,
+      "cantidad_ejercicios": 5
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Push Strength B",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Segundo estímulo de empuje con máquinas estables y menor riesgo",
+      "ejercicios": [
+        {
+          "nombre": "Machine Chest Press",
+          "series": 2,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@quanbfit/video/7507049272634805546?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Ancla secundaria estable. Permite cargar fuerte sin gastar tanto estabilizador.",
+          "rol": "ancla",
+          "grupos": [
+            "pecho",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Smith Machine Bench Press",
+              "series": 2,
+              "repeticiones": "5-7"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Incline Dumbbell Press",
+          "series": 1,
+          "repeticiones": "5-8",
+          "video": "https://www.tiktok.com/@manila.mass/video/7519977629571812610?is_from_webapp=1&sender_device=pc&web_id=7606456931314370056",
+          "nota": "Pecho superior con carga progresiva. Controla la bajada.",
+          "rol": "base",
+          "grupos": [
+            "pecho_superior",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Machine Shoulder Press",
+          "series": 1,
+          "repeticiones": "5-8",
+          "video": "https://www.youtube.com/results?search_query=machine+shoulder+press+proper+form",
+          "nota": "Más estable que press libre para segunda frecuencia. Si no hay máquina, usa Seated Overhead Press liviano.",
+          "rol": "base",
+          "grupos": [
+            "hombro",
+            "triceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Seated Overhead Press",
+              "series": 1,
+              "repeticiones": "5-8"
+            }
+          ],
+          "topset": {
+            "step_kg": 2.5,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "",
+          "nota": "Tríceps cabeza larga para mejorar empuje y tamaño sin tanto estrés articular.",
+          "rol": "aislado",
+          "grupos": [
+            "triceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Cable Lateral Raise",
+          "series": 1,
+          "repeticiones": "12-18",
+          "video": "https://www.youtube.com/results?search_query=cable+lateral+raise",
+          "nota": "Segundo estímulo de hombro lateral. Estricto, sin impulso.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_lateral"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Viernes",
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 1.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado",
+                "intensificador": "rest_pause_opcional"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        }
+      ],
+      "series_efectivas_totales": 6,
+      "cantidad_ejercicios": 5
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Pull Strength B",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Remo pesado + dorsal técnico + bíceps y core",
+      "ejercicios": [
+        {
+          "nombre": "Seated Cable Row",
+          "series": 2,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@demic_story_/video/7563621122827193622?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Ancla de remo. Serie 1 preparación; serie 2 top set. Pausa limpia al final del recorrido.",
+          "rol": "ancla",
+          "grupos": [
+            "espalda_media",
+            "dorsal"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Neutral Grip Lat Pulldown",
+          "series": 1,
+          "repeticiones": "6-8",
+          "video": "https://www.tiktok.com/@deltabolic/video/7534127426213874949?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Segundo estímulo vertical más medible. Evita balanceo.",
+          "rol": "base",
+          "grupos": [
+            "dorsal",
+            "biceps"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Reverse Pec Deck",
+          "series": 1,
+          "repeticiones": "12-15",
+          "video": "https://www.youtube.com/results?search_query=reverse+pec+deck",
+          "nota": "Deltoide posterior estricto. No sacrifiques rango por peso.",
+          "rol": "aislado",
+          "grupos": [
+            "deltoide_posterior"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 3,
+            "series": 1,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Face Away Bayesian Curl",
+          "series": 1,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@jeff_nippard_clips/video/7478729277995765014?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Bíceps en estiramiento, una serie pesada controlada.",
+          "rol": "aislado",
+          "grupos": [
+            "biceps"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": true,
+            "prioridad": 4,
+            "series": 1,
+            "compatible_en": [
+              "Sábado"
+            ],
+            "nota": "Solo una serie recuperable en Heavy Duty Strength. Nunca reemplaza el día actual."
+          },
+          "topset": {
+            "step_kg": 2.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.tiktok.com/@angelique.stalker_fit/video/7595771413219282184?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Core fuerte y medible. Mantén flexión real de columna, no tirón de brazos.",
+          "rol": "core",
+          "grupos": [
+            "core"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "core_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "control y carga, no velocidad"
+              }
+            ],
+            "fallo": "fallo técnico controlado"
+          }
+        }
+      ],
+      "series_efectivas_totales": 6,
+      "cantidad_ejercicios": 5
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Posterior Strength B",
+      "metodo": "heavy_duty_strength",
+      "objetivo_dia": "Glúteo fuerte + bisagra pesada + posterior denso",
+      "ejercicios": [
+        {
+          "nombre": "Romanian Deadlift (Barbell or Smith)",
+          "series": 1,
+          "repeticiones": "5-7",
+          "video": "https://www.youtube.com/results?search_query=barbell+romanian+deadlift+proper+form",
+          "nota": "Primer ejercicio del día por prioridad técnica. Una serie neural de aproximación y top set fuerte; espalda neutra, isquios cargados, sin perder control lumbar.",
+          "rol": "base",
+          "grupos": [
+            "isquios",
+            "gluteo",
+            "erectores"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Romanian Deadlift (Dumbbell)",
+              "series": 1,
+              "repeticiones": "6-8"
+            },
+            {
+              "nombre": "45-Degree Back Extension",
+              "series": 1,
+              "repeticiones": "8-12"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "Hip Thrust (Barbell)",
+          "series": 2,
+          "repeticiones": "5-7",
+          "video": "https://www.tiktok.com/@_juliafigols/video/7579369518279986454?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Segundo ejercicio del día. Top set pesado con pausa arriba; al ser más estable que el RDL puede rendir bien después.",
+          "rol": "ancla",
+          "grupos": [
+            "gluteo",
+            "isquios"
+          ],
+          "fatiga": "alta",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 10.0,
+            "start_pct": 0.9,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "alta",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia en 2 sesiones comparables",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "ancla_strength_hd",
+            "series": [
+              {
+                "tipo": "preparacion_neural",
+                "rir": "2",
+                "objetivo": "sentir el patrón, no fallar"
+              },
+              {
+                "tipo": "top_set_strength",
+                "rir": "1; 0-1 solo en semana pico",
+                "objetivo": "progresar peso o reps con técnica limpia"
+              }
+            ],
+            "fallo": "no buscar fallo absoluto en compuestos pesados"
+          }
+        },
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 1,
+          "repeticiones": "8-10",
+          "video": "https://www.tiktok.com/@hebehiompt/video/7467566489323769120?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Complemento de isquios por flexión de rodilla. Controla la excéntrica.",
+          "rol": "base",
+          "grupos": [
+            "isquios"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "media",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "base_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_strength",
+                "rir": "1",
+                "objetivo": "serie única pesada y limpia"
+              }
+            ],
+            "fallo": "no romper técnica"
+          }
+        },
+        {
+          "nombre": "45-Degree Back Extension",
+          "series": 1,
+          "repeticiones": "8-12",
+          "video": "https://www.youtube.com/results?search_query=45+degree+back+extension+glutes",
+          "nota": "Posterior y glúteo con transferencia. Enfoca cadera, no lumbar.",
+          "rol": "aislado",
+          "grupos": [
+            "gluteo",
+            "isquios",
+            "erectores"
+          ],
+          "fatiga": "media",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "alternativas": [
+            {
+              "nombre": "Machine Hip Abduction",
+              "series": 1,
+              "repeticiones": "12-20"
+            }
+          ],
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.92,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 1,
+          "repeticiones": "10-15",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7473156736245828919?is_from_webapp=1&sender_device=pc&web_id=7608962269652911624",
+          "nota": "Pantorrilla pesada con recorrido completo.",
+          "rol": "aislado",
+          "grupos": [
+            "pantorrilla"
+          ],
+          "fatiga": "baja",
+          "recuperacion": {
+            "habilitado": false
+          },
+          "topset": {
+            "step_kg": 5.0,
+            "start_pct": 0.93,
+            "usar_asesor": true
+          },
+          "strength": {
+            "prioridad": "accesoria",
+            "progresion": "doble_progresion_top_set",
+            "subir_cuando": "llegues al tope del rango con técnica limpia",
+            "no_subir_si": "dolor, pérdida de recorrido, rebote, ayuda excesiva o caída de reps por debajo del mínimo"
+          },
+          "heavy_duty": {
+            "modo": "aislado_strength_hd",
+            "series": [
+              {
+                "tipo": "top_set_controlado",
+                "rir": "0-1",
+                "objetivo": "fallo técnico controlado"
+              }
+            ],
+            "fallo": "solo fallo técnico"
+          }
+        }
+      ],
+      "series_efectivas_totales": 6,
+      "cantidad_ejercicios": 5,
+      "nota_orden": "Orden optimizado para fuerza: primero la bisagra técnica (RDL) fresco; luego Hip Thrust como ancla estable de glúteo."
+    }
+  ],
+  "feature_topset_advisor": {
+    "enabled": true,
+    "ventana_sesiones_limpias": 5,
+    "estrategia": "Usar solo historial limpio y comparable. No mezclar máquinas, barras, mancuernas, poleas, agarres o notas que cambian el contexto.",
+    "regla_subida": {
+      "subir_si": "El top set llega al tope del rango con técnica limpia; en anclas, idealmente repetirlo 2 sesiones comparables.",
+      "mantener_si": "Estás dentro del rango pero aún no dominas el tope o el salto de máquina es grande.",
+      "consolidar_si": "Te quedas por debajo del rango, cambia el contexto de máquina o la técnica se rompe antes del objetivo."
+    },
+    "alertas": {
+      "subida_agresiva": "Si la subida supera 5% en torso o 7.5% en pierna, mostrar alerta de salto alto.",
+      "contexto_sucio": "Si la nota menciona otra máquina, barra, libras, polea, agarre o ayuda externa, no usar como PR comparable.",
+      "dos_caidas": "Si el top set baja 2 sesiones seguidas, recomendar descarga o repetir peso."
+    }
+  },
+  "heavy_duty_global": {
+    "enabled": true,
+    "filosofia": "1 top set real por ejercicio. Las anclas llevan 1 serie previa neural/pesada no al fallo. Fuerza primero, fatiga después.",
+    "series_efectivas": "Anclas 2 entradas (preparación neural + top set), bases 1, aislados 1, core 1.",
+    "tempo": "Compuestos: excéntrica controlada 2 s, pausa técnica breve si aplica. Aislados: 2-3 s excéntrica.",
+    "intensificadores": "Rest-pause solo en aislados o máquinas estables; prohibido en Bench, Hack, Pull-Up pesado, Leg Press, RDL e Hip Thrust.",
+    "regla_clave": "No persigas cansancio. Persigue que el top set suba sin perder rango ni técnica."
+  },
+  "ajustes_version": {
+    "v11_1": "Se optimizó el orden del sábado para fuerza: Romanian Deadlift primero y Hip Thrust segundo, manteniendo el resto de la rutina."
+  }
+}
