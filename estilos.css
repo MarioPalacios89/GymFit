@@ -1116,18 +1116,36 @@ input[type="number"]::placeholder {
    Exercise card — badges y jerarquía
    =============================== */
 
-/* Fila de badges: separada del nombre, flex-wrap limpio */
+/* Sección de meta-info: ancho completo, fuera del grid de 3 cols */
+.exercise-meta-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 0 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 4px;
+}
+
+/* Fila de badges: flex-wrap limpio, sin competir con el nombre */
 .exercise-badges-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 5px;
-    margin-top: 6px;
-    min-height: 0; /* colapsa si no hay badges */
 }
 /* Cuando no hay ningún badge, el div queda a height:0 */
 .exercise-badges-row:empty {
-    margin-top: 0;
+    display: none;
+}
+
+/* exercise-target dentro de meta-section (sin margin propio, usa el gap del padre) */
+.exercise-meta-section .exercise-target {
+    margin-top: 0 !important;
+}
+
+/* muscle-chip-row dentro de meta-section (sin margin propio) */
+.exercise-meta-section .muscle-chip-row {
+    margin-top: 0 !important;
 }
 
 /* Base para todos los ex-badge */

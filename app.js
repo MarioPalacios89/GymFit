@@ -1061,7 +1061,7 @@ function renderDia(idx) {
 
         return `
             <div class="card exercise-card p-6 relative ${accentClass} ${energyMeta.card || ''}" id="card-${i}" data-day="${idx}" data-ex="${i}" data-ex-name="${String(active.nombre || ex.nombre || '').replace(/"/g, '&quot;')}">
-                <div class="exercise-card-head mb-4">
+                <div class="exercise-card-head mb-2">
                     <div class="exercise-card-main">
                         <button onclick="toggleLock(${i})" id="btn-lock-${i}" class="exercise-lock-btn w-12 h-12 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-gray-500 transition-all shrink-0">
                             <i class="fas fa-lock-open"></i>
@@ -1073,14 +1073,6 @@ function renderDia(idx) {
 
                         <div class="exercise-card-content min-w-0 flex-1">
                             <h3 class="exercise-name font-bold text-white text-base leading-tight">${active.nombre}</h3>
-                            <div class="exercise-badges-row">
-                                ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class="fas fa-crown"></i> ${active.record.peso}kg</div>` : ''}
-                                ${isAlt ? `<div class="ex-badge ex-badge--alt">ALT</div>` : ''}
-                                ${active.rol ? `<div class="ex-badge ${active.rol === 'ancla' ? 'ex-badge--ancla' : 'ex-badge--base'}">${active.rol}</div>` : ''}
-                                ${energyMeta.label ? `<div class="${energyMeta.cls}">${energyMeta.label}</div>` : ''}
-                            </div>
-                            ${active.repeticiones || active.duracion_segundos ? `<p class="exercise-target text-[10px] text-lime-300/80 font-bold uppercase tracking-widest mt-2">${active.repeticiones || active.duracion_segundos + 's'} objetivo</p>` : ''}
-                            ${groupChips ? `<div class="muscle-chip-row mt-2">${groupChips}</div>` : ''}
                         </div>
                     </div>
 
@@ -1089,6 +1081,18 @@ function renderDia(idx) {
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                     </div>
+                </div>
+
+                <div class="exercise-meta-section">
+                    ${((active.record && Number(active.record.peso) > 0) || isAlt || active.rol || energyMeta.label) ? `
+                    <div class="exercise-badges-row">
+                        ${(active.record && Number(active.record.peso) > 0) ? `<div class="record-badge"><i class="fas fa-crown"></i> ${active.record.peso}kg</div>` : ''}
+                        ${isAlt ? `<div class="ex-badge ex-badge--alt">ALT</div>` : ''}
+                        ${active.rol ? `<div class="ex-badge ${active.rol === 'ancla' ? 'ex-badge--ancla' : 'ex-badge--base'}">${active.rol}</div>` : ''}
+                        ${energyMeta.label ? `<div class="${energyMeta.cls}">${energyMeta.label}</div>` : ''}
+                    </div>` : ''}
+                    ${active.repeticiones || active.duracion_segundos ? `<p class="exercise-target text-[10px] text-lime-300/80 font-bold uppercase tracking-widest">${active.repeticiones || active.duracion_segundos + 's'} objetivo</p>` : ''}
+                    ${groupChips ? `<div class="muscle-chip-row">${groupChips}</div>` : ''}
                 </div>
 
                 ${renderAdvisorBlock(active, i)}
