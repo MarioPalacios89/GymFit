@@ -55,6 +55,25 @@
         </div>
     </div>
 
+    <!-- Modal: Acciones del ejercicio -->
+    <div id="modalAcciones" class="fixed inset-0 z-[135] hidden">
+        <div class="modal-backdrop" onclick="cerrarAcciones()"></div>
+        <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="mac-title">
+            <div class="modal-grab"></div>
+            <div class="modal-head">
+                <div>
+                    <div class="modal-kicker">ACCIONES</div>
+                    <div id="mac-title" class="modal-title">Ejercicio</div>
+                    <div id="mac-sub" class="modal-sub"></div>
+                </div>
+                <button class="modal-close" onclick="cerrarAcciones()" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="mac-list" class="mt-4 space-y-2 pb-2"></div>
+        </div>
+    </div>
+
     <!-- Modal: Nota + Foto por ejercicio -->
     <div id="modalNota" class="fixed inset-0 z-[140] hidden">
         <div class="modal-backdrop" onclick="cerrarModalNota()"></div>
@@ -160,7 +179,7 @@
 </header>
 
 
-<div id="menuOverlay" onclick="closeExerciseMenus()" class="fixed inset-0 z-40 hidden"></div>
+<div id="menuOverlay" onclick="cerrarAcciones()" class="fixed inset-0 z-40 hidden"></div>
 
 
     <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#070b0a]"></nav>

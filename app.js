@@ -1085,8 +1085,8 @@ function renderDia(idx) {
                         </div>
                     </div>
 
-                    <div class="exercise-card-actions relative ml-2 shrink-0">
-                        <button onclick="abrirAcciones(${idx}, ${i})" class="exercise-menu-btn w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5" aria-label="Acciones">
+                    <div class="exercise-card-actions ml-2 shrink-0">
+                        <button onclick="abrirAcciones(${idx}, ${i})" class="exercise-menu-btn w-10 h-10 flex items-center justify-center bg-white/5 text-gray-400 rounded-xl border border-white/5" aria-label="Acciones" style="touch-action:manipulation">
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                     </div>
