@@ -1,0 +1,949 @@
+{
+  "version": "v12_week_4",
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Ganancia de fuerza y masa muscular manteniendo recomposición corporal",
+    "nivel": "Intermedio-Avanzado",
+    "frecuencia": "5 días de entrenamiento y 2 días de descanso",
+    "enfoque": "Torso y tren inferior de fuerza, junto con tirón, empuje y piernas de hipertrofia"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Cardio suave en la máquina de tu elección",
+      "reps": "5-10 min"
+    },
+    {
+      "nombre": "Círculos de brazos",
+      "reps": "10 por lado"
+    },
+    {
+      "nombre": "Rotación externa en polea (opcional)",
+      "reps": "15 por lado"
+    },
+    {
+      "nombre": "Balanceos de brazos y piernas",
+      "reps": "10 por lado y por dirección"
+    },
+    {
+      "nombre": "Series de aproximación específicas del ejercicio",
+      "reps": "1-4 series progresivas entre 45% y 85% de la carga de trabajo, según calentamiento_series"
+    }
+  ],
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Torso (Enfoque de fuerza)",
+      "ejercicios": [
+        {
+          "nombre": "45° Incline Barbell Press",
+          "series": 3,
+          "repeticiones": "6-8",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "3-5 min",
+          "alternativas": [
+            "45° Incline DB Press",
+            "45° Incline Machine Press"
+          ],
+          "nota": "Haz una pausa de 1 segundo en la parte inferior de cada repetición, manteniendo la tensión en los pectorales."
+        },
+        {
+          "nombre": "Cable Crossover Ladder",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Pec Deck",
+            "Bottom-Half DB Flye"
+          ],
+          "nota": "Realiza una serie con la polea en posición baja, otra con la polea a media altura y otra con la polea en posición alta. Si solo tienes una o dos series, elige las una o dos posiciones que prefieras."
+        },
+        {
+          "nombre": "Wide-Grip Pull-Up",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Wide-Grip Lat Pulldown",
+            "Dual-Handle Lat Pulldown"
+          ],
+          "nota": "Usa un agarre prono de aproximadamente 1.5 veces el ancho de los hombros. Haz una fase negativa lenta de 2-3 segundos y siente cómo se estiran los dorsales durante el descenso."
+        },
+        {
+          "nombre": "High-Cable Lateral Raise",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "High-Cable Cuffed Lateral Raise",
+            "Lean-In DB Lateral Raise"
+          ],
+          "nota": "Concéntrate en contraer el deltoide lateral para mover el peso."
+        },
+        {
+          "nombre": "Pendlay Deficit Row",
+          "series": 2,
+          "repeticiones": "6-8",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo + repeticiones parciales en posición alargada para extender la serie"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Smith Machine Row",
+            "Single-Arm DB Row"
+          ],
+          "nota": "Párate sobre un disco de goma. Busca un estiramiento amplio y lleva la barra hacia el abdomen o el pecho en cada repetición."
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Overhead Cable Triceps Extension (Rope)",
+            "DB Skull Crusher"
+          ],
+          "nota": "Opcionalmente, haz una pausa de 0.5-1 segundo en la posición de máximo estiramiento de cada repetición."
+        },
+        {
+          "nombre": "Bayesian Cable Curl",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Seated Super- Bayesian High Cable Curl",
+            "Incline DB Stretch Curl"
+          ],
+          "nota": "Si tienes un desequilibrio de tamaño entre ambos bíceps, realiza el ejercicio con un brazo a la vez, comenzando por el más débil. Lleva el brazo débil hasta el RPE indicado y luego iguala las repeticiones con el otro brazo, aunque su RPE sea menor. Si no tienes desequilibrio, trabaja ambos brazos al mismo tiempo."
+        }
+      ]
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Tren inferior (Enfoque de fuerza)",
+      "ejercicios": [
+        {
+          "nombre": "Lying Leg Curl",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo + repeticiones parciales en posición alargada para extender la serie"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Seated Leg Curl",
+            "Nordic Ham Curl"
+          ],
+          "nota": "Ajusta la máquina para conseguir el mayor estiramiento posible en la parte inferior. Evita que los glúteos se levanten mientras flexionas las piernas."
+        },
+        {
+          "nombre": "Smith Machine Squat",
+          "series": 3,
+          "repeticiones": "6-8",
+          "calentamiento_series": "2-4",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "3-5 min",
+          "alternativas": [
+            "DB Bulgarian Split Squat",
+            "High-Bar Back Squat"
+          ],
+          "nota": "Una vez debajo de la barra, coloca los pies como en una sentadilla normal y adelántalos aproximadamente 3-6 pulgadas. Esto hará que te apoyes ligeramente contra la barra, mantengas el torso más vertical y aumentes la tensión en los cuádriceps. Si los talones se levantan en la parte inferior, adelanta un poco más los pies. Si sientes que los pies resbalan o la zona lumbar se redondea, llévalos ligeramente hacia atrás."
+        },
+        {
+          "nombre": "Barbell RDL",
+          "series": 3,
+          "repeticiones": "6-8",
+          "calentamiento_series": "2-4",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "DB RDL",
+            "Snatch-Grip RDL"
+          ],
+          "nota": "Para mantener la tensión en los isquiotibiales, detente aproximadamente al 75 % del bloqueo completo en cada repetición; permanece en los tres cuartos inferiores del recorrido."
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Reverse Nordic",
+            "Sissy Squat"
+          ],
+          "nota": "Lleva el respaldo tan atrás como sea posible sin perder comodidad. Sujeta las asas con fuerza para mantener los glúteos pegados al asiento. Haz una fase negativa de 2-3 segundos y siente el estiramiento de los cuádriceps."
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 2,
+          "repeticiones": "6-8",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Estiramiento estático durante 30 segundos"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Seated Calf Raise",
+            "Leg Press Calf Press"
+          ],
+          "nota": "Haz una pausa de 1-2 segundos en la parte inferior de cada repetición. En lugar de limitarte a subir sobre las puntas, piensa en desplazar el tobillo hacia delante y atrás sobre la zona del antepié."
+        },
+        {
+          "nombre": "Cable Crunch",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Decline Weighted Crunch",
+            "Machine Crunch"
+          ],
+          "nota": "Redondea la zona lumbar al realizar la contracción. Mantén la conexión mente-músculo con los abdominales."
+        }
+      ]
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Descanso",
+      "ejercicios": []
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Tirón (Enfoque de hipertrofia)",
+      "ejercicios": [
+        {
+          "nombre": "Neutral-Grip Lat Pulldown",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Neutral-Grip Pull- Up",
+            "Dual-Handle Lat Pulldown"
+          ],
+          "nota": "Realiza el jalón con el agarre más adelantado, como una combinación entre pullover y jalón. Concéntrate en sentir el trabajo de los dorsales por encima del peso utilizado."
+        },
+        {
+          "nombre": "Chest-Supported Machine Row",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Chest-Supported T-Bar Row",
+            "Incline Chest- Supported DB Row"
+          ],
+          "nota": "Abre los codos aproximadamente 45° y junta con fuerza los omóplatos al final de cada repetición."
+        },
+        {
+          "nombre": "Neutral-Grip Seated Cable Row",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo + repeticiones parciales en posición alargada para extender la serie"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Helms Row",
+            "Meadows Row"
+          ],
+          "nota": "Concéntrate en juntar los omóplatos mientras llevas los codos hacia abajo y atrás."
+        },
+        {
+          "nombre": "1-Arm 45° Cable Rear Delt Flye",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Rope Face Pull",
+            "Reverse Pec Deck"
+          ],
+          "nota": "Haz una pausa de 1-2 segundos en la contracción de cada repetición y aprieta con fuerza los deltoides posteriores."
+        },
+        {
+          "nombre": "Machine Shrug",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Cable Paused Shrug-In",
+            "DB Shrug"
+          ],
+          "nota": "Haz una pausa breve en la parte superior e inferior del recorrido. Piensa en llevar los hombros hacia las orejas."
+        },
+        {
+          "nombre": "EZ-Bar Cable Curl",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "EZ-Bar Curl",
+            "DB Curl"
+          ],
+          "nota": "Coloca la polea en la posición más baja. Mantén tensión constante en los bíceps y realiza repeticiones lentas y controladas."
+        },
+        {
+          "nombre": "Machine Preacher Curl",
+          "series": 1,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "EZ-Bar Preacher Curl",
+            "DB Preacher Curl"
+          ],
+          "nota": "Realiza repeticiones fluidas y controladas, manteniendo la conexión mente-músculo con los bíceps."
+        }
+      ]
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Empuje (Enfoque de hipertrofia)",
+      "ejercicios": [
+        {
+          "nombre": "Barbell Bench Press",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-4",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "3-5 min",
+          "alternativas": [
+            "Machine Chest Press",
+            "DB Bench Press"
+          ],
+          "nota": "Adopta un arco cómodo, haz una pausa breve sobre el pecho y sube de forma explosiva en cada repetición."
+        },
+        {
+          "nombre": "Machine Shoulder Press",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Cable Shoulder Press",
+            "Seated DB Shoulder Press"
+          ],
+          "nota": "Asegúrate de que los codos superen al menos los 90°. Mantén la conexión mente-músculo con los deltoides y realiza repeticiones fluidas y controladas."
+        },
+        {
+          "nombre": "Bottom-Half DB Flye",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Bottom-Half Seated Cable Flye",
+            "Low-to-High Cable Crossover"
+          ],
+          "nota": "Realiza todas las repeticiones y series en la mitad inferior del recorrido. Busca un estiramiento profundo de los pectorales en la parte inferior de cada repetición."
+        },
+        {
+          "nombre": "High-Cable Lateral Raise",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "High-Cable Cuffed Lateral Raise",
+            "Lean-In DB Lateral Raise"
+          ],
+          "nota": "Concéntrate en contraer el deltoide lateral para mover el peso."
+        },
+        {
+          "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Overhead Cable Triceps Extension (Rope)",
+            "DB Skull Crusher"
+          ],
+          "nota": "Opcionalmente, haz una pausa de 0.5-1 segundo en la posición de máximo estiramiento de cada repetición."
+        },
+        {
+          "nombre": "Cable Triceps Kickback",
+          "series": 1,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "DB Triceps Kickback",
+            "Bench Dip"
+          ],
+          "nota": "Puedes realizarlo con el torso erguido o inclinado hacia delante. Elige la variante más cómoda. En la contracción máxima, el hombro debe quedar por detrás del torso."
+        },
+        {
+          "nombre": "Roman Chair Leg Raise",
+          "series": 2,
+          "repeticiones": "10-20",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Hanging Leg Raise",
+            "Modified Candlestick"
+          ],
+          "nota": "Permite que la zona lumbar se redondee mientras elevas las piernas. El rango de 10-20 repeticiones es intencional: continúa hasta alcanzar el RPE indicado con una técnica controlada."
+        }
+      ]
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Piernas (Enfoque de hipertrofia)",
+      "ejercicios": [
+        {
+          "nombre": "Leg Press",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-4",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "Smith Machine Static Lunge",
+            "DB Walking Lunge"
+          ],
+          "nota": "Coloca los pies más abajo en la plataforma para enfatizar los cuádriceps. Desciende tanto como puedas sin redondear excesivamente la espalda. Controla la fase negativa y haz una pausa breve en la parte inferior."
+        },
+        {
+          "nombre": "Seated Leg Curl",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo + repeticiones parciales en posición alargada para extender la serie"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Lying Leg Curl",
+            "Nordic Ham Curl"
+          ],
+          "nota": "Inclínate hacia delante sobre la máquina para conseguir el máximo estiramiento de los isquiotibiales."
+        },
+        {
+          "nombre": "DB Bulgarian Split Squat",
+          "series": 2,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "2-3 min",
+          "alternativas": [
+            "DB Step-Up",
+            "Goblet Squat"
+          ],
+          "nota": "Desciende hasta que el muslo delantero quede paralelo al suelo. Empuja a través del talón delantero durante la subida."
+        },
+        {
+          "nombre": "Leg Extension",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Reverse Nordic",
+            "Sissy Squat"
+          ],
+          "nota": "Lleva el respaldo tan atrás como sea posible sin perder comodidad. Sujeta las asas con fuerza para mantener los glúteos pegados al asiento. Haz una fase negativa de 2-3 segundos y siente el estiramiento de los cuádriceps."
+        },
+        {
+          "nombre": "Machine Hip Adduction",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Cable Hip Adduction",
+            "Copenhagen Hip Adduction"
+          ],
+          "nota": "Mantén la conexión mente-músculo con la parte interna de los muslos. Este ejercicio es excelente para añadir masa visible en los muslos; trabájalo con intensidad."
+        },
+        {
+          "nombre": "Machine Hip Abduction",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Fallo"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Cable Hip Abduction",
+            "Lateral Band Walk"
+          ],
+          "nota": "Si es posible, utiliza almohadillas para aumentar el recorrido de la máquina. Inclínate hacia delante y sujeta las barras para incrementar el estiramiento de los glúteos."
+        },
+        {
+          "nombre": "Standing Calf Raise",
+          "series": 2,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Estiramiento estático durante 30 segundos"
+            }
+          ],
+          "descanso": "1-2 min",
+          "alternativas": [
+            "Seated Calf Raise",
+            "Leg Press Calf Press"
+          ],
+          "nota": "Haz una pausa de 1-2 segundos en la parte inferior de cada repetición. En lugar de limitarte a subir sobre las puntas, piensa en desplazar el tobillo hacia delante y atrás sobre la zona del antepié."
+        }
+      ]
+    },
+    {
+      "dia": "Domingo",
+      "enfoque": "Descanso",
+      "ejercicios": []
+    }
+  ]
+}
