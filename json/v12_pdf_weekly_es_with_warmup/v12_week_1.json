@@ -36,6 +36,7 @@
       "ejercicios": [
         {
           "nombre": "45° Incline Barbell Press",
+          "video": "https://www.tiktok.com/@jeffnippardfitness/video/7605986132278611221?is_from_webapp=1&sender_device=pc&web_id=7654336749972129297",
           "series": 2,
           "repeticiones": "6-8",
           "calentamiento_series": "2-3",
@@ -60,6 +61,7 @@
         },
         {
           "nombre": "Cable Crossover Ladder",
+          "video": "https://www.youtube.com/shorts/sW2pkiBs40Q",
           "series": 2,
           "repeticiones": "8-10",
           "calentamiento_series": "1-2",
@@ -84,6 +86,7 @@
         },
         {
           "nombre": "Wide-Grip Pull-Up",
+          "video": "https://www.youtube.com/shorts/3XFAl5j5gIw",
           "series": 2,
           "repeticiones": "8-10",
           "calentamiento_series": "1-2",
@@ -108,6 +111,7 @@
         },
         {
           "nombre": "High-Cable Lateral Raise",
+          "video": "https://www.youtube.com/shorts/lMJUXEvcMkQ",
           "series": 2,
           "repeticiones": "8-10",
           "calentamiento_series": "1-2",
@@ -132,6 +136,7 @@
         },
         {
           "nombre": "Pendlay Deficit Row",
+          "video": "https://www.youtube.com/shorts/E16X37AQ1QI",
           "series": 2,
           "repeticiones": "6-8",
           "calentamiento_series": "1-2",
@@ -156,6 +161,7 @@
         },
         {
           "nombre": "Overhead Cable Triceps Extension (Bar)",
+          "video": "https://www.youtube.com/watch?v=1u18yJELsh0",
           "series": 2,
           "repeticiones": "8-10",
           "calentamiento_series": "1",
@@ -180,6 +186,7 @@
         },
         {
           "nombre": "Bayesian Cable Curl",
+          "video": "https://www.youtube.com/shorts/BaSd7C58L3o",
           "series": 2,
           "repeticiones": "8-10",
           "calentamiento_series": "1",
