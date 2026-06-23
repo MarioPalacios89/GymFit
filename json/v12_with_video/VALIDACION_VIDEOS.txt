@@ -1,0 +1,19 @@
+VALIDACIÓN DE VIDEOS — MARIOFIT V12
+=====================================
+
+Archivos procesados: 12
+Ejercicios únicos: 52
+Apariciones de ejercicios: 408
+Apariciones actualizadas: 408
+Ejercicios sin propiedad video: 0
+URLs YouTube: 51
+URLs TikTok: 1
+
+Resultado:
+Todos los objetos dentro de semana[].ejercicios[] contienen la propiedad "video"
+inmediatamente después de la propiedad "nombre".
+
+Nota de mantenimiento:
+Los enlaces pertenecen a plataformas externas y pueden ser eliminados o modificados
+por sus autores. El archivo exercise_video_mapping.json centraliza las URLs para
+facilitar reemplazos futuros.
