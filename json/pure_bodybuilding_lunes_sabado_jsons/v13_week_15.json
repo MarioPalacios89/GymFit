@@ -1,0 +1,1237 @@
+{
+  "version": "v13_week_15",
+  "programa": {
+    "nombre": "The Pure Bodybuilding Program",
+    "autor": "Jeff Nippard",
+    "split": "Push/Pull/Legs/Arms",
+    "ciclo_original": "Asíncrono; originalmente trabaja una rotación por sesiones con descansos intermedios.",
+    "adaptacion_app": "Calendario de lunes a sábado, preservando el orden original de sesiones y descansos.",
+    "semanas_pdf_origen": 10,
+    "semanas_app_generadas": 20
+  },
+  "perfil": {
+    "nombre": "Mario",
+    "objetivo": "Hipertrofia y recomposición corporal",
+    "nivel": "Intermedio-Avanzado",
+    "frecuencia": "Estructura de lunes a sábado para el aplicativo",
+    "enfoque": "Push/Pull/Legs/Arms con descansos opcionales y obligatorios preservados en el calendario"
+  },
+  "calentamiento": [
+    {
+      "nombre": "Cardio suave en la máquina de tu elección",
+      "reps": "5-10 min",
+      "nota": "Caminadora, stairmaster, elíptica, bicicleta u otra máquina similar."
+    },
+    {
+      "nombre": "Balanceos de brazos",
+      "reps": "10 por lado"
+    },
+    {
+      "nombre": "Círculos de brazos",
+      "reps": "10 por lado"
+    },
+    {
+      "nombre": "Balanceos de pierna adelante-atrás",
+      "reps": "10 por lado"
+    },
+    {
+      "nombre": "Balanceos laterales de pierna",
+      "reps": "10 por lado"
+    },
+    {
+      "nombre": "Rotación externa en polea (opcional)",
+      "reps": "15 por lado"
+    },
+    {
+      "nombre": "Series de aproximación específicas del ejercicio",
+      "reps": "1-3 series progresivas según calentamiento_series"
+    }
+  ],
+  "weak_points": {
+    "Shoulders": {
+      "ejercicio_1": [
+        {
+          "nombre": "Cuffed Behind-The-Back Lateral Raise",
+          "video": "https://youtu.be/fjiOCmFljDM?si=p-7u39qzcoPpSIgJ"
+        },
+        {
+          "nombre": "Machine Lateral Raise",
+          "video": "https://youtu.be/5hZCR8lTdBk?si=ZMy6P01NVRyT3CCF"
+        },
+        {
+          "nombre": "Dumbbell Lateral Raise",
+          "video": "https://youtu.be/RyztKrzaMNk?si=iKwL0A4Uct72xC08"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Machine Shoulder Press",
+          "video": "https://youtu.be/SCQVmN1gYsk?si=260eJ_EGUnc7kzgh"
+        },
+        {
+          "nombre": "Smith Machine Shoulder Press",
+          "video": "https://youtu.be/Ru2yE4wWUvE?si=fCjEz5M7EVLDnyAf"
+        },
+        {
+          "nombre": "Standing DB Arnold Press",
+          "video": "https://youtu.be/xBJBTfPcvhM?si=NFE_AU6W1NDpM7oX"
+        }
+      ]
+    },
+    "Lats": {
+      "ejercicio_1": [
+        {
+          "nombre": "Cable Lat Prayer",
+          "video": "https://youtu.be/YrcnBlH8XDA?si=cJ0tdsbirapsyDza"
+        },
+        {
+          "nombre": "DB Lat Pullover",
+          "video": "https://youtu.be/iaRefVKBH8M?si=1JkkgTxLJdJKru9F"
+        },
+        {
+          "nombre": "Machine Lat Pullover",
+          "video": "https://youtu.be/YT0K0PBl3nk?si=eOyyxU3FJq5FSw4f"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Lat-Focused Cable Row",
+          "video": "https://youtu.be/w11Kqjm-ycE?si=S2uUkOlSQS_XfJuz"
+        },
+        {
+          "nombre": "Elbows-In 1-Arm DB Row",
+          "video": "https://youtu.be/SwloMZs8ZVk?si=4kRD4IFD34ht7fS2"
+        },
+        {
+          "nombre": "Half-Kneeling 1-Arm Lat Pulldown",
+          "video": "https://youtu.be/r8K1Fkch5go?si=uI9s4q0rLvAsHKtb"
+        }
+      ]
+    },
+    "Quads": {
+      "ejercicio_1": [
+        {
+          "nombre": "Leg Extension",
+          "video": "https://youtu.be/uFbNtqP966A?si=4O6PTmmCpdLw3NAy"
+        },
+        {
+          "nombre": "Reverse Nordics",
+          "video": "https://youtu.be/D-kqUKEQZZ0?si=VtvQB1fXGOUyt007"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Single-Leg Leg Press",
+          "video": "https://youtu.be/zURHw38OZTM?si=YjlJmvRnK4RdR82u"
+        },
+        {
+          "nombre": "Sissy Squat",
+          "video": "https://youtu.be/eWAjlO4FWPQ?si=Nfo6m5QeXeyFv15y"
+        }
+      ]
+    },
+    "Glutes": {
+      "ejercicio_1": [
+        {
+          "nombre": "Machine Hip Abduction",
+          "video": "https://youtu.be/Jq4YWyLSh_o?si=43_rV0qMqZDO99c8"
+        },
+        {
+          "nombre": "Cable Hip Abduction",
+          "video": "https://youtu.be/552L1K3Rb_Q?si=6-OZxzNYiIcSs9KG"
+        },
+        {
+          "nombre": "Lateral Band Walk",
+          "video": "https://youtu.be/sOYvvFPYdsU?si=44gRXa_P6GNyjExC"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Barbell Hip Thrust",
+          "video": "https://youtu.be/8RwbLtfLu6A?si=WbzR0z0xfok9M1fp"
+        },
+        {
+          "nombre": "Single-Leg DB Hip Thrust",
+          "video": "https://youtu.be/V8uasBf-Es8?si=gQnazxPhJYq_AQuY"
+        }
+      ]
+    },
+    "Chest": {
+      "ejercicio_1": [
+        {
+          "nombre": "Low Incline DB Flye",
+          "video": "https://youtu.be/gfIx0U5bTMA?si=mJ5hulSBtwn-GgGk"
+        },
+        {
+          "nombre": "Low-To-High Cable Crossover",
+          "video": "https://youtu.be/1LhGmhVFe2Y?si=iPfhWoIZFYFAFa8H"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Chest Press Machine",
+          "video": "https://youtu.be/zDecGJLyVm8?si=EwhnPqorXD5fsooV"
+        },
+        {
+          "nombre": "Dumbbell Chest Press",
+          "video": "https://youtu.be/zGXvPjlgVkk?si=jdjm39AlZDL1G_Zo"
+        }
+      ]
+    },
+    "Neck": {
+      "ejercicio_1": [
+        {
+          "nombre": "Plate-Loaded Neck Curls",
+          "video": "https://youtu.be/CuIkTLjx6fo?si=7TgkZEKuBQNEuaKz"
+        }
+      ],
+      "ejercicio_2": [
+        {
+          "nombre": "Head Harness Neck Extension",
+          "video": "https://youtu.be/Mp2kp2tVhGQ?si=_Tod6RiV9zHhwtJe"
+        },
+        {
+          "nombre": "Plate-Loaded Neck Extension",
+          "video": "https://youtu.be/av_h904QAEY?si=8RUYGEr7Fg0cz1TS"
+        }
+      ]
+    },
+    "Notas": {
+      "Hamstrings": "El programa ya tiene bastante volumen de isquios; si es punto débil, prioriza ejecución y esfuerzo antes de agregar volumen.",
+      "Calves": "Prioriza pausas abajo y alto esfuerzo antes de añadir volumen. Si son prioridad, puedes agregar 1-2 series extra.",
+      "Mid-Back": "Prioriza ejecución, juntando escápulas en la positiva y sintiendo la espalda abrirse en la negativa.",
+      "Upper Traps": "Prioriza ejecución, pausa y esfuerzo antes de agregar volumen. Si son prioridad, puedes agregar 1-2 series extra.",
+      "Abs": "La visibilidad abdominal dependerá principalmente de la dieta. Prioriza ejecución antes de agregar series.",
+      "Biceps": "Por el día dedicado de brazos y trabajo indirecto, agregar mucho más volumen puede ser junk volume.",
+      "Triceps": "Por el día dedicado de brazos y trabajo indirecto de presses, agregar mucho más volumen puede ser junk volume."
+    }
+  },
+  "semana": [
+    {
+      "dia": "Lunes",
+      "enfoque": "Tirón #1 (Enfoque dorsales)",
+      "ejercicios": [
+        {
+          "nombre": "Lat-Focused Cable Row",
+          "video": "https://youtu.be/w11Kqjm-ycE?si=eyZajXix1q2R_2iX",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Lat Static Stretch (30 sec hold)"
+            }
+          ],
+          "descanso": "~2-3 min",
+          "alternativas": [
+            {
+              "nombre": "Half-Kneeling 1-Arm Lat Pulldown",
+              "video": "https://youtu.be/r8K1Fkch5go?si=cMx4BA0Wo0cc0LMn"
+            },
+            {
+              "nombre": "Elbows-In 1-Arm DB Row",
+              "video": "https://youtu.be/SwloMZs8ZVk?si=7Us6sCq_5EsdAdld"
+            }
+          ],
+          "nota": "Keep your torso locked in a fixed position (don't lean forward on the negative). Drive your elbows down and back to engage the lats. Keep your elbows tucked in to your sides.",
+          "tecnica_intensidad": "Lat Static Stretch (30 sec hold)"
+        },
+        {
+          "nombre": "Paused Barbell RDL",
+          "video": "https://youtu.be/74uXdbCYZQY?si=SzjStDAOXQdm3Zzp",
+          "series": 2,
+          "repeticiones": "8",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~6-7"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "~7-8"
+            }
+          ],
+          "descanso": "~3-4 min",
+          "alternativas": [
+            {
+              "nombre": "Paused DB RDL",
+              "video": "https://youtu.be/gzavDZmYDHk?si=W8Lo-seZcaDZrnyC"
+            },
+            {
+              "nombre": "Glute-Ham Raise",
+              "video": "https://youtu.be/9ksG-O0ZUto?si=I5F9HRiZe4C8JNOo"
+            }
+          ],
+          "nota": "The RPE is intentionally low here because these will cause a lot of muscle damage. Don't be tempted to go too heavy. 1 second pause at the bottom of each rep. To keep tension on the hamstrings, stop about 75% of the way to full lockout on each rep (i.e. stay in the bottom 3/4 of the range of motion)."
+        },
+        {
+          "nombre": "Chest-Supported T-Bar Row + Kelso Shrug",
+          "video": "https://youtu.be/qsmjaYao9pA?si=16vkPtENX_eC3hoZ",
+          "series": 3,
+          "repeticiones": "8-10 + 4-6",
+          "calentamiento_series": "2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~2-3 min",
+          "alternativas": [
+            {
+              "nombre": "Machine Chest-Supported Row + Kelso Shrug",
+              "video": "https://youtu.be/SUAafTp7WTQ?si=IPonYxxfswNOAXKM"
+            },
+            {
+              "nombre": "Incline Chest-Supported DB Row + Kelso Shrug",
+              "video": "https://youtu.be/IBRrEPQZUO0?si=MgGxKuB02bPXRy1q"
+            }
+          ],
+          "nota": "Do 8-10 reps as a normal T-Bar row, driving your elbows back at roughly and squeezing your shoulder blades together. Without resting, do another 4-6 reps as Kelso Shrugs (just squeeze your shoulder blades together without rowing all the way back with your arms)."
+        },
+        {
+          "nombre": "1-Arm Lat Pull-In",
+          "video": "https://youtu.be/RMGuHVQKOms?si=-jCa4oU2jhlxaqQ1",
+          "series": 2,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Wide-Grip Lat Pulldown",
+              "video": "https://youtu.be/IYXRrYXfVLc?si=qzklwz0DBbgbbu75"
+            },
+            {
+              "nombre": "Wide-Grip Band-Assisted Pull-Up",
+              "video": "https://youtu.be/6LGHiZ5iZbE?si=kRtkyA62iBOH0zzk"
+            }
+          ],
+          "nota": "Pull the cable in from the side. Keep a mind-muscle connection with your lats and try to prevent your biceps from taking over. Palpate (feel) your lats with your other hand if that helps you connect with them better.",
+          "tecnica_intensidad": "Long-length Partials (on all reps of the last set)"
+        },
+        {
+          "nombre": "N1-Style Short-Head Curl",
+          "video": "https://youtu.be/qpzwJd7mr3Y?si=W6H5DYe7ShuBgEpM",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "DB Concentration Curl",
+              "video": "https://youtu.be/Oq7gJuAuJh0?si=e07C_cAm11NoM2F5"
+            },
+            {
+              "nombre": "DB Preacher Curl",
+              "video": "https://youtu.be/WTkQLAethtg?si=WyxLoZFQzsaEYyn0"
+            }
+          ],
+          "nota": "Brace against your knee with your non-working hand and curl across your body, toward your opposite shoulder.",
+          "tecnica_intensidad": "Long-length Partials (on all reps of the last set)"
+        },
+        {
+          "nombre": "Reverse Pec Deck (w/ Integrated Partials)",
+          "video": "https://youtu.be/KDeYqB9GYeg?si=wIoeBXTOU2LZ1XMQ",
+          "series": 3,
+          "repeticiones": "10-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Integrated Partials (on all sets)"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Integrated Partials (on all sets)"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Integrated Partials (on all sets)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Reverse Cable Flye (w/ Integrated Partials)",
+              "video": "https://youtu.be/QkAMC88WfXw?si=UB30tLiuG2mgu8Tm"
+            },
+            {
+              "nombre": "Bent-Over Reverse DB Flye (w/ Integrated Partials)",
+              "video": "https://youtu.be/eE3v36jNqDE?si=aKu2j9stF-xqFva1"
+            }
+          ],
+          "nota": "Sweep the weight out instead of pulling the weight back. Mind-muscle connection with rear delts. On all sets, alternate full-ROM reps and half-ROM reps (i.e. do 1 rep with full-ROM, then 1 rep half-ROM (in the stretched/bottom half), then 1 rep full-ROM, then 1 rep half-ROM). Repeat until you've reached the target reps and an RPE of 9-10.",
+          "tecnica_intensidad": "Integrated Partials (on all sets)"
+        }
+      ],
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 1,
+        "dia_original": "Pull 1",
+        "enfoque_original": "Pull #1 (Lat Focused)"
+      }
+    },
+    {
+      "dia": "Martes",
+      "enfoque": "Empuje #1",
+      "ejercicios": [
+        {
+          "nombre": "Cuffed Behind-The-Back Lateral Raise",
+          "video": "https://youtu.be/fjiOCmFljDM?si=_fQKI3yDPZ_Vig6_",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Cross-Body Cable Y-Raise",
+              "video": "https://youtu.be/64RFJSCJuN8?si=vF-QLR7gD2Ls8Pki"
+            },
+            {
+              "nombre": "DB Lateral Raise",
+              "video": "https://youtu.be/RyztKrzaMNk?si=acocS1nys1XRh_4-"
+            }
+          ],
+          "nota": "Raise the cables up in a \"Y\" motion. Really try to connect with the middle delt fibers as you sweep the weight up and out.",
+          "tecnica_intensidad": "Myo-reps"
+        },
+        {
+          "nombre": "Low Incline DB Press",
+          "video": "https://youtu.be/YmlMsvNGTKA?si=Oirmp6ORchJsQjml",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "2-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~2-3 min",
+          "alternativas": [
+            {
+              "nombre": "Low Incline Machine Press",
+              "video": "https://youtu.be/JmsY9nSqX9E?si=yFu9NOhkWI0SRuQ_"
+            },
+            {
+              "nombre": "Low Incline Barbell Press",
+              "video": "https://youtu.be/_74oMsrIFXA?si=WJdYGe8B8Jbd68bB"
+            }
+          ],
+          "nota": "Set the bench at a ~15° incline. Do a slight elbow tuck on the negative and then flare as you push (assuming this doesn't bother your shoulders). Nice, smooth reps here. No pausing at the top or bottom: constant tension on the pecs!"
+        },
+        {
+          "nombre": "Dual-Cable Triceps Press",
+          "video": "https://youtu.be/SNcQJjXWa_E?si=tGJUU1CwE1QkPqEZ",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~2-3 min",
+          "alternativas": [
+            {
+              "nombre": "Overhead Cable Triceps Extension (Bar)",
+              "video": "https://youtu.be/9_I1PqZAjdA?si=3_OiJuJ__vtBAN3i"
+            },
+            {
+              "nombre": "DB Skull Crusher",
+              "video": "https://youtu.be/fbLTzgTKOR8?si=QbDmqu5SuNggNRvy"
+            }
+          ],
+          "nota": "Hold the cables without a handle and get them into position just above your shoulders (around chin level). Press the weight forward (straight out front of you), not up overhead like in a standard overhead triceps extension."
+        },
+        {
+          "nombre": "Bent-Over Cable Pec Flye (w/ Integrated Partials)",
+          "video": "https://youtu.be/DKaKmnB0BO8?si=nRhx5uGL4h6kybkm",
+          "series": 3,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~8-9",
+              "tecnica": "Integrated Partials (on all sets)"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~8-9",
+              "tecnica": "Integrated Partials (on all sets)"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Integrated Partials (on all sets)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Pec Deck (w/ Integrated Partials)",
+              "video": "https://youtu.be/NPa8YvUg4CM?si=CdJYv7YdAWHNmli7"
+            },
+            {
+              "nombre": "DB Flye (w/ Integrated Partials)",
+              "video": "https://youtu.be/AOsdioes78c?si=XT64ctRyclTbi31x"
+            }
+          ],
+          "nota": "Lean forward until your torso is parallel with the floor, flye straight out and down toward the floor. Stretch and squeeze the pecs! Stay locked in.",
+          "tecnica_intensidad": "Integrated Partials (on all sets)"
+        },
+        {
+          "nombre": "Deficit Pushup",
+          "video": "https://youtu.be/3AZSudcQ1N0?si=jQY4HpOBFC3xGrSZ",
+          "series": 1,
+          "repeticiones": "AMRAP",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Close-Grip Push Up",
+              "video": "https://youtu.be/z7Fx-RY4kXw?si=dzEM43Aki_I77F36"
+            },
+            {
+              "nombre": "Bodyweight Dip",
+              "video": "https://youtu.be/iswhjR-_-Xg?si=X14sz9ue7jbcO41K"
+            }
+          ],
+          "nota": "Slow negative with a deep stretch at the bottom of each rep before exploding back up on the positive."
+        },
+        {
+          "nombre": "Cable Crunch",
+          "video": "https://youtu.be/epBrpaGHMcg?si=eVzfyWvKLGoY2uzC",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Myo-reps"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Machine Crunch",
+              "video": "https://youtu.be/K2yKEoazT3g?si=9UbCG3OjT-XS27lw"
+            },
+            {
+              "nombre": "Plate-Weighted Crunch",
+              "video": "https://youtu.be/mP99WSRI6Bc?si=N5lEBSrHOkD_jcP4"
+            }
+          ],
+          "nota": "Round your lower back as you crunch. Maintain a mind-muscle connection with your 6-pack.",
+          "tecnica_intensidad": "Myo-reps"
+        }
+      ],
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 2,
+        "dia_original": "Push 1",
+        "enfoque_original": "Push #1"
+      }
+    },
+    {
+      "dia": "Miércoles",
+      "enfoque": "Descanso opcional",
+      "ejercicios": [],
+      "tipo": "descanso_opcional",
+      "nota": "Día de recuperación indicado por el programa.",
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 3,
+        "dia_original": "Rest O1",
+        "enfoque_original": "Descanso opcional"
+      }
+    },
+    {
+      "dia": "Jueves",
+      "enfoque": "Piernas #1",
+      "ejercicios": [
+        {
+          "nombre": "Seated Leg Curl",
+          "video": "https://youtu.be/yv0aAY7M1mk?si=VnQB7bSQwsc_bXNZ",
+          "series": 3,
+          "repeticiones": "8-10",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~2-3 min",
+          "alternativas": [
+            {
+              "nombre": "Lying Leg Curl",
+              "video": "https://youtu.be/sX4tGtcc62k?si=1Mk33v6q0EaZSfrm"
+            },
+            {
+              "nombre": "Nordic Ham Curl",
+              "video": "https://youtu.be/fzpYiRtzmFA?si=sXXr1PAhYKYBiZ0G"
+            }
+          ],
+          "nota": "Lean forward over the machine to get a maximum stretch in your hamstrings."
+        },
+        {
+          "nombre": "Machine Hip Adduction",
+          "video": "https://youtu.be/FMSCZYu1JhE?si=tiRniqz2EO3tcuj0",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Cable Hip Adduction",
+              "video": "https://youtu.be/6GYTbv-LtV0?si=pAuIH1S1KV63CD5S"
+            },
+            {
+              "nombre": "Copenhagen Hip Adduction",
+              "video": "https://youtu.be/QRLGyl5-i4k?si=qUP-AxqrJFdstOji"
+            }
+          ],
+          "nota": "Mind-muscle connection with your inner thighs. These are great for adding thigh mass from the front! Push them hard!"
+        },
+        {
+          "nombre": "Smith Machine Squat",
+          "video": "https://youtu.be/lWIEZ6NxPMk?si=3b8WGrsGFNx-FZxi",
+          "series": 3,
+          "repeticiones": "4, 6, 8",
+          "calentamiento_series": "2-4",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "~9"
+            }
+          ],
+          "descanso": "~3-5 min",
+          "alternativas": [
+            {
+              "nombre": "Machine Squat",
+              "video": "https://youtu.be/whJzh_27yHs?si=dUZ_qBEKxNQFrcRs"
+            },
+            {
+              "nombre": "DB Bulgarian Split Squat",
+              "video": "https://youtu.be/Z1uu0uHYl20?si=PrV5_aQw_BtzIsCn"
+            }
+          ],
+          "nota": "We're using a reverse pyramid on this exercise. Warm-up as usual to your first working set for 4 reps. This first set will be your heaviest set. Then for set 2, drop the weight back ~10-15% and do 6 reps. Then for set 3, drop weight back another 10-15% and do 8 reps."
+        },
+        {
+          "nombre": "Leg Extension",
+          "video": "https://youtu.be/uFbNtqP966A?si=eF4hwW1Y2H3vbd3L",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1-2",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "DB Step-Up",
+              "video": "https://youtu.be/3FNfi_PrP9Y?si=eIJi3CHI5UmMzckv"
+            },
+            {
+              "nombre": "Reverse Nordic",
+              "video": "https://youtu.be/D-kqUKEQZZ0?si=AR-FPZoWwvxog7XD"
+            }
+          ],
+          "nota": "Set the seat back as far as it will go while still feeling comfortable. Grab handles as hard as you can to pull your butt down into the seat. Use a 2-3 second negative. Feel your quads pulling apart on the negative.",
+          "tecnica_intensidad": "Long-length Partials (on all reps of the last set)"
+        },
+        {
+          "nombre": "DB Calf Jumps",
+          "video": "https://youtu.be/JkY3nBTbRac?si=x-e5AhINv_RUBAxh",
+          "series": 3,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Leg Press Calf Jumps",
+              "video": "https://youtu.be/FKY1GmU-nYI?si=rzLyQiWauKQkJK5p"
+            },
+            {
+              "nombre": "Standing Calf Raise",
+              "video": "https://youtu.be/6lR2JdxUh7w?si=Q_4oyceNkI-WarRg"
+            }
+          ],
+          "nota": "Hold a dumbbell and perform a jumping motion without actually leaving the floor, using a slight knee bend, but mostly relying on your calves/ankles to drive the \"jump\". I believe I built a lot of calf mass by doing jump rope; these are meant to provide a similar stimulus, but with more tension."
+        }
+      ],
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 4,
+        "dia_original": "Legs 1",
+        "enfoque_original": "Legs #1"
+      }
+    },
+    {
+      "dia": "Viernes",
+      "enfoque": "Brazos y puntos débiles #1",
+      "ejercicios": [
+        {
+          "nombre": "Weak Point Exercise 1",
+          "video": "",
+          "series": 3,
+          "repeticiones": "8-12",
+          "calentamiento_series": "1-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "~9-10"
+            }
+          ],
+          "descanso": "~1-3 min",
+          "alternativas": [
+            {
+              "nombre": "Cuffed Behind-The-Back Lateral Raise",
+              "video": "https://youtu.be/fjiOCmFljDM?si=p-7u39qzcoPpSIgJ",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Machine Lateral Raise",
+              "video": "https://youtu.be/5hZCR8lTdBk?si=ZMy6P01NVRyT3CCF",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Dumbbell Lateral Raise",
+              "video": "https://youtu.be/RyztKrzaMNk?si=iKwL0A4Uct72xC08",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Cable Lat Prayer",
+              "video": "https://youtu.be/YrcnBlH8XDA?si=cJ0tdsbirapsyDza",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "DB Lat Pullover",
+              "video": "https://youtu.be/iaRefVKBH8M?si=1JkkgTxLJdJKru9F",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "Machine Lat Pullover",
+              "video": "https://youtu.be/YT0K0PBl3nk?si=eOyyxU3FJq5FSw4f",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "Leg Extension",
+              "video": "https://youtu.be/uFbNtqP966A?si=4O6PTmmCpdLw3NAy",
+              "grupo_punto_debil": "Quads"
+            },
+            {
+              "nombre": "Reverse Nordics",
+              "video": "https://youtu.be/D-kqUKEQZZ0?si=VtvQB1fXGOUyt007",
+              "grupo_punto_debil": "Quads"
+            },
+            {
+              "nombre": "Machine Hip Abduction",
+              "video": "https://youtu.be/Jq4YWyLSh_o?si=43_rV0qMqZDO99c8",
+              "grupo_punto_debil": "Glutes"
+            },
+            {
+              "nombre": "Cable Hip Abduction",
+              "video": "https://youtu.be/552L1K3Rb_Q?si=6-OZxzNYiIcSs9KG",
+              "grupo_punto_debil": "Glutes"
+            },
+            {
+              "nombre": "Lateral Band Walk",
+              "video": "https://youtu.be/sOYvvFPYdsU?si=44gRXa_P6GNyjExC",
+              "grupo_punto_debil": "Glutes"
+            },
+            {
+              "nombre": "Low Incline DB Flye",
+              "video": "https://youtu.be/gfIx0U5bTMA?si=mJ5hulSBtwn-GgGk",
+              "grupo_punto_debil": "Chest"
+            },
+            {
+              "nombre": "Low-To-High Cable Crossover",
+              "video": "https://youtu.be/1LhGmhVFe2Y?si=iPfhWoIZFYFAFa8H",
+              "grupo_punto_debil": "Chest"
+            },
+            {
+              "nombre": "Plate-Loaded Neck Curls",
+              "video": "https://youtu.be/CuIkTLjx6fo?si=7TgkZEKuBQNEuaKz",
+              "grupo_punto_debil": "Neck"
+            }
+          ],
+          "nota": "Decide on your weak point using The Weak Point Table in your Hypertrophy Handbook. Perform ONE of the exercises listed under Exercise 1 for the sets and reps provided here.",
+          "tipo_especial": "weak_point_selector",
+          "weak_point_slot": 1,
+          "nota_selector": "Selecciona una alternativa desde la tabla de puntos débiles."
+        },
+        {
+          "nombre": "Weak Point Exercise 2 (optional)",
+          "video": "",
+          "series": 2,
+          "repeticiones": "8-12",
+          "calentamiento_series": "1-3",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "~9-10"
+            }
+          ],
+          "descanso": "~1-3 min",
+          "alternativas": [
+            {
+              "nombre": "Machine Shoulder Press",
+              "video": "https://youtu.be/SCQVmN1gYsk?si=260eJ_EGUnc7kzgh",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Smith Machine Shoulder Press",
+              "video": "https://youtu.be/Ru2yE4wWUvE?si=fCjEz5M7EVLDnyAf",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Standing DB Arnold Press",
+              "video": "https://youtu.be/xBJBTfPcvhM?si=NFE_AU6W1NDpM7oX",
+              "grupo_punto_debil": "Shoulders"
+            },
+            {
+              "nombre": "Lat-Focused Cable Row",
+              "video": "https://youtu.be/w11Kqjm-ycE?si=S2uUkOlSQS_XfJuz",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "Elbows-In 1-Arm DB Row",
+              "video": "https://youtu.be/SwloMZs8ZVk?si=4kRD4IFD34ht7fS2",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "Half-Kneeling 1-Arm Lat Pulldown",
+              "video": "https://youtu.be/r8K1Fkch5go?si=uI9s4q0rLvAsHKtb",
+              "grupo_punto_debil": "Lats"
+            },
+            {
+              "nombre": "Single-Leg Leg Press",
+              "video": "https://youtu.be/zURHw38OZTM?si=YjlJmvRnK4RdR82u",
+              "grupo_punto_debil": "Quads"
+            },
+            {
+              "nombre": "Sissy Squat",
+              "video": "https://youtu.be/eWAjlO4FWPQ?si=Nfo6m5QeXeyFv15y",
+              "grupo_punto_debil": "Quads"
+            },
+            {
+              "nombre": "Barbell Hip Thrust",
+              "video": "https://youtu.be/8RwbLtfLu6A?si=WbzR0z0xfok9M1fp",
+              "grupo_punto_debil": "Glutes"
+            },
+            {
+              "nombre": "Single-Leg DB Hip Thrust",
+              "video": "https://youtu.be/V8uasBf-Es8?si=gQnazxPhJYq_AQuY",
+              "grupo_punto_debil": "Glutes"
+            },
+            {
+              "nombre": "Chest Press Machine",
+              "video": "https://youtu.be/zDecGJLyVm8?si=EwhnPqorXD5fsooV",
+              "grupo_punto_debil": "Chest"
+            },
+            {
+              "nombre": "Dumbbell Chest Press",
+              "video": "https://youtu.be/zGXvPjlgVkk?si=jdjm39AlZDL1G_Zo",
+              "grupo_punto_debil": "Chest"
+            },
+            {
+              "nombre": "Head Harness Neck Extension",
+              "video": "https://youtu.be/Mp2kp2tVhGQ?si=_Tod6RiV9zHhwtJe",
+              "grupo_punto_debil": "Neck"
+            },
+            {
+              "nombre": "Plate-Loaded Neck Extension",
+              "video": "https://youtu.be/av_h904QAEY?si=8RUYGEr7Fg0cz1TS",
+              "grupo_punto_debil": "Neck"
+            }
+          ],
+          "nota": "If your weak point is feeling recovered (not sore or fatigued) then feel free to hit Exercise 2. If your weak point is feeling tired or sore, do not perform the second weak point exercise this week.",
+          "tipo_especial": "weak_point_selector",
+          "weak_point_slot": 2,
+          "nota_selector": "Selecciona una alternativa desde la tabla de puntos débiles."
+        },
+        {
+          "nombre": "Slow-Eccentric EZ-Bar Skull Crusher",
+          "video": "https://youtu.be/opVMIWzaNFY?si=Km9JF0KncL5Dp22e",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Slow-Eccentric DB Skull Crusher",
+              "video": "https://youtu.be/HpW1nqPsGvw?si=Syt_OdzLhS-KyrP-"
+            },
+            {
+              "nombre": "Slow-Eccentric DB French Press",
+              "video": "https://youtu.be/EAW6XDAlZPo?si=8JS596u04g_aAJj6"
+            }
+          ],
+          "nota": "Use a 3-4 second negative. Arc the EZ-bar slightly back behind your head. When you extend, keep the bar back behind your eye line. Use the inside (closer) grip option and allow the elbows to flare to a degree that feels comfortable."
+        },
+        {
+          "nombre": "Slow-Eccentric Bayesian Curl",
+          "video": "https://youtu.be/Kf2kXBoIgM0?si=7djq654yF0WyvOTz",
+          "series": 3,
+          "repeticiones": "10-12",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 2,
+              "tipo": "serie_previa",
+              "rpe": "~9-10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            },
+            {
+              "set": 3,
+              "tipo": "ultima_serie",
+              "rpe": "10",
+              "tecnica": "Long-length Partials (on all reps of the last set)"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Slow-Eccentric DB Incline Curl",
+              "video": "https://youtu.be/_ceLw3Q6uTA?si=6Y8XYLK3TObVCuxm"
+            },
+            {
+              "nombre": "Slow-Eccentric DB Scott Curl",
+              "video": "https://youtu.be/ijgSR2yriyg?si=OPa2ojil3TSfRlU5"
+            }
+          ],
+          "nota": "Use a 3-4 second negative and a slight pause at the bottom of each rep emphasize stretching your biceps.",
+          "tecnica_intensidad": "Long-length Partials (on all reps of the last set)"
+        },
+        {
+          "nombre": "Triceps Diverging Pressdown (Long Rope or 2 Ropes)",
+          "video": "https://youtu.be/20tbMlP71Nc?si=wCfBs9M0mDyy1vc_",
+          "series": 2,
+          "repeticiones": "12-15",
+          "calentamiento_series": "1",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Cable Triceps Kickback",
+              "video": "https://youtu.be/oRxTKRtP8RE?si=yegr433rIoLYHyzK"
+            },
+            {
+              "nombre": "DB Triceps Kickback",
+              "video": "https://youtu.be/YdUUYFgpA7g?si=X_uaRkc0Qa3p28QM"
+            }
+          ],
+          "nota": "Use two long ropes or one long rope. Lean slightly forward, flare your elbows slightly out and keep your arms back in line with your torso. Then do triceps pressdowns, getting a full, big squeeze at the bottom."
+        },
+        {
+          "nombre": "Reverse-Grip Cable Curl",
+          "video": "https://youtu.be/xtZvYrfw2Is?si=FvJmRz10c7mwsjMI",
+          "series": 2,
+          "repeticiones": "12-15",
+          "calentamiento_series": "0",
+          "sets": [
+            {
+              "set": 1,
+              "tipo": "serie_previa",
+              "rpe": "~9-10"
+            },
+            {
+              "set": 2,
+              "tipo": "ultima_serie",
+              "rpe": "10"
+            }
+          ],
+          "descanso": "~1-2 min",
+          "alternativas": [
+            {
+              "nombre": "Reverse-Grip EZ-Bar Curl",
+              "video": "https://youtu.be/IZNaQzWXgwA?si=E8C8kydySwFmM2-F"
+            },
+            {
+              "nombre": "Reverse-Grip DB Curl",
+              "video": "https://youtu.be/KYfVrzmh-GU?si=bzqo7aXMS21mySzo"
+            }
+          ],
+          "nota": "Grab a cable bar with your palms facing down and perform curls. These work the back of your forearm, brachialis and biceps!"
+        }
+      ],
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 5,
+        "dia_original": "Arms/WP 1",
+        "enfoque_original": "Arms & Weak Points #1"
+      }
+    },
+    {
+      "dia": "Sábado",
+      "enfoque": "Descanso obligatorio",
+      "ejercicios": [],
+      "tipo": "descanso_obligatorio",
+      "nota": "Día de recuperación indicado por el programa.",
+      "fuente_programa": {
+        "semana_pdf": 8,
+        "slot_pdf": 6,
+        "dia_original": "Rest M1",
+        "enfoque_original": "Descanso obligatorio"
+      }
+    }
+  ]
+}

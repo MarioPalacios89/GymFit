@@ -1,0 +1,54 @@
+VALIDACIÓN — THE PURE BODYBUILDING PROGRAM ADAPTADO A LUNES-SÁBADO
+====================================================================
+
+Fuente usada:
+- JSONs extraídos del PDF: v13_week_1.json ... v13_week_10.json
+- Ejemplo estructural: v12_week_1(1).json
+
+Motivo de la adaptación:
+El programa original es asíncrono y contiene 10 semanas PDF, cada una con 8 sesiones
+de entrenamiento y 4 descansos entre opcionales y obligatorios. Para no perder sesiones
+ni descansos, se transformó toda la secuencia en semanas calendario de lunes a sábado.
+
+Resultado:
+- Semanas calendario generadas: 20
+- Días por JSON: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado
+- Entradas totales: 120
+- Días con entrenamiento: 80
+- Días de descanso preservados: 40
+- Ejercicios principales: 465
+- Placeholders Weak Point: 40
+- Ejercicios reales sin video: 0
+- Alternativas sin video: 0
+
+Compatibilidad:
+Cada archivo conserva:
+- version
+- programa
+- perfil
+- calentamiento
+- weak_points
+- semana[]
+
+Cada día conserva:
+- dia
+- enfoque
+- ejercicios[]
+- fuente_programa para saber de qué semana/sesión original salió.
+
+Cada ejercicio conserva:
+- nombre
+- video
+- series
+- repeticiones
+- calentamiento_series
+- sets
+- descanso
+- alternativas
+- nota
+- tecnica_intensidad cuando aplica
+
+Notas:
+- Los placeholders Weak Point Exercise 1/2 no tienen video propio porque son selectores.
+- Sus alternativas sí conservan nombre y video.
+- No se eliminaron descansos del programa original.

@@ -1,0 +1,159 @@
+{
+  "Shoulders": {
+    "ejercicio_1": [
+      {
+        "nombre": "Cuffed Behind-The-Back Lateral Raise",
+        "video": "https://youtu.be/fjiOCmFljDM?si=p-7u39qzcoPpSIgJ"
+      },
+      {
+        "nombre": "Machine Lateral Raise",
+        "video": "https://youtu.be/5hZCR8lTdBk?si=ZMy6P01NVRyT3CCF"
+      },
+      {
+        "nombre": "Dumbbell Lateral Raise",
+        "video": "https://youtu.be/RyztKrzaMNk?si=iKwL0A4Uct72xC08"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Machine Shoulder Press",
+        "video": "https://youtu.be/SCQVmN1gYsk?si=260eJ_EGUnc7kzgh"
+      },
+      {
+        "nombre": "Smith Machine Shoulder Press",
+        "video": "https://youtu.be/Ru2yE4wWUvE?si=fCjEz5M7EVLDnyAf"
+      },
+      {
+        "nombre": "Standing DB Arnold Press",
+        "video": "https://youtu.be/xBJBTfPcvhM?si=NFE_AU6W1NDpM7oX"
+      }
+    ]
+  },
+  "Lats": {
+    "ejercicio_1": [
+      {
+        "nombre": "Cable Lat Prayer",
+        "video": "https://youtu.be/YrcnBlH8XDA?si=cJ0tdsbirapsyDza"
+      },
+      {
+        "nombre": "DB Lat Pullover",
+        "video": "https://youtu.be/iaRefVKBH8M?si=1JkkgTxLJdJKru9F"
+      },
+      {
+        "nombre": "Machine Lat Pullover",
+        "video": "https://youtu.be/YT0K0PBl3nk?si=eOyyxU3FJq5FSw4f"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Lat-Focused Cable Row",
+        "video": "https://youtu.be/w11Kqjm-ycE?si=S2uUkOlSQS_XfJuz"
+      },
+      {
+        "nombre": "Elbows-In 1-Arm DB Row",
+        "video": "https://youtu.be/SwloMZs8ZVk?si=4kRD4IFD34ht7fS2"
+      },
+      {
+        "nombre": "Half-Kneeling 1-Arm Lat Pulldown",
+        "video": "https://youtu.be/r8K1Fkch5go?si=uI9s4q0rLvAsHKtb"
+      }
+    ]
+  },
+  "Quads": {
+    "ejercicio_1": [
+      {
+        "nombre": "Leg Extension",
+        "video": "https://youtu.be/uFbNtqP966A?si=4O6PTmmCpdLw3NAy"
+      },
+      {
+        "nombre": "Reverse Nordics",
+        "video": "https://youtu.be/D-kqUKEQZZ0?si=VtvQB1fXGOUyt007"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Single-Leg Leg Press",
+        "video": "https://youtu.be/zURHw38OZTM?si=YjlJmvRnK4RdR82u"
+      },
+      {
+        "nombre": "Sissy Squat",
+        "video": "https://youtu.be/eWAjlO4FWPQ?si=Nfo6m5QeXeyFv15y"
+      }
+    ]
+  },
+  "Glutes": {
+    "ejercicio_1": [
+      {
+        "nombre": "Machine Hip Abduction",
+        "video": "https://youtu.be/Jq4YWyLSh_o?si=43_rV0qMqZDO99c8"
+      },
+      {
+        "nombre": "Cable Hip Abduction",
+        "video": "https://youtu.be/552L1K3Rb_Q?si=6-OZxzNYiIcSs9KG"
+      },
+      {
+        "nombre": "Lateral Band Walk",
+        "video": "https://youtu.be/sOYvvFPYdsU?si=44gRXa_P6GNyjExC"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Barbell Hip Thrust",
+        "video": "https://youtu.be/8RwbLtfLu6A?si=WbzR0z0xfok9M1fp"
+      },
+      {
+        "nombre": "Single-Leg DB Hip Thrust",
+        "video": "https://youtu.be/V8uasBf-Es8?si=gQnazxPhJYq_AQuY"
+      }
+    ]
+  },
+  "Chest": {
+    "ejercicio_1": [
+      {
+        "nombre": "Low Incline DB Flye",
+        "video": "https://youtu.be/gfIx0U5bTMA?si=mJ5hulSBtwn-GgGk"
+      },
+      {
+        "nombre": "Low-To-High Cable Crossover",
+        "video": "https://youtu.be/1LhGmhVFe2Y?si=iPfhWoIZFYFAFa8H"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Chest Press Machine",
+        "video": "https://youtu.be/zDecGJLyVm8?si=EwhnPqorXD5fsooV"
+      },
+      {
+        "nombre": "Dumbbell Chest Press",
+        "video": "https://youtu.be/zGXvPjlgVkk?si=jdjm39AlZDL1G_Zo"
+      }
+    ]
+  },
+  "Neck": {
+    "ejercicio_1": [
+      {
+        "nombre": "Plate-Loaded Neck Curls",
+        "video": "https://youtu.be/CuIkTLjx6fo?si=7TgkZEKuBQNEuaKz"
+      }
+    ],
+    "ejercicio_2": [
+      {
+        "nombre": "Head Harness Neck Extension",
+        "video": "https://youtu.be/Mp2kp2tVhGQ?si=_Tod6RiV9zHhwtJe"
+      },
+      {
+        "nombre": "Plate-Loaded Neck Extension",
+        "video": "https://youtu.be/av_h904QAEY?si=8RUYGEr7Fg0cz1TS"
+      }
+    ]
+  },
+  "Notas": {
+    "Hamstrings": "El programa ya tiene bastante volumen de isquios; si es punto débil, prioriza ejecución y esfuerzo antes de agregar volumen.",
+    "Calves": "Prioriza pausas abajo y alto esfuerzo antes de añadir volumen. Si son prioridad, puedes agregar 1-2 series extra.",
+    "Mid-Back": "Prioriza ejecución, juntando escápulas en la positiva y sintiendo la espalda abrirse en la negativa.",
+    "Upper Traps": "Prioriza ejecución, pausa y esfuerzo antes de agregar volumen. Si son prioridad, puedes agregar 1-2 series extra.",
+    "Abs": "La visibilidad abdominal dependerá principalmente de la dieta. Prioriza ejecución antes de agregar series.",
+    "Biceps": "Por el día dedicado de brazos y trabajo indirecto, agregar mucho más volumen puede ser junk volume.",
+    "Triceps": "Por el día dedicado de brazos y trabajo indirecto de presses, agregar mucho más volumen puede ser junk volume."
+  }
+}
