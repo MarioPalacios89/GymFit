@@ -4947,3 +4947,45 @@ input::placeholder, textarea::placeholder { color: #8d9aaa !important; opacity: 
 @media (max-width: 390px) {
   .exercise-card-content { padding-right: 0; }
 }
+
+/* Header mobile: keep actions inside the viewport and preserve button size. */
+@media (max-width: 640px) {
+  .app-header {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+
+  .app-header > div:first-child {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .app-header > div:last-child {
+    min-width: 0;
+    flex: 0 0 auto;
+  }
+
+  .app-header > div:last-child > .relative {
+    position: relative;
+  }
+
+  #userBadge {
+    max-width: calc(100vw - 110px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #btnMainActions {
+    flex: 0 0 42px;
+  }
+
+  #menuActions {
+    right: 0;
+    width: min(14.5rem, calc(100vw - 28px)) !important;
+    max-width: calc(100vw - 28px);
+    box-sizing: border-box;
+  }
+}
