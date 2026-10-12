@@ -270,6 +270,16 @@ function initializeWorkoutUx(root) {
 
             updateSetCompletionState(event.target.closest('.exercise-set-row-wrapper'));
             updateSessionProgress(root);
+
+            // En móvil, completar reps lleva al siguiente peso disponible.
+            if (event.target.matches('.val-reps') && event.target.value) {
+                const card = event.target.closest('.exercise-card');
+                const nextWeight = [...(card?.querySelectorAll('.val-peso') || [])]
+                    .find(input => !input.value && !input.closest('.exercise-set-row-wrapper')?.classList.contains('set-completed'));
+                if (nextWeight) {
+                    requestAnimationFrame(() => nextWeight.focus({ preventScroll: true }));
+                }
+            }
         });
 
         root.dataset.workoutUxBound = 'true';
@@ -1148,9 +1158,24 @@ function renderEnergyPanel(day = {}) {
                 </div>
             </div>
 
+            <div class="session-overview" aria-label="Resumen de la sesión">
+                <div class="session-overview-item">
+                    <strong>${(day?.ejercicios || []).length}</strong>
+                    <span>ejercicios</span>
+                </div>
+                <div class="session-overview-item">
+                    <strong>${effectiveTotal}</strong>
+                    <span>series efectivas</span>
+                </div>
+                <div class="session-overview-item">
+                    <strong>${warmupTotal}</strong>
+                    <span>aproximaciones</span>
+                </div>
+            </div>
+
             <div class="session-progress mt-4">
                 <div class="session-progress-head">
-                    <span>Series efectivas registradas</span>
+                    <span>Progreso de la sesión</span>
                     <strong id="sessionProgressText">0/${effectiveTotal}</strong>
                 </div>
                 <div class="session-progress-track">
@@ -1978,8 +2003,9 @@ function toggleAccordion(index) {
 function renderNav() {
     const nav = document.getElementById('dayNav');
     nav.innerHTML = db.semana.map((d, i) => `
-            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-7 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaVisualIdx ? 'active' : ''}">
-                ${obtenerInicialDia(d.dia)}
+            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-5 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaVisualIdx ? 'active' : ''}" aria-current="${i === diaVisualIdx ? 'page' : 'false'}" aria-label="Abrir ${d.dia}: ${d.enfoque || 'rutina'}">
+                <span class="day-btn-letter">${obtenerInicialDia(d.dia)}</span>
+                <span class="day-btn-copy"><strong>${String(d.dia || '').slice(0, 3)}</strong><small>${d.enfoque || 'Rutina'}</small></span>
             </button>
         `).join('');
 }

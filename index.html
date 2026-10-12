@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0f0d">
+    <meta name="color-scheme" content="dark">
     <title>MarioFit Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -16,6 +18,23 @@
 </head>
 
 <body class="pb-20 mobile-safe-body">
+    <!-- Supabase Auth -->
+    <section id="auth-screen" class="auth-screen hidden" aria-labelledby="auth-title">
+        <div class="auth-card">
+            <div class="auth-brand-mark"><i class="fas fa-bolt"></i></div>
+            <p class="auth-kicker">MARIOFIT CLOUD</p>
+            <h1 id="auth-title">Entrar a tu entrenamiento</h1>
+            <p class="auth-copy">Tus rutinas, registros, récords y progreso ahora se sincronizan con Supabase.</p>
+            <form id="auth-form" class="auth-form" onsubmit="handleMarioFitLogin(event)">
+                <label><span>Correo</span><input id="auth-email" type="email" autocomplete="email" required placeholder="tu@correo.com"></label>
+                <label><span>Contraseña</span><div class="auth-password-wrap"><input id="auth-password" type="password" autocomplete="current-password" required placeholder="••••••••"><button type="button" class="auth-password-toggle" onclick="toggleAuthPassword()" aria-label="Mostrar u ocultar contraseña"><i id="auth-password-icon" class="fas fa-eye"></i></button></div></label>
+                <p id="auth-error" class="auth-error hidden" role="alert"></p>
+                <button id="auth-submit" type="submit" class="auth-submit"><i class="fas fa-right-to-bracket"></i><span>INGRESAR</span></button>
+            </form>
+            <p class="auth-footnote"><i class="fas fa-shield-halved"></i> Acceso protegido por Supabase Auth + RLS.</p>
+        </div>
+    </section>
+
 
     <div id="loading-screen"
         class="fixed inset-0 z-[100] bg-[#030318] flex flex-col items-center justify-center transition-opacity duration-500">
@@ -225,7 +244,7 @@
         </div>
     </div>
 
-<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#030318]/95 backdrop-blur-md border-b border-white/5">
+<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#030318]/95 backdrop-blur-md border-b border-white/5 app-header">
     <div>
         <h1 class="text-xl font-black text-white italic tracking-tighter leading-none">
             MARIO<span class="text-[#B3D62E]">FIT</span>
@@ -234,8 +253,9 @@
     </div>
 
     <div class="flex items-center gap-2">
+        <div id="userBadge" class="user-badge hidden" title="Sesión activa"><span class="user-badge-dot"></span><span id="userBadgeText">Conectado</span></div>
         <div class="relative">
-            <button id="btnMainActions" onclick="toggleMenuActions(event)" class="w-10 h-10 flex items-center justify-center bg-[#B3D62E] text-black rounded-xl shadow-lg shadow-[#B3D62E]/20 active:scale-90 transition-transform">
+             <button type="button" id="btnMainActions" aria-label="Abrir acciones de MarioFit" onclick="toggleMenuActions(event)" class="w-10 h-10 flex items-center justify-center bg-[#B3D62E] text-black rounded-xl shadow-lg shadow-[#B3D62E]/20 active:scale-90 transition-transform">
                 <i class="fas fa-ellipsis-v"></i>
             </button>
 
@@ -255,6 +275,7 @@
                             <button onclick="toggleConversor(event)" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-b border-white/5 uppercase tracking-tighter text-left">
         <i class="fas fa-weight text-lime-400"></i> Conversor de libras / kilos
     </button>
+                <button onclick="cerrarMenuYSalir()" class="w-full flex items-center gap-3 p-4 text-white hover:bg-white/5 text-[11px] font-bold border-t border-white/5 uppercase tracking-tighter text-left"><i class="fas fa-right-from-bracket text-red-400"></i> Cerrar sesión</button>
             </div>
         </div>
     </div>
@@ -264,7 +285,7 @@
 <div id="menuOverlay" onclick="cerrarAcciones()" class="fixed inset-0 z-40 hidden"></div>
 
 
-    <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#030318]"></nav>
+    <nav id="dayNav" aria-label="Días de entrenamiento" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#030318]"></nav>
 
     <div class="px-6 my-4 mobile-report-wrap">
         <button onclick="abrirModalReporte()"
@@ -276,9 +297,9 @@
     
     <div class="px-4 mb-3 mobile-routine-toolbar routine-toolbar-grid">
         <label class="routine-select-group">
-            <span>Semana</span>
+            <span>Plan activo</span>
             <div class="routine-select-wrap">
-                <select id="selectorSemana" onchange="cambiarSemana(this.value)" aria-label="Seleccionar semana"></select>
+                <select id="selectorSemana" onchange="cambiarSemana(this.value)" aria-label="Plan activo"></select>
                 <i class="fas fa-chevron-down"></i>
             </div>
         </label>
@@ -326,7 +347,7 @@
         </div>
     </section>
 
-    <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#030318] to-transparent z-40">
+    <div class="save-dock fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#030318] to-transparent z-40">
         <button onclick="enviarDatos()" id="saveBtn"
             class="w-full bg-lime-500 hover:bg-lime-400 text-[#000000] font-black py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all">
             <i class="fas fa-check-circle"></i> GUARDAR DÍA

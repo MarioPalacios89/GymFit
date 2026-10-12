@@ -1,5 +1,5 @@
-// URL de tu implementación de Google Apps Script
-const API_URL = 'https://script.google.com/macros/s/AKfycbzUd4jj4F0QX9tnbmfo_sFKwaozRst1Z9bgv6s6l2IjUn4kDYxUFLTZgT15fdiuqhWm/exec';
+// Backend migrado a Supabase. El endpoint legado de Google Apps Script queda deshabilitado.
+const API_URL = null;
 
 let db = null;
 // diaRegistroIdx: día real del calendario (para guardar en historial)
@@ -25,7 +25,7 @@ let energyMode = 'normal';
 
 const WARMUP_CHECK_KEY = 'mariofit_warmup_check_v12';
 const SELECTED_WEEK_KEY = 'mariofit_selected_week_v12';
-const ROUTINE_CACHE_PREFIX = 'mariofit_routine_cache_v12';
+const ROUTINE_CACHE_PREFIX = 'mariofit_routine_cache_supabase_v1';
 const EXERCISE_COLLAPSE_KEY = 'mariofit_exercise_collapse_v12';
 let semanaActiva = Number(localStorage.getItem(SELECTED_WEEK_KEY) || 1);
 let rutinaSourceMeta = { source: 'init', updatedAt: null, week: semanaActiva };
@@ -270,6 +270,16 @@ function initializeWorkoutUx(root) {
 
             updateSetCompletionState(event.target.closest('.exercise-set-row-wrapper'));
             updateSessionProgress(root);
+
+            // En móvil, completar reps lleva al siguiente peso disponible.
+            if (event.target.matches('.val-reps') && event.target.value) {
+                const card = event.target.closest('.exercise-card');
+                const nextWeight = [...(card?.querySelectorAll('.val-peso') || [])]
+                    .find(input => !input.value && !input.closest('.exercise-set-row-wrapper')?.classList.contains('set-completed'));
+                if (nextWeight) {
+                    requestAnimationFrame(() => nextWeight.focus({ preventScroll: true }));
+                }
+            }
         });
 
         root.dataset.workoutUxBound = 'true';
@@ -1148,9 +1158,24 @@ function renderEnergyPanel(day = {}) {
                 </div>
             </div>
 
+            <div class="session-overview" aria-label="Resumen de la sesión">
+                <div class="session-overview-item">
+                    <strong>${(day?.ejercicios || []).length}</strong>
+                    <span>ejercicios</span>
+                </div>
+                <div class="session-overview-item">
+                    <strong>${effectiveTotal}</strong>
+                    <span>series efectivas</span>
+                </div>
+                <div class="session-overview-item">
+                    <strong>${warmupTotal}</strong>
+                    <span>aproximaciones</span>
+                </div>
+            </div>
+
             <div class="session-progress mt-4">
                 <div class="session-progress-head">
-                    <span>Series efectivas registradas</span>
+                    <span>Progreso de la sesión</span>
                     <strong id="sessionProgressText">0/${effectiveTotal}</strong>
                 </div>
                 <div class="session-progress-track">
@@ -1978,8 +2003,9 @@ function toggleAccordion(index) {
 function renderNav() {
     const nav = document.getElementById('dayNav');
     nav.innerHTML = db.semana.map((d, i) => `
-            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-7 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaVisualIdx ? 'active' : ''}">
-                ${obtenerInicialDia(d.dia)}
+            <button onclick="cambiarDia(${i})" class="day-btn flex-shrink-0 px-5 py-3 rounded-2xl bg-slate-800 text-xs font-black uppercase tracking-widest text-white ${i === diaVisualIdx ? 'active' : ''}" aria-current="${i === diaVisualIdx ? 'page' : 'false'}" aria-label="Abrir ${d.dia}: ${d.enfoque || 'rutina'}">
+                <span class="day-btn-letter">${obtenerInicialDia(d.dia)}</span>
+                <span class="day-btn-copy"><strong>${String(d.dia || '').slice(0, 3)}</strong><small>${d.enfoque || 'Rutina'}</small></span>
             </button>
         `).join('');
 }
@@ -3131,4 +3157,946 @@ document.addEventListener('click', (e) => {
     }
 });
 
-init();
+// ============================================================================
+// MARIO GYM - SUPABASE ADAPTER V1
+// Reemplaza Google Apps Script como backend manteniendo la interfaz actual.
+// Supabase JS fijado a una versión concreta para evitar cambios inesperados.
+// ============================================================================
+const SUPABASE_URL = 'https://wlpuvzcilmozmdpnvwew.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_kqAxjIJN5zU4FX1Q9XAJUg_T5cND613';
+const SUPABASE_JS_VERSION = '2.117.1';
+const SUPABASE_JS_CDN = `https://cdn.jsdelivr.net/npm/@supabase/supabase-js@${SUPABASE_JS_VERSION}/+esm`;
+
+let supabaseClient = null;
+let supabaseCurrentUser = null;
+let supabaseExerciseCatalog = new Map();
+let supabaseRoutineMeta = { planId: null, dayIds: new Map() };
+
+async function getSupabaseClient() {
+    if (supabaseClient) return supabaseClient;
+
+    if (window.supabase?.createClient) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+            auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+        });
+        return supabaseClient;
+    }
+
+    const { createClient } = await import(SUPABASE_JS_CDN);
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+    });
+    return supabaseClient;
+}
+
+async function getAuthenticatedUser({ required = true } = {}) {
+    const sb = await getSupabaseClient();
+    const { data, error } = await sb.auth.getUser();
+
+    if (error && required) throw error;
+    supabaseCurrentUser = data?.user || null;
+
+    if (!supabaseCurrentUser && required) {
+        window.dispatchEvent(new CustomEvent('mariofit:auth-required'));
+        throw new Error('AUTH_REQUIRED');
+    }
+
+    return supabaseCurrentUser;
+}
+
+async function marioGymLogin(email, password) {
+    const sb = await getSupabaseClient();
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+
+    supabaseCurrentUser = data.user;
+    limpiarCacheRutinaSemana();
+    await init({ force: true });
+    return data;
+}
+
+async function marioGymLogout() {
+    const sb = await getSupabaseClient();
+    const { error } = await sb.auth.signOut();
+    if (error) throw error;
+    supabaseCurrentUser = null;
+    db = null;
+    window.dispatchEvent(new CustomEvent('mariofit:signed-out'));
+}
+
+window.marioGymLogin = marioGymLogin;
+window.marioGymLogout = marioGymLogout;
+window.getMarioGymSupabaseClient = getSupabaseClient;
+
+function formatRepRange(min, max) {
+    const a = Number(min);
+    const b = Number(max);
+    if (!Number.isFinite(a) && !Number.isFinite(b)) return '';
+    if (Number.isFinite(a) && (!Number.isFinite(b) || a === b)) return String(a);
+    if (!Number.isFinite(a) && Number.isFinite(b)) return String(b);
+    return `${a}-${b}`;
+}
+
+function formatWarmupRange(min, max) {
+    const text = formatRepRange(min, max);
+    return text || '0';
+}
+
+function formatRestRange(minSeconds, maxSeconds) {
+    const min = Number(minSeconds);
+    const max = Number(maxSeconds);
+    const fmt = (seconds) => {
+        if (!Number.isFinite(seconds)) return '';
+        if (seconds % 60 === 0) return `${seconds / 60} min`;
+        return `${seconds}s`;
+    };
+
+    if (!Number.isFinite(min) && !Number.isFinite(max)) return '';
+    if (Number.isFinite(min) && (!Number.isFinite(max) || min === max)) return fmt(min);
+    if (!Number.isFinite(min) && Number.isFinite(max)) return fmt(max);
+    if (min % 60 === 0 && max % 60 === 0) return `${min / 60}-${max / 60} min`;
+    return `${fmt(min)}-${fmt(max)}`;
+}
+
+function normalizeSetStrategy(strategy) {
+    if (Array.isArray(strategy)) return strategy;
+    if (!strategy) return [];
+    if (typeof strategy === 'string') {
+        try {
+            const parsed = JSON.parse(strategy);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch { return []; }
+    }
+    return [];
+}
+
+function normalizeSupabaseSetType(setType) {
+    const value = String(setType || '').toLowerCase();
+    if (value === 'warmup' || value === 'calentamiento') return 'calentamiento';
+    return 'trabajo';
+}
+
+function parseUiSetNumber(label) {
+    const raw = String(label ?? '').trim().toUpperCase();
+    const match = raw.match(/(\d+)/);
+    const number = match ? Number(match[1]) : NaN;
+    if (!Number.isInteger(number) || number <= 0) return null;
+    return number;
+}
+
+function getLocalTodayYmd() {
+    return ymdLocal(new Date());
+}
+
+function getLocalDayNameFromYmd(ymd) {
+    return getDayNameByDate(fromYmdLocal(ymd));
+}
+
+async function fetchAllPages(buildQuery, pageSize = 1000) {
+    const all = [];
+    let from = 0;
+
+    while (true) {
+        const to = from + pageSize - 1;
+        const { data, error } = await buildQuery().range(from, to);
+        if (error) throw error;
+        const page = data || [];
+        all.push(...page);
+        if (page.length < pageSize) break;
+        from += pageSize;
+    }
+
+    return all;
+}
+
+async function getSignedPhotoUrl(photoPath) {
+    if (!photoPath) return '';
+    try {
+        const sb = await getSupabaseClient();
+        const { data, error } = await sb.storage
+            .from('workout-photos')
+            .createSignedUrl(photoPath, 60 * 60);
+        if (error) throw error;
+        return data?.signedUrl || '';
+    } catch (error) {
+        console.warn('No se pudo firmar la foto:', error);
+        return '';
+    }
+}
+
+async function uploadDataUrlWorkoutPhoto(dataUrl, sessionId, exerciseId) {
+    if (!dataUrl || !String(dataUrl).startsWith('data:image/')) return '';
+
+    const user = await getAuthenticatedUser();
+    const sb = await getSupabaseClient();
+    const response = await fetch(dataUrl);
+    const blob = await response.blob();
+    const ext = blob.type.includes('png') ? 'png' : blob.type.includes('webp') ? 'webp' : 'jpg';
+    const path = `${user.id}/${sessionId}/${exerciseId}-${Date.now()}.${ext}`;
+
+    const { error } = await sb.storage
+        .from('workout-photos')
+        .upload(path, blob, { contentType: blob.type || 'image/jpeg', upsert: false });
+
+    if (error) throw error;
+    return path;
+}
+
+async function loadExerciseRecords() {
+    const sb = await getSupabaseClient();
+    const rows = await fetchAllPages(() => sb
+        .from('workout_sets')
+        .select('exercise_id,weight_kg,reps,performed_at')
+        .eq('comparable_advisor', true)
+        .gt('weight_kg', 0)
+        .order('performed_at', { ascending: false })
+    );
+
+    const records = new Map();
+    rows.forEach(row => {
+        const kg = Number(row.weight_kg);
+        if (!Number.isFinite(kg) || kg <= 0) return;
+        const current = records.get(row.exercise_id);
+        if (!current || kg > current.peso) {
+            records.set(row.exercise_id, {
+                peso: kg,
+                reps: row.reps ?? '',
+                fecha: row.performed_at || ''
+            });
+        }
+    });
+
+    return records;
+}
+
+async function loadAdvisorMap(exerciseIds = []) {
+    const sb = await getSupabaseClient();
+    const unique = [...new Set(exerciseIds.filter(Boolean))];
+    const map = new Map();
+
+    const chunks = [];
+    for (let i = 0; i < unique.length; i += 8) chunks.push(unique.slice(i, i + 8));
+
+    for (const chunk of chunks) {
+        const results = await Promise.all(chunk.map(async exerciseId => {
+            try {
+                const { data, error } = await sb.rpc('get_exercise_advisor', { p_exercise_id: exerciseId });
+                if (error) throw error;
+                const row = Array.isArray(data) ? data[0] : data;
+                return [exerciseId, row || null];
+            } catch (error) {
+                console.warn('Advisor no disponible para', exerciseId, error);
+                return [exerciseId, null];
+            }
+        }));
+        results.forEach(([id, value]) => map.set(id, value));
+    }
+
+    return map;
+}
+
+async function fetchRoutineFromSupabase() {
+    await getAuthenticatedUser();
+    const sb = await getSupabaseClient();
+
+    const { data: plans, error: planError } = await sb
+        .from('workout_plans')
+        .select('*')
+        .eq('active', true)
+        .eq('archived', false)
+        .order('updated_at', { ascending: false })
+        .limit(1);
+
+    if (planError) throw planError;
+    const plan = plans?.[0];
+    if (!plan) throw new Error('No existe una rutina activa para este usuario.');
+
+    const { data: days, error: dayError } = await sb
+        .from('workout_days')
+        .select('*')
+        .eq('plan_id', plan.id)
+        .order('sort_order', { ascending: true });
+    if (dayError) throw dayError;
+
+    const dayIds = (days || []).map(day => day.id);
+    let workoutExercises = [];
+    if (dayIds.length) {
+        const { data, error } = await sb
+            .from('workout_exercises')
+            .select('*')
+            .in('workout_day_id', dayIds)
+            .eq('active', true)
+            .order('sort_order', { ascending: true });
+        if (error) throw error;
+        workoutExercises = data || [];
+    }
+
+    const { data: exercises, error: exerciseError } = await sb
+        .from('exercises')
+        .select('*')
+        .eq('active', true);
+    if (exerciseError) throw exerciseError;
+
+    const { data: userExercises, error: overrideError } = await sb
+        .from('user_exercises')
+        .select('*')
+        .eq('active', true);
+    if (overrideError) throw overrideError;
+
+    const { data: alternatives, error: altError } = await sb
+        .from('exercise_alternatives')
+        .select('exercise_id,alternative_exercise_id,priority')
+        .order('priority', { ascending: true });
+    if (altError) throw altError;
+
+    const catalog = new Map((exercises || []).map(ex => [ex.id, ex]));
+    const overrides = new Map((userExercises || []).map(ue => [ue.exercise_id, ue]));
+    supabaseExerciseCatalog = catalog;
+
+    const records = await loadExerciseRecords();
+    const advisorMap = await loadAdvisorMap(workoutExercises.map(row => row.exercise_id));
+
+    const alternativesByExercise = new Map();
+    (alternatives || []).forEach(row => {
+        if (!alternativesByExercise.has(row.exercise_id)) alternativesByExercise.set(row.exercise_id, []);
+        const altExercise = catalog.get(row.alternative_exercise_id);
+        if (!altExercise) return;
+        const altOverride = overrides.get(altExercise.id);
+        alternativesByExercise.get(row.exercise_id).push({
+            nombre: altOverride?.custom_name || altExercise.name,
+            exercise_id: altExercise.id,
+            _exerciseId: altExercise.id,
+            incremento_kg: altOverride?.default_increment_kg ?? altExercise.default_increment_kg ?? null,
+            start_pct: altOverride?.default_start_pct ?? altExercise.default_start_pct ?? null
+        });
+    });
+
+    const byDay = new Map();
+    workoutExercises.forEach(row => {
+        if (!byDay.has(row.workout_day_id)) byDay.set(row.workout_day_id, []);
+        byDay.get(row.workout_day_id).push(row);
+    });
+    byDay.forEach(rows => rows.sort((a, b) => Number(a.sort_order) - Number(b.sort_order)));
+
+    const semana = (days || []).map(day => ({
+        _dayId: day.id,
+        dia: day.name,
+        enfoque: day.focus || '',
+        ejercicios: (byDay.get(day.id) || []).map(row => {
+            const base = catalog.get(row.exercise_id) || {};
+            const override = overrides.get(row.exercise_id) || {};
+            const advisorRow = advisorMap.get(row.exercise_id);
+            const record = records.get(row.exercise_id) || null;
+            const step = row.increment_kg ?? override.default_increment_kg ?? base.default_increment_kg ?? null;
+            const strategy = normalizeSetStrategy(row.set_strategy);
+
+            return {
+                nombre: override.custom_name || base.name || 'Ejercicio',
+                exercise_id: row.exercise_id,
+                _exerciseId: row.exercise_id,
+                workout_exercise_id: row.id,
+                _workoutExerciseId: row.id,
+                series: Number(row.working_sets || 1),
+                repeticiones: formatRepRange(row.rep_min, row.rep_max),
+                calentamiento_series: formatWarmupRange(row.warmup_sets_min, row.warmup_sets_max),
+                sets: strategy,
+                descanso: formatRestRange(row.rest_min_seconds, row.rest_max_seconds),
+                alternativas: alternativesByExercise.get(row.exercise_id) || [],
+                nota: row.notes || '',
+                video: row.video_url || '',
+                grupos: base.primary_muscle ? [base.primary_muscle] : [],
+                rol: '',
+                fatiga: '',
+                record,
+                advisor: advisorRow ? {
+                    enabled: row.advisor_enabled !== false,
+                    status: advisorRow.status || 'SIN_DATA',
+                    status_label: advisorRow.status || 'SIN_DATA',
+                    start_kg: advisorRow.suggested_top_weight ?? advisorRow.last_top_kg ?? null,
+                    top_set_kg: advisorRow.suggested_top_weight ?? advisorRow.last_top_kg ?? null,
+                    step_kg: step,
+                    clean_sessions: advisorRow.clean_sessions || 0,
+                    note: advisorRow.status === 'SUBIR'
+                        ? 'Completaste el rango alto: considera el siguiente incremento.'
+                        : advisorRow.status === 'CONSOLIDAR'
+                            ? 'Consolida técnica y repeticiones antes de subir.'
+                            : ''
+                } : null
+            };
+        })
+    }));
+
+    supabaseRoutineMeta = {
+        planId: plan.id,
+        dayIds: new Map((days || []).map(day => [day.name, day.id]))
+    };
+
+    return {
+        version: plan.version || plan.name || 'supabase',
+        perfil: {
+            nombre: 'Mario',
+            objetivo: plan.goal || '',
+            nivel: plan.level || '',
+            frecuencia: plan.frequency_per_week ? `${plan.frequency_per_week} días por semana` : '',
+            enfoque: plan.focus || ''
+        },
+        calentamiento: [
+            { nombre: 'Cardio suave en la máquina de tu elección', reps: '5-10 min' },
+            { nombre: 'Círculos de brazos', reps: '10 por lado' },
+            { nombre: 'Rotación externa en polea (opcional)', reps: '15 por lado' },
+            { nombre: 'Balanceos de brazos y piernas', reps: '10 por lado y por dirección' },
+            { nombre: 'Series de aproximación específicas del ejercicio', reps: '1-4 series progresivas según calentamiento_series' }
+        ],
+        semana,
+        _supabase: { planId: plan.id }
+    };
+}
+
+// Compatibilidad con el nombre antiguo: ya NO consulta Google Apps Script.
+async function fetchRoutineFromApi() {
+    return fetchRoutineFromSupabase();
+}
+
+async function loadRoutineDb(week = semanaActiva, options = {}) {
+    const force = !!options.force;
+    const cached = readRoutineCache(week);
+
+    if (!force && cached?.db) {
+        rutinaSourceMeta = {
+            source: 'localStorage',
+            updatedAt: cached.updatedAt || null,
+            week: Number(week) || 1,
+            version: cached.version || cached.db?.version || ''
+        };
+        return cached.db;
+    }
+
+    try {
+        const supabaseDb = await fetchRoutineFromSupabase();
+        const parsedWeek = Number(String(supabaseDb?.version || '').match(/week_(\d+)/i)?.[1]);
+        const effectiveWeek = parsedWeek || Number(week) || 1;
+        const saved = writeRoutineCache(effectiveWeek, supabaseDb);
+        rutinaSourceMeta = {
+            source: force ? 'forced_supabase' : 'supabase',
+            updatedAt: saved?.updatedAt || new Date().toISOString(),
+            week: effectiveWeek,
+            version: supabaseDb.version || ''
+        };
+        return supabaseDb;
+    } catch (error) {
+        if (cached?.db) {
+            console.warn('Supabase no disponible, usando rutina local:', error);
+            rutinaSourceMeta = {
+                source: 'localStorage_fallback',
+                updatedAt: cached.updatedAt || null,
+                week: Number(week) || 1,
+                version: cached.version || cached.db?.version || ''
+            };
+            return cached.db;
+        }
+        throw error;
+    }
+}
+
+function populateWeekSelector() {
+    const selector = document.getElementById('selectorSemana');
+    if (!selector) return;
+
+    const parsedWeek = Number(String(db?.version || '').match(/week_(\d+)/i)?.[1]);
+    const week = parsedWeek || semanaActiva || 1;
+    selector.innerHTML = `<option value="${week}" selected>Semana ${week} · plan activo</option>`;
+}
+
+function initializeRoutineUi() {
+    const hoyNombre = diasSemana[new Date().getDay()];
+    const hoyLabel = document.getElementById('label-hoy');
+    if (hoyLabel) hoyLabel.innerText = hoyNombre;
+
+    const objetivo = db?.perfil?.objetivo || 'Programa de entrenamiento';
+    const sourceLabel = String(rutinaSourceMeta?.source || '').includes('localStorage') ? 'local' : 'Supabase';
+    const cacheLabel = rutinaSourceMeta?.updatedAt
+        ? ` · ${sourceLabel} ${formatCacheDate(rutinaSourceMeta.updatedAt)}`
+        : '';
+    const subMeta = document.getElementById('sub-meta');
+    if (subMeta) subMeta.innerText = `${db?.version || `Semana ${semanaActiva}`} · ${objetivo}${cacheLabel}`.replace(/_/g, ' ');
+
+    const selector = document.getElementById('selectorRutina');
+    if (selector) {
+        selector.innerHTML = db.semana.map((d, i) =>
+            `<option value="${i}" ${d.dia === hoyNombre ? 'selected' : ''}>${d.dia} · ${d.enfoque || 'Rutina'}</option>`
+        ).join('');
+    }
+
+    diaRegistroIdx = db.semana.findIndex(d => d.dia === hoyNombre);
+    if (diaRegistroIdx === -1) diaRegistroIdx = 0;
+    diaVisualIdx = diaRegistroIdx;
+    if (selector) selector.value = String(diaVisualIdx);
+    syncEnergyModeForCurrentDay();
+    recoveryState = buildRecoveryPlan([]);
+    renderNav();
+    renderDia(diaVisualIdx);
+}
+
+async function init(options = {}) {
+    const loader = document.getElementById('loading-screen');
+    const loadingText = loader?.querySelector('p');
+
+    try {
+        if (loadingText) loadingText.textContent = 'Conectando con Supabase...';
+        await getAuthenticatedUser();
+        db = await loadRoutineDb(semanaActiva, { force: !!options.force });
+        const parsedWeek = Number(String(db?.version || '').match(/week_(\d+)/i)?.[1]);
+        if (parsedWeek) {
+            semanaActiva = parsedWeek;
+            localStorage.setItem(SELECTED_WEEK_KEY, String(semanaActiva));
+        }
+        populateWeekSelector();
+        initializeRoutineUi();
+        setTimeout(() => loader?.classList.add('hidden-load'), 350);
+        window.dispatchEvent(new CustomEvent('mariofit:ready', { detail: { user: supabaseCurrentUser, db } }));
+    } catch (error) {
+        console.error('Error init Supabase:', error);
+        if (loadingText) {
+            loadingText.textContent = error?.message === 'AUTH_REQUIRED'
+                ? 'Inicia sesión para continuar.'
+                : 'Error de conexión con Supabase.';
+            loadingText.classList?.replace('text-gray-500', 'text-red-500');
+        }
+    }
+}
+
+async function cargarHistorial() {
+    const container = document.getElementById('tablaHistorial');
+    if (!container) return;
+    container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-lime-400 text-2xl"></i></div>`;
+
+    try {
+        await getAuthenticatedUser();
+        const sb = await getSupabaseClient();
+        const rows = await fetchAllPages(() => sb
+            .from('workout_sets')
+            .select(`
+                id,set_number,set_type,weight_kg,reps,notes,photo_path,performed_at,
+                exercises(name),
+                workout_sessions!inner(session_date,status,workout_day_id,workout_days(name))
+            `)
+            .eq('workout_sessions.status', 'completed')
+            .order('performed_at', { ascending: false })
+        );
+
+        const uniquePhotos = [...new Set(rows.map(r => r.photo_path).filter(Boolean))];
+        const photoEntries = await Promise.all(uniquePhotos.map(async path => [path, await getSignedPhotoUrl(path)]));
+        const photoMap = new Map(photoEntries);
+
+        historialCompleto = rows.map(row => {
+            const session = row.workout_sessions || {};
+            const sessionDate = session.session_date || String(row.performed_at || '').slice(0, 10);
+            const dia = session.workout_days?.name || getLocalDayNameFromYmd(sessionDate);
+            const serie = normalizeSupabaseSetType(row.set_type) === 'calentamiento'
+                ? `C${row.set_number}`
+                : String(row.set_number);
+
+            return {
+                fecha: formatRecordDate(sessionDate) || sessionDate,
+                fechaIso: sessionDate,
+                dia,
+                ejercicio: row.exercises?.name || 'Ejercicio',
+                serie,
+                peso: row.weight_kg ?? '',
+                reps: row.reps ?? '',
+                nota: row.notes || '',
+                fotoUrl: photoMap.get(row.photo_path) || '',
+                foto: ''
+            };
+        });
+
+        renderizarHistorial('TODOS');
+    } catch (error) {
+        console.error('Historial Supabase:', error);
+        container.innerHTML = `<p class="text-red-400 text-center py-10 text-xs">Error de datos</p>`;
+    }
+}
+
+async function createWorkoutSession({ status = 'completed', dayIdx = diaVisualIdx, notes = null } = {}) {
+    const user = await getAuthenticatedUser();
+    const sb = await getSupabaseClient();
+    const day = db?.semana?.[dayIdx];
+    const now = new Date().toISOString();
+
+    const payload = {
+        user_id: user.id,
+        plan_id: db?._supabase?.planId || supabaseRoutineMeta.planId || null,
+        workout_day_id: day?._dayId || null,
+        session_date: getLocalTodayYmd(),
+        started_at: status === 'completed' ? now : null,
+        finished_at: status === 'completed' ? now : null,
+        status,
+        notes
+    };
+
+    const { data, error } = await sb
+        .from('workout_sessions')
+        .insert(payload)
+        .select('id')
+        .single();
+
+    if (error) throw error;
+    return data.id;
+}
+
+async function enviarDatos() {
+    const btn = document.getElementById('saveBtn');
+    const selector = document.getElementById('selectorRutina');
+    const idxRutinaVisual = Number(selector?.value ?? diaVisualIdx);
+    const nombreDiaCalendario = db?.semana?.[diaRegistroIdx]?.dia || diasSemana[new Date().getDay()];
+    const nombreDiaVisual = db?.semana?.[idxRutinaVisual]?.dia || '';
+
+    const pending = [];
+    const slotsToClear = new Set();
+    let recordSuperado = false;
+
+    document.querySelectorAll('.exercise-card[data-save-selected="true"]').forEach(card => {
+        if (card.classList.contains('recovery-locked')) return;
+        const pInput = card.querySelector('.val-peso');
+        if (!pInput) return;
+
+        const exIdx = Number(pInput.dataset.ex);
+        const exData = getActiveExercise(idxRutinaVisual, exIdx).activeEx || db.semana[idxRutinaVisual].ejercicios[exIdx];
+        const prActual = Number(exData?.record?.peso) || 0;
+        const note = getNoteForSlot(idxRutinaVisual, exIdx);
+        const exerciseRows = [];
+
+        card.querySelectorAll('.val-peso').forEach(p => {
+            if (!String(p.value || '').trim()) return;
+            const label = p.dataset.s;
+            const numericSet = parseUiSetNumber(label);
+            if (!numericSet) return;
+
+            const setTypeUi = p.dataset.setType || 'trabajo';
+            const row = p.closest('.exercise-set-row-wrapper');
+            const repsRaw = row?.querySelector('.val-reps')?.value || '';
+            const peso = Number(p.value);
+            if (!Number.isFinite(peso) || peso < 0) return;
+
+            if (setTypeUi === 'trabajo' && peso > prActual && prActual > 0) recordSuperado = true;
+
+            exerciseRows.push({
+                exercise_id: exData.exercise_id || exData._exerciseId,
+                workout_exercise_id: exData.workout_exercise_id || exData._workoutExerciseId || null,
+                set_number: numericSet,
+                set_type: setTypeUi === 'calentamiento' ? 'warmup' : 'work',
+                weight_value: peso,
+                weight_unit: 'kg',
+                weight_kg: peso,
+                reps: repsRaw === '' ? null : Number(repsRaw),
+                notes: note?.text || null,
+                context_tags: [],
+                comparable_advisor: setTypeUi !== 'calentamiento',
+                comparison_reason: setTypeUi === 'calentamiento' ? 'Calentamiento' : null,
+                performed_at: new Date().toISOString()
+            });
+        });
+
+        if (exerciseRows.length) {
+            pending.push({
+                exData,
+                rows: exerciseRows,
+                photo: note?.photo || '',
+                slot: slotKey(idxRutinaVisual, exIdx)
+            });
+            slotsToClear.add(slotKey(idxRutinaVisual, exIdx));
+        }
+    });
+
+    document.querySelectorAll('.recovery-locked').forEach(card => {
+        const recId = card.dataset.recId;
+        const recEx = recoveryState.available.find(x => x.id === recId);
+        if (!recEx) return;
+        const exercise = [...supabaseExerciseCatalog.values()].find(ex => ex.name === recEx.nombre);
+        if (!exercise) return;
+
+        const rows = [];
+        card.querySelectorAll('.rec-peso').forEach(p => {
+            if (!String(p.value || '').trim()) return;
+            const setNumber = parseUiSetNumber(p.dataset.s);
+            const repsRaw = card.querySelector(`.rec-reps[data-rec-id="${recId}"][data-s="${p.dataset.s}"]`)?.value || '';
+            const peso = Number(p.value);
+            if (!setNumber || !Number.isFinite(peso)) return;
+
+            rows.push({
+                exercise_id: exercise.id,
+                workout_exercise_id: null,
+                set_number: setNumber,
+                set_type: 'work',
+                weight_value: peso,
+                weight_unit: 'kg',
+                weight_kg: peso,
+                reps: repsRaw === '' ? null : Number(repsRaw),
+                notes: `Recuperación inteligente de ${recEx.origenDia}${recEx.nota ? ` | ${recEx.nota}` : ''}`,
+                context_tags: ['recovery'],
+                comparable_advisor: true,
+                comparison_reason: null,
+                performed_at: new Date().toISOString()
+            });
+        });
+        if (rows.length) pending.push({ exData: { exercise_id: exercise.id }, rows, photo: '', slot: null });
+    });
+
+    const totalRows = pending.reduce((sum, item) => sum + item.rows.length, 0);
+    if (!totalRows) return alert('Bloquea los ejercicios realizados.');
+
+    btn.disabled = true;
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> GUARDANDO...`;
+
+    let sessionId = null;
+    try {
+        const notes = nombreDiaVisual && nombreDiaVisual !== nombreDiaCalendario
+            ? `Rutina ${nombreDiaVisual} realizada en ${nombreDiaCalendario}.`
+            : null;
+        sessionId = await createWorkoutSession({ status: 'completed', dayIdx: idxRutinaVisual, notes });
+        const user = await getAuthenticatedUser();
+        const sb = await getSupabaseClient();
+        const allRows = [];
+
+        for (const item of pending) {
+            let photoPath = '';
+            if (item.photo) {
+                try {
+                    photoPath = await uploadDataUrlWorkoutPhoto(item.photo, sessionId, item.exData.exercise_id || item.exData._exerciseId);
+                } catch (photoError) {
+                    console.warn('La sesión se guardará sin foto:', photoError);
+                }
+            }
+
+            item.rows.forEach((row, index) => {
+                allRows.push({
+                    ...row,
+                    user_id: user.id,
+                    session_id: sessionId,
+                    photo_path: index === 0 && photoPath ? photoPath : null
+                });
+            });
+        }
+
+        const { error: setError } = await sb.from('workout_sets').insert(allRows);
+        if (setError) throw setError;
+
+        clearNotesForSlots([...slotsToClear]);
+        markTodayRecoveryStatus('trained');
+        recoveryState = buildRecoveryPlan([]);
+        limpiarCacheRutinaSemana();
+
+        if (recordSuperado) {
+            btn.innerHTML = `<i class="fas fa-crown"></i> ¡RÉCORD GUARDADO!`;
+            btn.classList.replace('bg-lime-500', 'bg-amber-500');
+            try { confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, zIndex: 10000 }); } catch { }
+        } else {
+            btn.innerHTML = `<i class="fas fa-check-double"></i> ¡LISTO!`;
+            btn.classList.replace('bg-lime-500', 'bg-emerald-600');
+        }
+
+        setTimeout(async () => {
+            limpiarDespuesDeGuardar();
+            try {
+                db = await loadRoutineDb(semanaActiva, { force: true });
+                initializeRoutineUi();
+            } catch (refreshError) {
+                console.warn('No se pudo refrescar el Advisor después de guardar:', refreshError);
+                renderDia(diaVisualIdx);
+            }
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+            btn.classList.remove('bg-emerald-600', 'bg-amber-500');
+            btn.classList.add('bg-lime-500');
+        }, 1200);
+    } catch (error) {
+        console.error('Error guardando entrenamiento en Supabase:', error);
+        if (sessionId) {
+            try {
+                const sb = await getSupabaseClient();
+                await sb.from('workout_sessions').delete().eq('id', sessionId);
+            } catch (cleanupError) {
+                console.warn('No se pudo limpiar la sesión incompleta:', cleanupError);
+            }
+        }
+        btn.innerHTML = 'ERROR AL GUARDAR';
+        btn.disabled = false;
+        alert(`No se pudo guardar: ${error?.message || 'error desconocido'}`);
+    }
+}
+
+async function enviarReporteInactividad() {
+    const motivo = document.getElementById('motivoInactividad')?.value?.trim();
+    const btn = document.getElementById('btnEnviarReporte');
+    if (!motivo) return alert('Por favor escribe un motivo.');
+
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Guardando...`;
+
+    try {
+        await createWorkoutSession({ status: 'skipped', dayIdx: diaRegistroIdx, notes: motivo });
+        markTodayRecoveryStatus('missed');
+        alert('Inactividad guardada en Supabase.');
+        cerrarModalReporte();
+        btn.disabled = false;
+        btn.innerText = 'Guardar Nota';
+    } catch (error) {
+        console.error('Error guardando inactividad:', error);
+        alert(`Error al guardar: ${error?.message || 'Supabase'}`);
+        btn.disabled = false;
+        btn.innerText = 'Guardar Nota';
+    }
+}
+
+async function forzarActualizacionRutina() {
+    const menu = document.getElementById('menuActions');
+    if (menu) menu.classList.remove('show');
+
+    const loader = document.getElementById('loading-screen');
+    const loadingText = loader?.querySelector('p');
+    loader?.classList.remove('hidden-load');
+    if (loadingText) loadingText.textContent = 'Actualizando rutina desde Supabase...';
+
+    try {
+        limpiarCacheRutinaSemana();
+        db = await loadRoutineDb(semanaActiva, { force: true });
+        stopRestTimer();
+        const parsedWeek = Number(String(db?.version || '').match(/week_(\d+)/i)?.[1]);
+        if (parsedWeek) semanaActiva = parsedWeek;
+        initializeRoutineUi();
+        populateWeekSelector();
+        const when = rutinaSourceMeta?.updatedAt ? formatCacheDate(rutinaSourceMeta.updatedAt) : 'ahora';
+        alert(`Rutina actualizada desde Supabase (${when}).`);
+    } catch (error) {
+        console.error(error);
+        alert('No se pudo actualizar desde Supabase. Se mantiene la rutina local si estaba disponible.');
+    } finally {
+        setTimeout(() => loader?.classList.add('hidden-load'), 250);
+    }
+}
+
+async function cambiarSemana() {
+    // V1 Supabase utiliza el plan marcado como active. El selector se conserva por compatibilidad visual.
+    await forzarActualizacionRutina();
+}
+
+async function generarResumenRápido() {
+    const lista = document.getElementById('listaResumen');
+    const vacio = document.getElementById('resumenVacio');
+    if (!lista) return;
+
+    lista.innerHTML = `<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-lime-400"></i><p class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Consultando Supabase...</p></div>`;
+    if (vacio) vacio.classList.add('hidden');
+
+    try {
+        await getAuthenticatedUser();
+        const sb = await getSupabaseClient();
+        const today = getLocalTodayYmd();
+        const { data, error } = await sb
+            .from('workout_sets')
+            .select(`set_number,set_type,weight_kg,reps,exercises(name),workout_sessions!inner(session_date,status)`)
+            .eq('workout_sessions.session_date', today)
+            .eq('workout_sessions.status', 'completed')
+            .order('performed_at', { ascending: true });
+        if (error) throw error;
+
+        const summary = (data || []).map(row => ({
+            ejercicio: row.exercises?.name || 'Ejercicio',
+            serie: normalizeSupabaseSetType(row.set_type) === 'calentamiento' ? `C${row.set_number}` : String(row.set_number),
+            peso: row.weight_kg ?? '',
+            reps: row.reps ?? ''
+        }));
+
+        if (!summary.length) {
+            lista.innerHTML = '';
+            if (vacio) vacio.classList.remove('hidden');
+            return;
+        }
+
+        const agrupado = summary.reduce((acc, curr) => {
+            if (!acc[curr.ejercicio]) acc[curr.ejercicio] = [];
+            acc[curr.ejercicio].push(curr);
+            return acc;
+        }, {});
+
+        lista.innerHTML = '';
+        for (const [ejercicio, series] of Object.entries(agrupado)) {
+            const seriesHtml = series.sort(compareSeriesLabels).map(s => `
+                <div class="flex justify-between items-center text-[10px] bg-white/5 p-2 rounded-lg border border-white/5 mb-1">
+                    <span class="text-gray-400 font-bold">${formatSeriesLong(s.serie)}</span>
+                    <span class="text-emerald-400 font-black">${s.peso}kg <span class="text-white/30">x</span> ${s.reps}</span>
+                </div>
+            `).join('');
+
+            lista.innerHTML += `
+                <div class="border-b border-white/5 pb-4 mb-4">
+                    <p class="text-white text-[11px] font-bold mb-2 uppercase tracking-tighter flex items-center gap-2">
+                        <i class="fas fa-history text-lime-400 text-[9px]"></i>${ejercicio}
+                    </p>
+                    <div class="pl-4 border-l border-lime-400/20">${seriesHtml}</div>
+                </div>`;
+        }
+    } catch (error) {
+        console.error('Resumen Supabase:', error);
+        lista.innerHTML = `<p class="text-red-400 text-[10px] text-center">Error al conectar con Supabase</p>`;
+    }
+}
+
+async function initChart() {
+    const canvas = document.getElementById('chartProgreso');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (miGrafico) miGrafico.destroy();
+
+    try {
+        await getAuthenticatedUser();
+        const sb = await getSupabaseClient();
+        const { data, error } = await sb
+            .from('body_weights')
+            .select('measured_at,weight_kg')
+            .order('measured_at', { ascending: false })
+            .limit(12);
+        if (error) throw error;
+
+        const rows = [...(data || [])].reverse();
+        miGrafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: rows.map(r => formatRecordDate(r.measured_at) || ''),
+                datasets: [{
+                    data: rows.map(r => Number(r.weight_kg)),
+                    borderColor: '#86b58f',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(134, 181, 143, 0.08)',
+                    pointRadius: rows.length ? 2 : 0
+                }]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+        });
+    } catch (error) {
+        console.warn('No se pudo cargar peso corporal:', error);
+        miGrafico = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [{ data: [] }] },
+            options: { plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+        });
+    }
+}
+
+
+
+
+// === Integración final: autenticación visual + peso corporal ===
+function setAuthScreenVisible(visible){const a=document.getElementById('auth-screen');const l=document.getElementById('loading-screen');if(!a)return;a.classList.toggle('hidden',!visible);if(visible)l?.classList.add('hidden-load')}
+function updateUserBadge(user=supabaseCurrentUser){const b=document.getElementById('userBadge'),t=document.getElementById('userBadgeText');if(!b||!t)return;if(!user){b.classList.add('hidden');t.textContent='Conectado';return}b.classList.remove('hidden');t.textContent=user.email||'Conectado'}
+function humanizeAuthError(error){const m=String(error?.message||error||'No se pudo iniciar sesión.');if(/invalid login credentials/i.test(m))return'Correo o contraseña incorrectos.';if(/email not confirmed/i.test(m))return'Primero confirma tu correo electrónico.';if(/failed to fetch|network/i.test(m))return'No se pudo conectar con Supabase. Revisa tu conexión.';return m}
+async function handleMarioFitLogin(event){event?.preventDefault?.();const email=document.getElementById('auth-email')?.value?.trim();const password=document.getElementById('auth-password')?.value||'';const submit=document.getElementById('auth-submit');const box=document.getElementById('auth-error');if(!email||!password)return;if(submit){submit.disabled=true;submit.innerHTML='<i class="fas fa-circle-notch fa-spin"></i><span>ENTRANDO...</span>'}box?.classList.add('hidden');try{await marioGymLogin(email,password);setAuthScreenVisible(false);updateUserBadge(supabaseCurrentUser)}catch(error){console.error('Login Supabase:',error);if(box){box.textContent=humanizeAuthError(error);box.classList.remove('hidden')}}finally{if(submit){submit.disabled=false;submit.innerHTML='<i class="fas fa-right-to-bracket"></i><span>INGRESAR</span>'}}}
+function toggleAuthPassword(){const input=document.getElementById('auth-password'),icon=document.getElementById('auth-password-icon');if(!input)return;const show=input.type==='password';input.type=show?'text':'password';if(icon)icon.className=`fas ${show?'fa-eye-slash':'fa-eye'}`}
+async function cerrarMenuYSalir(){document.getElementById('menuActions')?.classList.remove('show');try{await marioGymLogout()}catch(error){console.error('Logout Supabase:',error)}finally{stopRestTimer();updateUserBadge(null);setAuthScreenVisible(true)}}
+async function registrarPeso(){try{const user=await getAuthenticatedUser();const input=prompt('Ingresa tu peso actual en kg:');if(input===null)return;const weight=Number(String(input).replace(',','.'));if(!Number.isFinite(weight)||weight<=0||weight>400){alert('Ingresa un peso válido en kg.');return}const sb=await getSupabaseClient();const{error}=await sb.from('body_weights').insert({user_id:user.id,measured_at:new Date().toISOString(),weight_kg:Number(weight.toFixed(2))});if(error)throw error;alert(`Peso registrado: ${formatKg(weight)} kg`);await initChart()}catch(error){console.error('Registro de peso:',error);alert(`No se pudo registrar el peso: ${error?.message||'Supabase'}`)}}
+window.handleMarioFitLogin=handleMarioFitLogin;window.toggleAuthPassword=toggleAuthPassword;window.cerrarMenuYSalir=cerrarMenuYSalir;window.registrarPeso=registrarPeso;
+window.addEventListener('mariofit:auth-required',()=>{updateUserBadge(null);setAuthScreenVisible(true)});window.addEventListener('mariofit:signed-out',()=>{updateUserBadge(null);setAuthScreenVisible(true)});window.addEventListener('mariofit:ready',e=>{updateUserBadge(e?.detail?.user||supabaseCurrentUser);setAuthScreenVisible(false)});
+async function bootstrapMarioFit(){try{const user=await getAuthenticatedUser({required:false});if(!user){setAuthScreenVisible(true);return}updateUserBadge(user);setAuthScreenVisible(false);await init()}catch(error){console.error('Bootstrap MarioFit:',error);setAuthScreenVisible(true)}}
+bootstrapMarioFit();

@@ -1,6 +1,24 @@
 {
   "version": 1,
   "skills": {
+    "caveman": {
+      "source": "juliusbrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman/SKILL.md",
+      "computedHash": "71b600c88c8d1d36f18c4875db23b53c5d6cb9ba3195e19451d6b1bb67db07c4"
+    },
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "computedHash": "de0ad62df4a20451e6f9715b6861b068ac8f558b1829a5c7b947c58ae94f0c6f"
+    },
+    "rtk": {
+      "source": "akillness/jeo-skills",
+      "sourceType": "github",
+      "skillPath": ".agent-skills/rtk/SKILL.md",
+      "computedHash": "ffd980505698661d2cb8cf779d1bc081b9ed82c4e46e6e70df603a00a6f8ba30"
+    },
     "ui-ux-pro-max": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",

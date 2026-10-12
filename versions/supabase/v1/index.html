@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0f0d">
+    <meta name="color-scheme" content="dark">
     <title>MarioFit Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -242,7 +244,7 @@
         </div>
     </div>
 
-<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#030318]/95 backdrop-blur-md border-b border-white/5">
+<header class="p-4 flex justify-between items-center sticky top-0 z-40 bg-[#030318]/95 backdrop-blur-md border-b border-white/5 app-header">
     <div>
         <h1 class="text-xl font-black text-white italic tracking-tighter leading-none">
             MARIO<span class="text-[#B3D62E]">FIT</span>
@@ -253,7 +255,7 @@
     <div class="flex items-center gap-2">
         <div id="userBadge" class="user-badge hidden" title="Sesión activa"><span class="user-badge-dot"></span><span id="userBadgeText">Conectado</span></div>
         <div class="relative">
-            <button id="btnMainActions" onclick="toggleMenuActions(event)" class="w-10 h-10 flex items-center justify-center bg-[#B3D62E] text-black rounded-xl shadow-lg shadow-[#B3D62E]/20 active:scale-90 transition-transform">
+             <button type="button" id="btnMainActions" aria-label="Abrir acciones de MarioFit" onclick="toggleMenuActions(event)" class="w-10 h-10 flex items-center justify-center bg-[#B3D62E] text-black rounded-xl shadow-lg shadow-[#B3D62E]/20 active:scale-90 transition-transform">
                 <i class="fas fa-ellipsis-v"></i>
             </button>
 
@@ -283,7 +285,7 @@
 <div id="menuOverlay" onclick="cerrarAcciones()" class="fixed inset-0 z-40 hidden"></div>
 
 
-    <nav id="dayNav" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#030318]"></nav>
+    <nav id="dayNav" aria-label="Días de entrenamiento" class="flex overflow-x-auto p-4 gap-3 no-scrollbar sticky top-[73px] z-30 bg-[#030318]"></nav>
 
     <div class="px-6 my-4 mobile-report-wrap">
         <button onclick="abrirModalReporte()"
@@ -345,7 +347,7 @@
         </div>
     </section>
 
-    <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#030318] to-transparent z-40">
+    <div class="save-dock fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#030318] to-transparent z-40">
         <button onclick="enviarDatos()" id="saveBtn"
             class="w-full bg-lime-500 hover:bg-lime-400 text-[#000000] font-black py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all">
             <i class="fas fa-check-circle"></i> GUARDAR DÍA
