@@ -4923,3 +4923,27 @@ input::placeholder, textarea::placeholder { color: #8d9aaa !important; opacity: 
   .day-btn { min-width: 82px; min-height: 46px; }
   .exercise-set-row-wrapper.set-completed { border-color: rgba(160,240,60,.42) !important; background: rgba(160,240,60,.07) !important; }
 }
+
+/* Final mobile spacing correction: one shared outer gutter. */
+@media (max-width: 640px) {
+  :root { --mf-mobile-gutter: 14px; }
+
+  header,
+  #dayNav,
+  .mobile-report-wrap,
+  .mobile-routine-toolbar,
+  #mainContent {
+    padding-inline: var(--mf-mobile-gutter) !important;
+  }
+
+  .mobile-report-wrap,
+  .mobile-routine-toolbar,
+  #mainContent {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 390px) {
+  .exercise-card-content { padding-right: 0; }
+}
