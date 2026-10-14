@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b0f0d">
     <meta name="color-scheme" content="dark">
+    <link rel="icon" href="data:,">
     <title>MarioFit Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="estilos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.1/dist/umd/supabase.js"></script>
 </head>
 
 <body class="pb-20 mobile-safe-body">
@@ -203,7 +205,7 @@
                 </div>
 
                 <div id="mn-preview" class="note-preview hidden">
-                    <img id="mn-img" alt="Foto adjunta" />
+                    <img id="mn-img" src="data:," alt="Foto adjunta" />
                 </div>
 
                 <div class="note-actions">
@@ -398,10 +400,11 @@
         </button>
     </div>
     <div class="space-y-4">
-        <input type="number" id="inputVal" oninput="convertWeight()" placeholder="0.00" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-bold outline-none focus:border-[#B3D62E]">
-        <div class="bg-black/20 rounded-xl p-4 border border-white/5 text-center">
-            <p class="text-[8px] text-gray-500 uppercase font-bold mb-1 tracking-widest">Resultado</p>
-            <p id="outputVal" class="text-2xl font-black text-[#B3D62E]">0.00</p>
+         <label id="labelInput" for="inputVal" class="sr-only">Libras</label>
+         <input type="number" id="inputVal" aria-labelledby="labelInput" oninput="convertWeight()" placeholder="0.00" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-bold outline-none focus:border-[#B3D62E]">
+         <div class="bg-black/20 rounded-xl p-4 border border-white/5 text-center">
+             <p id="labelOutput" class="text-[8px] text-gray-500 uppercase font-bold mb-1 tracking-widest">Kilos (Resultado)</p>
+             <output id="outputVal" aria-labelledby="labelOutput" class="text-2xl font-black text-[#B3D62E]">0.00</output>
         </div>
     </div>
 </div>

@@ -1112,6 +1112,147 @@ input[type="number"]::placeholder {
     }
 }
 
+/* Accessibility and mobile interaction pass. */
+:root {
+  --mf-focus: #d7ff75;
+  --mf-text-readable: #dce9e2;
+  --mf-mobile-gutter: 14px;
+}
+
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--mf-focus) !important;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .app-header, #dayNav, .mobile-report-wrap, .mobile-routine-toolbar, #mainContent {
+    padding-inline: var(--mf-mobile-gutter) !important;
+  }
+  .app-header { padding-top: max(14px, env(safe-area-inset-top)) !important; }
+  .save-dock { padding-bottom: max(16px, env(safe-area-inset-bottom)) !important; }
+  .set-input-field input[type="number"], input[type="number"] { min-height: 48px !important; }
+  .set-timer-btn, .exercise-lock-btn, .exercise-menu-btn, .exercise-collapse-btn, .modal-close {
+    min-width: 44px !important; min-height: 44px !important;
+  }
+  .routine-select-group > span, .load-planner-field > span { font-size: 11px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* UI/UX Pro Max pass: friendly operating surface for a focused training session. */
+:root {
+  --mf-bg-deep: #07100d;
+  --mf-surface-1: #101b17;
+  --mf-surface-2: #16251f;
+  --mf-line-soft: rgba(220, 246, 230, .10);
+  --mf-text-main: #f0f7f2;
+  --mf-text-muted: #a9bdb1;
+  --mf-primary-soft: #c7f36b;
+  --mf-primary-ink: #10200f;
+  --mf-warm: #f2c879;
+}
+
+body {
+  background:
+    radial-gradient(900px 420px at 50% -120px, rgba(173, 230, 91, .14), transparent 70%),
+    radial-gradient(560px 380px at 100% 34%, rgba(59, 126, 91, .10), transparent 72%),
+    var(--mf-bg-deep) !important;
+  color: var(--mf-text-main);
+}
+
+.app-header {
+  background: rgba(7, 16, 13, .90) !important;
+  border-bottom: 1px solid var(--mf-line-soft) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .20) !important;
+  backdrop-filter: blur(18px);
+}
+
+.app-header h1 { letter-spacing: -.045em; }
+.app-header p { color: var(--mf-text-muted) !important; }
+
+#dayNav {
+  background: rgba(7, 16, 13, .88) !important;
+  border-bottom: 1px solid rgba(220, 246, 230, .06);
+  scrollbar-width: none;
+}
+
+.day-btn {
+  opacity: 1 !important;
+  min-height: 52px;
+  background: var(--mf-surface-1) !important;
+  border: 1px solid var(--mf-line-soft) !important;
+  color: var(--mf-text-muted) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
+}
+
+.day-btn:hover { background: var(--mf-surface-2) !important; border-color: rgba(199, 243, 107, .32) !important; }
+.day-btn.active { background: var(--mf-primary-soft) !important; color: var(--mf-primary-ink) !important; border-color: transparent !important; box-shadow: 0 10px 24px rgba(126, 174, 48, .22); }
+.day-btn.active .day-btn-copy small { color: rgba(16, 32, 15, .72) !important; }
+
+.mobile-report-wrap button {
+  color: #ffc0b5 !important;
+  background: rgba(255, 125, 107, .09) !important;
+  border-color: rgba(255, 150, 135, .22) !important;
+  font-size: 11px !important;
+  letter-spacing: .08em !important;
+}
+
+.routine-toolbar-grid { gap: 12px !important; }
+.routine-select-group > span { color: var(--mf-text-muted) !important; font-size: 11px !important; letter-spacing: .08em !important; }
+.routine-select-wrap select { background: var(--mf-surface-1) !important; color: var(--mf-text-main) !important; border-color: var(--mf-line-soft) !important; }
+.routine-select-wrap select:hover { border-color: rgba(199, 243, 107, .34) !important; }
+
+.card, .hero-panel, .warmup-panel, .effort-guide, .exercise-view-toolbar {
+  background: var(--mf-surface-1) !important;
+  border-color: var(--mf-line-soft) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .22) !important;
+}
+
+.card:hover { transform: translateY(-1px); background: var(--mf-surface-2) !important; }
+.exercise-card { border-radius: 22px !important; }
+.exercise-name { color: var(--mf-text-main) !important; }
+.exercise-compact-line, .exercise-target, .set-meta-line { color: var(--mf-text-muted) !important; }
+
+.exercise-set-row-wrapper { border-color: rgba(220, 246, 230, .08) !important; background: rgba(7, 16, 13, .28) !important; }
+.exercise-set-row-wrapper:focus-within { border-color: rgba(199, 243, 107, .44) !important; box-shadow: 0 0 0 3px rgba(199, 243, 107, .08) !important; }
+.set-input-field > span { color: var(--mf-text-muted) !important; font-size: 10px !important; font-weight: 800; letter-spacing: .08em; }
+.set-input-field input[type="number"] { background: #0b1712 !important; border-color: rgba(220, 246, 230, .12) !important; color: var(--mf-text-main) !important; }
+
+#saveBtn {
+  background: var(--mf-primary-soft) !important;
+  color: var(--mf-primary-ink) !important;
+  min-height: 56px !important;
+  border: 1px solid rgba(231, 255, 166, .40) !important;
+  box-shadow: 0 14px 32px rgba(105, 148, 45, .22) !important;
+  letter-spacing: .05em;
+}
+#saveBtn:hover { background: #d8fb83 !important; transform: translateY(-1px); }
+#saveBtn:active { transform: translateY(0) scale(.99); }
+
+.save-dock { padding-top: 28px !important; background: linear-gradient(180deg, transparent, rgba(7, 16, 13, .96) 42%) !important; }
+
+.auth-screen { background: radial-gradient(700px 360px at 50% 0%, rgba(199, 243, 107, .14), transparent 70%), #07100d !important; }
+.auth-card { background: var(--mf-surface-1) !important; border-color: rgba(199, 243, 107, .18) !important; box-shadow: 0 28px 90px rgba(0, 0, 0, .44) !important; }
+.auth-kicker { color: var(--mf-primary-soft) !important; font-size: 10px !important; }
+.auth-copy, .auth-footnote { color: var(--mf-text-muted) !important; }
+.auth-form label > span { color: var(--mf-text-muted) !important; font-size: 11px !important; letter-spacing: .10em !important; }
+.auth-form input[type=email], .auth-form input[type=password] { background: #0b1712 !important; border-color: var(--mf-line-soft) !important; color: var(--mf-text-main) !important; }
+.auth-form input:focus { border-color: var(--mf-primary-soft) !important; box-shadow: 0 0 0 3px rgba(199, 243, 107, .12) !important; }
+.auth-submit { background: var(--mf-primary-soft) !important; color: var(--mf-primary-ink) !important; min-height: 54px !important; }
+.auth-password-toggle, #btnMainActions, #sidebarResumen button { min-width: 44px !important; min-height: 44px !important; }
+.auth-password-toggle { width: 44px !important; height: 44px !important; top: 4px !important; right: 4px !important; }
+
+@media (max-width: 640px) {
+  .card { border-radius: 20px !important; }
+  .routine-toolbar-grid { grid-template-columns: 1fr !important; }
+  .day-btn { min-width: 92px; }
+  .auth-card { padding: 24px !important; border-radius: 24px !important; }
+}
+
 /* ===============================
    Exercise card — badges y jerarquía
    =============================== */

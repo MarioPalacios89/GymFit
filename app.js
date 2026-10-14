@@ -42,6 +42,60 @@ let restTimerState = {
     label: ''
 };
 
+// Draft local de sesión. Evita perder peso y repeticiones al rerenderizar.
+const WORKOUT_DRAFT_KEY = 'mariofit:v2:workout-draft';
+
+function getWorkoutDraftKey() {
+    const userId = supabaseCurrentUser?.id || 'anonymous';
+    const routine = String(db?.version || `week_${semanaActiva}`).replace(/\s+/g, '_');
+    return `${WORKOUT_DRAFT_KEY}:${userId}:${routine}`;
+}
+
+function readWorkoutDraft() {
+    try { return JSON.parse(localStorage.getItem(getWorkoutDraftKey()) || '{}'); }
+    catch { return {}; }
+}
+
+function writeWorkoutDraft(draft) {
+    try {
+        localStorage.setItem(getWorkoutDraftKey(), JSON.stringify({ updatedAt: new Date().toISOString(), ...draft }));
+    } catch (error) {
+        console.warn('No se pudo guardar el borrador local:', error);
+    }
+}
+
+function persistWorkoutInput(input) {
+    const row = input?.closest('.exercise-set-row-wrapper');
+    if (!row || !input.dataset.ex || !input.dataset.s) return;
+    const draft = readWorkoutDraft();
+    const key = `${diaVisualIdx}:${input.dataset.ex}:${input.dataset.s}`;
+    draft[key] = {
+        peso: row.querySelector('.val-peso, .rec-peso')?.value || '',
+        reps: row.querySelector('.val-reps, .rec-reps')?.value || ''
+    };
+    writeWorkoutDraft(draft);
+}
+
+function restoreWorkoutDraft(root = document) {
+    const draft = readWorkoutDraft();
+    root.querySelectorAll('.exercise-set-row-wrapper').forEach(row => {
+        const input = row.querySelector('.val-peso, .rec-peso');
+        if (!input?.dataset.ex || !input?.dataset.s) return;
+        const item = draft[`${diaVisualIdx}:${input.dataset.ex}:${input.dataset.s}`];
+        if (!item) return;
+        const weight = row.querySelector('.val-peso, .rec-peso');
+        const reps = row.querySelector('.val-reps, .rec-reps');
+        if (weight && !weight.value) weight.value = item.peso || '';
+        if (reps && !reps.value) reps.value = item.reps || '';
+        updateSetCompletionState(row);
+    });
+    updateSessionProgress(root);
+}
+
+function clearWorkoutDraft() {
+    try { localStorage.removeItem(getWorkoutDraftKey()); } catch { /* ignore */ }
+}
+
 function parseSeriesRange(value) {
     const nums = String(value ?? '').match(/\d+/g)?.map(Number) || [];
     if (!nums.length) return { min: 0, max: 0 };
@@ -268,18 +322,11 @@ function initializeWorkoutUx(root) {
         root.addEventListener('input', (event) => {
             if (!event.target.matches('.val-peso, .val-reps, .rec-peso, .rec-reps')) return;
 
+            persistWorkoutInput(event.target);
             updateSetCompletionState(event.target.closest('.exercise-set-row-wrapper'));
             updateSessionProgress(root);
 
-            // En móvil, completar reps lleva al siguiente peso disponible.
-            if (event.target.matches('.val-reps') && event.target.value) {
-                const card = event.target.closest('.exercise-card');
-                const nextWeight = [...(card?.querySelectorAll('.val-peso') || [])]
-                    .find(input => !input.value && !input.closest('.exercise-set-row-wrapper')?.classList.contains('set-completed'));
-                if (nextWeight) {
-                    requestAnimationFrame(() => nextWeight.focus({ preventScroll: true }));
-                }
-            }
+            // No mover foco durante input: los teclados móviles emiten un evento por dígito.
         });
 
         root.dataset.workoutUxBound = 'true';
@@ -1292,7 +1339,7 @@ function formatCacheDate(value) {
     }).format(date).replace(/\./g, '');
 }
 
-async function fetchRoutineFromApi(week = semanaActiva) {
+async function fetchRoutineFromApiLegacy(week = semanaActiva) {
     const params = new URLSearchParams({
         getRoutine: 'true',
         week: String(week),
@@ -1317,7 +1364,7 @@ async function fetchRoutineFromApi(week = semanaActiva) {
     return apiDb;
 }
 
-async function loadRoutineDb(week = semanaActiva, options = {}) {
+async function loadRoutineDbLegacy(week = semanaActiva, options = {}) {
     const force = !!options.force;
     const cached = readRoutineCache(week);
 
@@ -1797,7 +1844,7 @@ function renderRecoverySection() {
     `;
 }
 
-function populateWeekSelector() {
+function populateWeekSelectorLegacy() {
     const selector = document.getElementById('selectorSemana');
     if (!selector) return;
     selector.innerHTML = Array.from({ length: 12 }, (_, index) => {
@@ -1806,7 +1853,7 @@ function populateWeekSelector() {
     }).join('');
 }
 
-function initializeRoutineUi() {
+function initializeRoutineUiLegacy() {
     const hoyNombre = diasSemana[new Date().getDay()];
     document.getElementById('label-hoy').innerText = hoyNombre;
     const objetivo = db?.perfil?.objetivo || 'Programa de entrenamiento';
@@ -1830,7 +1877,7 @@ function initializeRoutineUi() {
     renderDia(diaVisualIdx);
 }
 
-async function init() {
+async function initLegacy() {
     const loader = document.getElementById('loading-screen');
     try {
         populateWeekSelector();
@@ -1856,7 +1903,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // --- NUEVA FUNCIÓN DE HISTORIAL ---
-async function cargarHistorial() {
+async function cargarHistorialLegacy() {
     const container = document.getElementById('tablaHistorial');
     container.innerHTML = `<div class="text-center p-10"><i class="fas fa-spinner fa-spin text-lime-400 text-2xl"></i></div>`;
 
@@ -2155,8 +2202,8 @@ function renderDia(idx) {
                             <strong>${setLabel}</strong>
                             <small>${warmup ? 'CAL' : 'SET'}</small>
                         </div>
-                        <div class="set-input-field"><span>KG</span><input type="number" inputmode="decimal" placeholder="0" class="val-peso" data-ex="${i}" data-s="${setLabel}" data-set-type="${workType}"></div>
-                        <div class="set-input-field"><span>REPS</span><input type="number" inputmode="numeric" placeholder="0" class="val-reps" data-ex="${i}" data-s="${setLabel}" data-set-type="${workType}"></div>
+                        <label class="set-input-field"><span>KG</span><input type="number" inputmode="decimal" placeholder="0" aria-label="Peso en kg, ${setLabel}, ${active.nombre}" class="val-peso" data-ex="${i}" data-s="${setLabel}" data-set-type="${workType}"></label>
+                        <label class="set-input-field"><span>REPS</span><input type="number" inputmode="numeric" placeholder="0" aria-label="Repeticiones, ${setLabel}, ${active.nombre}" class="val-reps" data-ex="${i}" data-s="${setLabel}" data-set-type="${workType}"></label>
                         <button type="button" onclick="startRestTimerForExercise(${i})" class="set-timer-btn" aria-label="Iniciar descanso de ${active.descanso || '90 segundos'}"><i class="fas fa-stopwatch"></i></button>
                     </div>
                     <div class="set-guidance minimal ${guidance.level}">
@@ -2259,6 +2306,7 @@ function renderDia(idx) {
 
     html += renderRecoverySection();
     container.innerHTML = html;
+    restoreWorkoutDraft(container);
     initializeWorkoutUx(container);
     updateSaveSelectionSummary();
 }
@@ -2743,7 +2791,7 @@ function cambiarDia(idx) {
     renderDia(diaVisualIdx);
 }
 
-async function enviarDatos() {
+async function enviarDatosLegacy() {
     const btn = document.getElementById('saveBtn');
     const selector = document.getElementById('selectorRutina');
     const idxRutinaVisual = parseInt(selector.value);
@@ -2857,6 +2905,7 @@ async function enviarDatos() {
 }
 
 function limpiarDespuesDeGuardar() {
+    clearWorkoutDraft();
     document.querySelectorAll('.exercise-locked, .recovery-locked').forEach(card => {
         card.classList.remove('exercise-locked', 'recovery-locked');
         card.dataset.saveSelected = 'false';
@@ -2892,7 +2941,7 @@ function abrirModal() {
 
 function cerrarModal() { document.getElementById('modalProgreso').classList.remove('active'); }
 
-function initChart() {
+function initChartLegacy() {
     const ctx = document.getElementById('chartProgreso').getContext('2d');
     if (miGrafico) miGrafico.destroy();
     miGrafico = new Chart(ctx, {
@@ -2914,7 +2963,7 @@ function cerrarModalReporte() {
     document.getElementById('motivoInactividad').value = "";
 }
 
-async function enviarReporteInactividad() {
+async function enviarReporteInactividadLegacy() {
     const motivo = document.getElementById('motivoInactividad').value;
     const btn = document.getElementById('btnEnviarReporte');
     const diaActual = db.semana[diaRegistroIdx].dia;
@@ -2946,7 +2995,7 @@ async function enviarReporteInactividad() {
 }
 
 
-async function forzarActualizacionRutina() {
+async function forzarActualizacionRutinaLegacy() {
     const menu = document.getElementById('menuActions');
     if (menu) menu.classList.remove('show');
 
@@ -2974,7 +3023,7 @@ function limpiarCacheRutinaSemana() {
     try { localStorage.removeItem(getRoutineCacheKey(semanaActiva)); } catch { /* ignore */ }
 }
 
-async function cambiarSemana(value) {
+async function cambiarSemanaLegacy(value) {
     const nextWeek = Math.min(12, Math.max(1, Number(value) || 1));
     if (nextWeek === semanaActiva && db) return;
 
@@ -3031,7 +3080,7 @@ function toggleResumen() {
     }
 }
 
-async function generarResumenRápido() {
+async function generarResumenRápidoLegacy() {
     const lista = document.getElementById('listaResumen');
     const vacio = document.getElementById('resumenVacio');
 
@@ -3182,11 +3231,7 @@ async function getSupabaseClient() {
         return supabaseClient;
     }
 
-    const { createClient } = await import(SUPABASE_JS_CDN);
-    supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-    });
-    return supabaseClient;
+    throw new Error('No se pudo cargar el cliente Supabase. Revisa la conexión y el CDN.');
 }
 
 async function getAuthenticatedUser({ required = true } = {}) {
